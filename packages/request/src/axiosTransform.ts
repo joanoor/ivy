@@ -1,8 +1,13 @@
 /**
  * 对请求的数据进行处理
  */
-import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { RequestOptions, Result } from './types'
+import {
+  AxiosError,
+  AxiosRequestConfig,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from 'axios'
+import { RequestOptions, Result } from '../types'
 
 export interface CreateAxiosOptions extends AxiosRequestConfig {
   authenticationScheme?: string
@@ -30,7 +35,7 @@ export abstract class AxiosTransform {
   requestInterceptors?: (
     config: AxiosRequestConfig,
     options: CreateAxiosOptions
-  ) => AxiosRequestConfig
+  ) => InternalAxiosRequestConfig
 
   /**
    * response统一拦截器

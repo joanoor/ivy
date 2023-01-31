@@ -1,4 +1,4 @@
-import { createAxios } from '..'
+import { createAxios } from '../index'
 import { IAxios } from '../src/Axios'
 
 describe('测试request模块基本方法', () => {

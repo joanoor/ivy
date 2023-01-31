@@ -14,10 +14,15 @@ import type {
   ScatterSeriesOption,
   MapSeriesOption,
   RadarSeriesOption,
-  PolarComponentOption,
   RadiusAxisComponentOption,
 } from 'echarts'
-import type { AxisLabelOption2, AxisLineOption2, AxisTickOption2, ChartType, SplitLineOption2 } from '../types'
+import type {
+  AxisLabelOption2,
+  AxisLineOption2,
+  AxisTickOption2,
+  ChartType,
+  SplitLineOption2,
+} from '../types'
 
 // type RadiusAxisOption2 = EChartsOption['radiusAxis']
 
@@ -88,8 +93,6 @@ const pictorialBarList = [
   'rgba(255,191,0,0.2)',
   'rgba(239,65,51,0.2)',
 ]
-
-
 
 // 文本属性
 const textStyle = {
@@ -517,5 +520,5 @@ const allChartOpt: Record<ChartType, EChartsOption> = {
 }
 
 export function getDefaultChartOpt(option: EChartsOption, type: ChartType) {
-  return merge<EChartsOption>(allChartOpt[type],option)
+  return merge<EChartsOption>(allChartOpt[type], option)
 }

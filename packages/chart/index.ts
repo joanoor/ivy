@@ -1,5 +1,5 @@
 import type { EChartsOption } from 'echarts'
-import type { CreateChartConfig, MoreOpt, ThemeOpt } from './types'
+import type { CreateChartConfig } from './types'
 import { IChart } from './src/Chart'
 import { getDefaultChartOpt } from './src/BaseChart'
 
@@ -23,4 +23,4 @@ export function createChart(
 }
 
 export * from './types'
-export { IChart }
+export * from './src/Chart'

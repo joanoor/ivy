@@ -64,6 +64,23 @@ export function getPropValue<T, K extends keyof T>(obj: T, key: K) {
 }
 
 /**
+ * 一次性合并任意多个对象
+ * @param target
+ * @param src
+ */
+export function deepMerge(target: Recordable, ...sources: Recordable[]) {
+  for (const src of sources) {
+    for (const key in src) {
+      target[key] =
+        getTypeOfValue(target[key]) === 'object'
+          ? deepMerge(target[key], src[key])
+          : src[key]
+    }
+  }
+  return target
+}
+
+/**
  * 滚动条平滑滚动
  */
 export function scrollToTop(element: HTMLElement) {

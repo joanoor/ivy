@@ -23,6 +23,7 @@
     "packages/**/*.ts",
     "apps/**/*.ts",
     "apps/**/*.vue",
+    "utils/**/*.ts",
     "types/**/*.ts"
   ],
   "exclude": [

@@ -1,10 +1,8 @@
 import {
-  getTypeOfValue,
   isArray,
   isBoolean,
   isClient,
   isDate,
-  isDef,
   isElement,
   isEmpty,
   isFunction,
@@ -18,10 +16,10 @@ import {
   isRegExp,
   isServer,
   isString,
-  isUnDef,
+  isUndefined,
   isUrl,
   isWindow,
-} from '../is'
+} from '../src/is'
 
 describe(`测试is模块`, () => {
   test('isString: Test if value is a string', () => {
@@ -122,11 +120,8 @@ describe(`测试is模块`, () => {
     expect(isEmpty(new Set())).toBe(true)
   })
 
-  test('isDef and is UnDef', () => {
-    const a = ''
-    expect(isDef(a)).toBe(!isUnDef(a))
-    expect(isDef(undefined)).toBe(false)
-    expect(isUnDef(undefined)).toBe(true)
+  test('is UnDef', () => {
+    expect(isUndefined(undefined)).toBe(true)
   })
 
   test('isNullOrUnDef', () => {
@@ -150,13 +145,5 @@ describe(`测试is模块`, () => {
     expect(isHexColor('#ffffff')).toBe(true)
     expect(isHexColor('ffffff')).not.toBe(true)
     expect(isHexColor('rgb(255,255,255)')).not.toBe(true)
-  })
-
-  test('getTypeOfValue', () => {
-    expect(getTypeOfValue('a')).toBe('string')
-    expect(getTypeOfValue({})).toBe('object')
-    expect(getTypeOfValue(new Date())).toBe('date')
-    expect(getTypeOfValue([1, 2, 3])).toBe('array')
-    expect(getTypeOfValue(new Map())).toBe('map')
   })
 })

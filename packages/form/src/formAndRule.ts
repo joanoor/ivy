@@ -2,7 +2,7 @@
   生成表单解构以及表单校验规则
  */
 
-import { _console, isEmpty, DM } from '@ivy/core'
+import { _console, isEmpty, pickDuplicate } from '@ivy/core'
 import type { Rules, RuleItem } from 'async-validator'
 
 interface RuleItemExtend extends RuleItem {
@@ -16,6 +16,7 @@ export interface BaseStruct<T = string, R = boolean> {
   rule: RuleItemExtend[] // form表单项校验规则
   id: T // form表单重名时，通过id来进行区分
 }
+
 export type BaseStructs = BaseStruct[]
 
 /**
@@ -38,11 +39,10 @@ function optFactory(
   uniqIds: string[]
   // eslint-disable-next-line @typescript-eslint/ban-types
 ): BaseStruct | {} | undefined {
-  const dm = new DM()
   // 第一步：将提供的数据中，所有的label组成数组
   const labels = baseStructs.map(v => v.label)
 
-  // 第一步：确定提供的数据中，是否存在重复的label
+  // 第二步：确定提供的数据中，是否存在重复的label
   const dupLabelObjs = baseStructs.filter(v => v.label === optLabel)
 
   // 说明提供的label，不在提供的数据中
@@ -53,7 +53,7 @@ function optFactory(
   // true 表示存在重复  false 表示不存在重复
   const isDup = dupLabelObjs.length > 1
 
-  // 第二步：判断label重复的对象组成的数组中是否存在重复的id
+  // 第三步：判断label重复的对象组成的数组中是否存在重复的id
   if (!isDup) {
     const obj = baseStructs.find(v => v.label === optLabel)
     return obj ? obj : {}
@@ -62,7 +62,7 @@ function optFactory(
     // true 表示label重复的对象组成的数组中，不存在重复的id
     const isDupId = [...new Set(ids)].length === ids.length
     if (!isDupId) {
-      const indexes = dm.pickDuplicate(labels, optLabel)
+      const indexes = pickDuplicate(labels, optLabel)
       throw new Error(
         `提供的数据有误。存在“label重复，id也重复”的情况。发生于索引为：${indexes.join()}的数据中`
       )
@@ -104,7 +104,7 @@ function generateOptions(
       }
 
       return acc
-    }, {})
+    }, {} as Recordable)
   }
   return result
 }
@@ -122,16 +122,11 @@ function generateOptions(
    )
    ```
  */
-function generateFormAndRules(
+export function generateFormAndRules(
   formopts: string[],
   baseFormAndRuleList: BaseStructs,
   uniqIds?: string[]
-): [Record<string, any>, Rules]
-function generateFormAndRules(
-  formopts,
-  baseFormAndRuleList,
-  uniqIds: string[] = []
-) {
+): [Record<string, any>, Rules] {
   let _form = {}
   let _rules = {}
   if (formopts.length === 0) {
@@ -142,5 +137,3 @@ function generateFormAndRules(
   }
   return [_form, _rules]
 }
-
-export { generateFormAndRules }

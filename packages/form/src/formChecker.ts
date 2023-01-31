@@ -54,6 +54,4 @@ class FormChecker {
   }
 }
 
-const formChecker = new FormChecker()
-
-export { formChecker }
+export const formChecker = new FormChecker()

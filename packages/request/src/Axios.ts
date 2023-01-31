@@ -8,9 +8,8 @@ import type {
 } from 'axios'
 import type { CreateAxiosOptions } from './axiosTransform'
 import { AxiosCanceler } from './axiosCancel'
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep, isFunction } from 'lodash-es'
 import { ContentTypeEnum, RequestEnum, RequestOptions, Result } from '../types'
-import { isFunction } from 'lodash-es'
 // import { UploadFileParams } from './types'
 
 /**
@@ -36,6 +35,7 @@ export class IAxios {
   constructor(config: CreateAxiosOptions) {
     this.options = config
     this.axiosInstance = axios.create(config)
+
     // 建立拦截器
     this.setupInterceptors()
   }
@@ -102,30 +102,27 @@ export class IAxios {
     const axiosCanceler = new AxiosCanceler()
 
     // request拦截器(当接口请求没有出错时执行)
-    this.axiosInstance.interceptors.request.use(
-      (config: AxiosRequestConfig) => {
-        const {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          headers: { ignoreCancelToken },
-        } = config
+    this.axiosInstance.interceptors.request.use(config => {
+      const {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        headers: { ignoreCancelToken },
+      } = config
 
-        // cloneConfig只是用于判断ignoreCancel
-        const cloneConfig: CreateAxiosOptions = cloneDeep(config)
-        const ignoreCancel = ignoreCancelToken
-          ? ignoreCancelToken
-          : cloneConfig.requestOptions?.ignoreCancelToken
+      // cloneConfig只是用于判断ignoreCancel
+      const cloneConfig: CreateAxiosOptions = cloneDeep(config)
+      const ignoreCancel = ignoreCancelToken
+        ? ignoreCancelToken
+        : cloneConfig.requestOptions?.ignoreCancelToken
 
-        // 当ignoreCancel不为真的时候，将请求添加进pendingMap中
-        !ignoreCancel && axiosCanceler.addPending(config)
+      // 当ignoreCancel不为真的时候，将请求添加进pendingMap中
+      !ignoreCancel && axiosCanceler.addPending(config)
 
-        if (requestInterceptors && isFunction(requestInterceptors)) {
-          config = requestInterceptors(config, this.options)
-        }
-        return config
-      },
-      undefined
-    )
+      if (requestInterceptors && isFunction(requestInterceptors)) {
+        config = requestInterceptors(config, this.options)
+      }
+      return config
+    }, undefined)
 
     // request拦截器(当接口请求出错时执行)
     requestInterceptorsCatch &&
@@ -221,6 +218,12 @@ export class IAxios {
   //   })
   // }
 
+  /**
+   * get请求
+   * @param config
+   * @param options
+   * @returns
+   */
   get<T = any>(
     config: AxiosRequestConfig,
     options?: RequestOptions
@@ -228,6 +231,12 @@ export class IAxios {
     return this.request({ ...config, method: 'GET' }, options)
   }
 
+  /**
+   * post请求
+   * @param config
+   * @param options
+   * @returns
+   */
   post<T = any>(
     config: AxiosRequestConfig,
     options?: RequestOptions
@@ -235,6 +244,12 @@ export class IAxios {
     return this.request({ ...config, method: 'POST' }, options)
   }
 
+  /**
+   * put请求
+   * @param config
+   * @param options
+   * @returns
+   */
   put<T = any>(
     config: AxiosRequestConfig,
     options?: RequestOptions
@@ -242,6 +257,12 @@ export class IAxios {
     return this.request({ ...config, method: 'PUT' }, options)
   }
 
+  /**
+   * delete请求
+   * @param config
+   * @param options
+   * @returns
+   */
   delete<T = any>(
     config: AxiosRequestConfig,
     options?: RequestOptions
@@ -249,6 +270,11 @@ export class IAxios {
     return this.request({ ...config, method: 'DELETE' }, options)
   }
 
+  /**
+   * @param config
+   * @param options
+   * @returns
+   */
   request<T = any>(
     config: AxiosRequestConfig,
     options?: RequestOptions

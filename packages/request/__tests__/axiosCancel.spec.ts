@@ -1,5 +1,5 @@
-import { AxiosCanceler } from '../axiosCancel'
-import { pendingMap } from '../axiosCancel'
+import { AxiosCanceler } from '../src/axiosCancel'
+import { pendingMap } from '../src/axiosCancel'
 
 jest.mock('../axiosCancel', () => {
   const originalModule = jest.requireActual('../axiosCancel')

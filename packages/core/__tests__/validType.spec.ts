@@ -1,4 +1,4 @@
-import { pattern } from '../validType'
+import { pattern } from '../src/validType'
 
 describe('测试validType模块', () => {
   test('testIdCardNo: 验证身份证号码', () => {

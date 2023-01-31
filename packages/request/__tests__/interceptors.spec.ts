@@ -1,8 +1,8 @@
-import { checkStatus, createAxios } from '..'
+import { createAxios, checkStatus } from '../index'
+import sys from '../src/sys'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import { IAxios } from '../src/Axios'
-import sys from '../sys'
 
 describe('测试统一拦截器', () => {
   let mock: MockAdapter
@@ -14,16 +14,9 @@ describe('测试统一拦截器', () => {
       transform: {
         // 当响应出错的时候，是status状态
         responseInterceptorsCatch(error: any) {
-          const { response, config } = error || {}
-          const errorMessageMode =
-            config?.requestOptions?.errorMessageMode || 'none'
+          const { response } = error || {}
           const msg: string = response?.data?.error?.message ?? ''
-          const err: string = error?.toString?.() ?? ''
-          const [errMessage, errorMessageMode2] = checkStatus(
-            error?.response?.status,
-            msg,
-            errorMessageMode
-          )
+          const errMessage = checkStatus(error?.response?.status, msg)
           return Promise.reject(Object.assign(error, { message: errMessage }))
         },
       },

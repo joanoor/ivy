@@ -1,6 +1,6 @@
-import { addTimeStamp, formatRequestDate } from '../helper'
+import * as helper from '../src/helper'
+import { addTimeStamp, formatRequestDate } from '../src/helper'
 import dayjs from 'dayjs'
-import * as helper from '../helper'
 
 describe('测试helper模块方法', () => {
   describe('addTimeStamp', () => {

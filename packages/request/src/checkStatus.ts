@@ -1,4 +1,3 @@
-import { ErrorMessageMode } from './types'
 import sys from './sys'
 
 /**
@@ -6,13 +5,9 @@ import sys from './sys'
  * @param status
  * @param msg
  * @param errorMessageMode
- * @returns [string, string] 返回元组类型
+ * @returns { String }
  */
-export function checkStatus(
-  status: number,
-  msg?: string,
-  errorMessageMode: ErrorMessageMode = 'message'
-): [string, string] {
+export function checkStatus(status: number, msg?: string) {
   let errMessage = ''
   switch (status) {
     case 400:
@@ -55,5 +50,5 @@ export function checkStatus(
       errMessage = msg || sys.api.errMsgUnknown
   }
 
-  return [errMessage, errorMessageMode]
+  return errMessage
 }

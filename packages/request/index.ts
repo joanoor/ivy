@@ -1,7 +1,6 @@
-import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform'
-import { deepMerge, setObjToUrlParams } from '../tools/utils'
-import { isString } from '../tools/is'
-import { formatRequestDate, addTimeStamp } from './helper'
+import type { AxiosTransform, CreateAxiosOptions } from './src/axiosTransform'
+import { deepMerge, setObjToUrlParams, isString } from '@ivy/core'
+import { formatRequestDate, addTimeStamp } from './src/helper'
 import { RequestEnum, ContentTypeEnum } from './types'
 import { IAxios } from './src/Axios'
 
@@ -97,7 +96,7 @@ const defaultTransform: AxiosTransform = {
  */
 export const createAxios = (opt?: Partial<CreateAxiosOptions>) => {
   return new IAxios(
-    deepMerge<CreateAxiosOptions>(
+    deepMerge(
       {
         // See https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#authentication_schemes
         // authentication schemes，e.g: Bearer
@@ -126,11 +125,11 @@ export const createAxios = (opt?: Partial<CreateAxiosOptions>) => {
         },
       },
       opt || {}
-    )
+    ) as CreateAxiosOptions
   )
 }
 
-export * from './axiosTransform'
-export * from './checkStatus'
-export * from './helper'
+export * from './src/axiosTransform'
+export * from './src/checkStatus'
+export * from './src/helper'
 export * from './types'

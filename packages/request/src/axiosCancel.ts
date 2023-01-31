@@ -1,6 +1,5 @@
 import type { AxiosRequestConfig } from 'axios'
 
-// let pendingMap = new Map<string, Canceler>()
 export let pendingMap = new Map<string, AbortController>()
 
 export const getPendingUrl = (config: AxiosRequestConfig) =>

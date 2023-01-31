@@ -1,4 +1,4 @@
-import { isPlainObject, isString } from '../tools/is'
+import { isPlainObject, isString } from '@ivy/core'
 
 const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm:ss'
 
