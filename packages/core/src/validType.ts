@@ -15,8 +15,8 @@ class Pattern {
   // 全部为中文
   private readonly allchinese = /^[\u4E00-\u9FA5]+$/
 
-  // 包含中文
-  private readonly chinese = /[\u4e00-\u9fa5]/
+  // // 包含中文
+  // private readonly chinese = /[\u4e00-\u9fa5]/
 
   // 车牌号
   private readonly carId =

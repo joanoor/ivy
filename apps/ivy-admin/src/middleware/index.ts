@@ -1,8 +1,8 @@
 import { Router } from 'vue-router'
 import store2 from 'store2'
 import { SYS_CONSTANT } from '@/libs/shared/constant'
-import { useGlobalStore, useUserStore, usePermissionStore } from '@/store'
-import { isEmpty } from '@ivy/core'
+// import { useGlobalStore, useUserStore, usePermissionStore } from '@/store'
+// import { isEmpty } from '@ivy/core'
 
 // 可以不需要token的页面
 const WHITE_ROUTELIST = window.config.whiteList

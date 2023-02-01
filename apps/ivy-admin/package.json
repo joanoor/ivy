@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@element-plus/icons": "^0.0.11",
     "@ivy/chart": "workspace:*",
     "@ivy/core": "workspace:*",
     "@ivy/form": "workspace:*",
@@ -24,6 +25,7 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@iconify-json/ep": "^1.1.8",
     "@types/nprogress": "^0.2.0",
     "@vitejs/plugin-legacy": "^3.0.2",
     "@vitejs/plugin-vue": "^4.0.0",

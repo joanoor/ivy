@@ -87,6 +87,8 @@ importers:
 
   apps/ivy-admin:
     specifiers:
+      '@element-plus/icons': ^0.0.11
+      '@iconify-json/ep': ^1.1.8
       '@ivy/chart': workspace:*
       '@ivy/core': workspace:*
       '@ivy/form': workspace:*
@@ -120,6 +122,7 @@ importers:
       vue-tsc: ^1.0.11
       xlsx: ^0.18.5
     dependencies:
+      '@element-plus/icons': 0.0.11
       '@ivy/chart': link:../../packages/chart
       '@ivy/core': link:../../packages/core
       '@ivy/form': link:../../packages/form
@@ -134,6 +137,7 @@ importers:
       vue-router: 4.1.6_vue@3.2.45
       xlsx: 0.18.5
     devDependencies:
+      '@iconify-json/ep': 1.1.8
       '@types/nprogress': 0.2.0
       '@vitejs/plugin-legacy': 3.0.2_terser@5.16.2+vite@4.0.4
       '@vitejs/plugin-vue': 4.0.0_vite@4.0.4+vue@3.2.45
@@ -643,6 +647,11 @@ packages:
       vue: 3.2.45
     dev: false
 
+  /@element-plus/icons/0.0.11:
+    resolution: {integrity: sha512-iKQXSxXu131Ai+I9Ymtcof9WId7kaXvB1+WRfAfpQCW7UiAMYgdNDqb/u0hgTo2Yq3MwC4MWJnNuTBEpG8r7+A==}
+    deprecated: Please use @element-plus/icons-vue instead.
+    dev: false
+
   /@esbuild/android-arm/0.16.17:
     resolution: {integrity: sha512-N9x1CMXVhtWEAMS7pNNONyA14f71VPQN9Cnavj1XQh6T7bskqiLLrSca4O0Vr8Wdcga943eThxnVp3JLnBMYtw==}
     engines: {node: '>=12'}
@@ -886,6 +895,12 @@ packages:
 
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
+    dev: true
+
+  /@iconify-json/ep/1.1.8:
+    resolution: {integrity: sha512-pHCrsWU1R9/pTDU+Fps4+mjqOQFLtpGdXWegkhQ1P1DlgQAlCPyICtl6E1s8b7VwJMeZXaK84HA02UF6WD0o/Q==}
+    dependencies:
+      '@iconify/types': 2.0.0
     dev: true
 
   /@iconify/types/2.0.0:

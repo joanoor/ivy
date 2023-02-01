@@ -1,5 +1,6 @@
 import qs from 'qs'
 import { isNumber } from './is'
+import { pattern } from './validType'
 
 interface funcObject {
   [propName: string]: any
@@ -21,6 +22,7 @@ const fileType = {
 function cubic(value: number) {
   return Math.pow(value, 3)
 }
+
 function easeInOutCubic(value: number) {
   return value < 0.5 ? cubic(value * 2) / 2 : 1 - cubic((1 - value) * 2) / 2
 }
@@ -28,7 +30,7 @@ function easeInOutCubic(value: number) {
 /***************************************************************************/
 
 /**
- * 预定义四种console.log的颜色
+ * 预定义四种console.log打印的颜色
  */
 export const _console: Console<string> = {
   log(str) {
@@ -46,7 +48,7 @@ export const _console: Console<string> = {
 }
 
 /**
- * 返回值的类型
+ * 获取值的类型
  * @param value 任意值（经过toLowerCase处理）
  */
 export function getTypeOfValue(value: unknown) {
@@ -78,6 +80,66 @@ export function mergeAll(target: Recordable, ...sources: Recordable[]) {
     }
   }
   return target
+}
+
+/** 
+ * 对传入的数字，展示小数点后面的指定位数
+ * @param num 要处理的数字
+ * @param fixed 小数点后面的位数  
+ * @returns
+ */
+export function toFixed(num: number, fixed = 2) {
+  return (Math.round(num * 100) / 100).toFixed(fixed)
+}
+
+/**
+ * 数组乱序
+ * @param arr
+ * @returns
+ */
+export function arrScrambling<T>(arr: T[]): T[] {
+  for (let i = 0; i < arr.length; i++) {
+    const randomIndex = Math.round(Math.random() * (arr.length - 1 - i)) + i
+      ;[arr[i], arr[randomIndex]] = [arr[randomIndex], arr[i]]
+  }
+  return arr
+}
+
+/**
+ * 生成指定长度的随机字符串
+ * @param len 字符串长度
+ */
+export function genRandomString(len = 6) {
+  return Math.random().toString(36).slice(-len)
+}
+
+/**
+ * 字符串首字母大写
+ * @param str
+ * @returns
+ */
+export function fistLetterUpper(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
+/**
+ * Checks if two numbers are approximately equal to each other
+ * @param v1
+ * @param v2
+ * @param epsilon
+ * @returns
+ */
+export function approximatelyEqual(v1: number, v2: number, epsilon = 0.001) {
+  return Math.abs(v1 - v2) < epsilon
+}
+
+/**
+ * javascript version sleep
+ * @param ms number
+ * @returns
+ */
+export function sleep(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms))
 }
 
 /**
@@ -323,11 +385,13 @@ export function RGBToHex(r: string | number, g?: number, b?: number) {
  * @param n
  * @returns
  */
-export function toThousands(n: number) {
-  const num = n.toString()
+export function convertToThousands(n: number) {
+  const num2 = Math.trunc(n).toString()
+  const num = pattern.testDecimal(num2) ? num2 : n.toString()
+  const decimal = pattern.testDecimal(num2) ? '.' + num2.split('.')[1] : ''
   const len = num.length
   if (len <= 3) {
-    return num
+    return num + decimal
   } else {
     const temp = ''
     const remainder = len % 3
@@ -338,57 +402,25 @@ export function toThousands(n: number) {
         ',' +
         num.slice(remainder, len).match(/\d{3}/g)?.join(',') +
         temp
-      )
+      ) + decimal
     } else {
       // 3的整数倍
-      return num.slice(0, len).match(/\d{3}/g)?.join(',') + temp
+      return num.slice(0, len).match(/\d{3}/g)?.join(',') + temp + decimal
     }
   }
 }
 
-/**
- * 数组乱序
- * @param arr
- * @returns
- */
-export function arrScrambling<T>(arr: T[]): T[] {
-  for (let i = 0; i < arr.length; i++) {
-    const randomIndex = Math.round(Math.random() * (arr.length - 1 - i)) + i
-      ;[arr[i], arr[randomIndex]] = [arr[randomIndex], arr[i]]
-  }
-  return arr
-}
+
 
 /**
- * 生成指定长度的随机字符串
- * @param len 字符串长度
- */
-export function randomString(len: number) {
-  const chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz123456789'
-  const strLen = chars.length
-  let randomStr = ''
-  for (let i = 0; i < len; i++) {
-    randomStr += chars.charAt(Math.floor(Math.random() * strLen))
-  }
-  return randomStr
-}
-
-/**
- * 字符串首字母大写
+ * 将字符串中间指定区间字符替换成指定字符串  
  * @param str
+ * @param start default 3
+ * @param end default 7
+ * @param fill default *
  * @returns
  */
-export function fistLetterUpper(str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1)
-}
-
-/**
- * 将字符串中间指定区间字符替换成指定字符串
- * 默认是将手机号码中间4位替换成'*'
- * @param str
- * @returns
- */
-export function strToAsterisk(str: string, start = 3, end = 7, fill = '*') {
+export function convertStrToAsterisk(str: string, start = 3, end = 7, fill = '*') {
   if (str.length < end) {
     throw new Error('字符串长度不能小于指定的区间')
   }
@@ -398,7 +430,7 @@ export function strToAsterisk(str: string, start = 3, end = 7, fill = '*') {
 /**
  * 将数字转化为汉字大写金额
  */
-export function chineseMoney(n: number) {
+export function convertChineseMoney(n: number) {
   const fraction = ['角', '分']
   const digit = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖']
   const unit = [
@@ -430,8 +462,6 @@ export function chineseMoney(n: number) {
 
 /**
  * 打开浏览器全屏
- */
-/**
  * @deprecated
  */
 /* istanbul ignore next */
@@ -450,8 +480,6 @@ export function toFullScreen() {
 
 /**
  * 退出浏览器全屏
- */
-/**
  * @deprecated
  */
 /* istanbul ignore next */
@@ -473,8 +501,6 @@ export function exitFullscreen() {
  * @param windowName
  * @param width
  * @param height
- */
-/**
  * @deprecated
  */
 /* istanbul ignore next */
@@ -520,30 +546,13 @@ export function openWindow(
   }
 }
 
-/**
- * Checks if two numbers are approximately equal to each other
- * @param v1
- * @param v2
- * @param epsilon
- * @returns
- */
-export function approximatelyEqual(v1: number, v2: number, epsilon = 0.001) {
-  return Math.abs(v1 - v2) < epsilon
-}
 
-/**
- * javascript version sleep
- * @param ms number
- * @returns
- */
-export function sleep(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms))
-}
 
 /**
  * 获取当前URL中的query对象
  * @param type 默认是'hash'（适用于vue等单页面富应用）
  * @returns
+ * @deprecated
  */
 export function getUrlQuery() {
   const paramHash = window.location.href.split('?')[1] || ''
@@ -599,10 +608,15 @@ export function getBrowserInfo() {
   }
 }
 
-export function toFixed(num: number) {
-  return (Math.round(num * 100) / 100).toFixed(2)
-}
 
+/**
+
+/**
+ * 根据传入的字符串的个数，来设置初始的宽和高
+ * @param text 
+ * @param fontSize 
+ * @returns 
+ */
 /* istanbul ignore next */
 export function textSize(text: string, fontSize = '14px') {
   const span = document.createElement('span')
@@ -623,7 +637,7 @@ export function textSize(text: string, fontSize = '14px') {
   return result
 }
 
-/*************下面的代码是封装promise请求*************/
+/**************************下面的代码是封装promise请求**************************/
 // export const awaitWrap = (promise: Promise<Result<any>>) =>
 //   promise
 //     .then(res => ({ success: res, error: null }))
@@ -673,40 +687,4 @@ export function textSize(text: string, fontSize = '14px') {
 //       return func
 //     }
 //   }
-// }
-/****************************************************/
-
-/**
- * 对象深拷贝
- * @param obj
- * @param hash
- * @returns
- */
-//  function deepClone(obj: any, hash = new WeakMap()) {
-//   // 日期对象直接返回一个新的日期对象
-//   if (obj instanceof Date) {
-//     return new Date(obj)
-//   }
-//   //正则对象直接返回一个新的正则对象
-//   if (obj instanceof RegExp) {
-//     return new RegExp(obj)
-//   }
-//   //如果循环引用,就用 weakMap 来解决
-//   if (hash.has(obj)) {
-//     return hash.get(obj)
-//   }
-//   // 获取对象所有自身属性的描述
-//   const allDesc = Object.getOwnPropertyDescriptors(obj)
-//   // 遍历传入参数所有键的特性
-//   const cloneObj = Object.create(Object.getPrototypeOf(obj), allDesc)
-
-//   hash.set(obj, cloneObj)
-//   for (const key of Reflect.ownKeys(obj)) {
-//     if (typeof obj[key] === 'object' && obj[key] !== null) {
-//       cloneObj[key] = deepClone(obj[key], hash)
-//     } else {
-//       cloneObj[key] = obj[key]
-//     }
-//   }
-//   return cloneObj
 // }

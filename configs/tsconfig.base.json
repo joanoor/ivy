@@ -13,7 +13,7 @@
     "declarationDir": "./types",
     "resolveJsonModule": true,
     "rootDir": "../",
-    "baseUrl": ".",
+    "baseUrl": "../",
     "jsx": "preserve",
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,

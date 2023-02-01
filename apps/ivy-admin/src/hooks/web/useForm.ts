@@ -3,14 +3,12 @@
  */
 
 import {
-  BaseStruct,
   cloneDeep,
-  generateFormAndRules,
   isString,
   _console,
-  strRandom,
+  genRandomString,
 } from '@ivy/core'
-import type { RuleItem } from 'async-validator'
+import { generateFormAndRules, BaseStruct, RuleItem } from '@ivy/form'
 import {
   ref,
   reactive,
@@ -192,7 +190,7 @@ export default function <FormStruct>(
               }
             }
           }
-          const uniqId = strRandom()
+          const uniqId = genRandomString()
           uniqIds.push(uniqId)
           return {
             label: column.name,
@@ -234,7 +232,7 @@ export default function <FormStruct>(
           }
         }
       }
-      const uniqId = strRandom()
+      const uniqId = genRandomString()
       uniqIds.push(uniqId)
       return {
         label: myProp.name,
