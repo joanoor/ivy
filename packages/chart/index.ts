@@ -24,3 +24,5 @@ export function createChart(
 
 export * from './types'
 export * from './src/Chart'
+export * from 'echarts/types/dist/echarts'
+

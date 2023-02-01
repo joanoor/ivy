@@ -68,12 +68,12 @@ export function getPropValue<T, K extends keyof T>(obj: T, key: K) {
  * @param target
  * @param src
  */
-export function deepMerge(target: Recordable, ...sources: Recordable[]) {
+export function mergeAll(target: Recordable, ...sources: Recordable[]) {
   for (const src of sources) {
     for (const key in src) {
       target[key] =
         getTypeOfValue(target[key]) === 'object'
-          ? deepMerge(target[key], src[key])
+          ? mergeAll(target[key], src[key])
           : src[key]
     }
   }
@@ -354,7 +354,7 @@ export function toThousands(n: number) {
 export function arrScrambling<T>(arr: T[]): T[] {
   for (let i = 0; i < arr.length; i++) {
     const randomIndex = Math.round(Math.random() * (arr.length - 1 - i)) + i
-    ;[arr[i], arr[randomIndex]] = [arr[randomIndex], arr[i]]
+      ;[arr[i], arr[randomIndex]] = [arr[randomIndex], arr[i]]
   }
   return arr
 }
@@ -503,16 +503,16 @@ export function openWindow(
       url,
       'ZyiisPopup',
       'top=' +
-        y +
-        ',left=' +
-        x +
-        ',scrollbars=' +
-        scrollbars +
-        ',dialog=yes,modal=yes,width=' +
-        width +
-        ',height=' +
-        height +
-        ',resizable=no'
+      y +
+      ',left=' +
+      x +
+      ',scrollbars=' +
+      scrollbars +
+      ',dialog=yes,modal=yes,width=' +
+      width +
+      ',height=' +
+      height +
+      ',resizable=no'
     )
     //     new Function('try { win.resizeTo(width, height); } catch(e) { }')()
     eval('try { win.resizeTo(width, height); } catch(e) { }')
@@ -604,48 +604,24 @@ export function toFixed(num: number) {
 }
 
 /* istanbul ignore next */
-// function textSize(text: string, fontSize = '') {
-//   const span = document.createElement('span')
-//   const result = {
-//     width: span.offsetWidth,
-//     height: span.offsetHeight,
-//   }
-//   span.style.visibility = 'hidden'
-//   span.style.fontSize = fontSize || '14px'
-//   document.body.appendChild(span)
+export function textSize(text: string, fontSize = '14px') {
+  const span = document.createElement('span')
+  const result = {
+    width: span.offsetWidth,
+    height: span.offsetHeight,
+  }
+  span.style.visibility = 'hidden'
+  span.style.fontSize = fontSize
+  document.body.appendChild(span)
 
-//   if (typeof span.textContent != 'undefined') span.textContent = text || ''
-//   else span.innerText = text || ''
+  if (typeof span.textContent != 'undefined') span.textContent = text || ''
+  else span.innerText = text || ''
 
-//   result.width = span.offsetWidth - result.width
-//   result.height = span.offsetHeight - result.height
-//   span.parentNode && span.parentNode.removeChild(span)
-//   return result
-// }
-
-/**
- * Merge the contents of two or more objects together into the first object.
- * 暂时没有用上
- */
-// export const merge = <T extends object>(target: T, ...src: any[]) => {
-//   let acc: unknown
-//   let copy: unknown
-//   let clone: object
-//   for (let i = 0; i < src.length; i++) {
-//     for (const key in src[i]) {
-//       acc = target[key]
-//       copy = src[i][key]
-//       if (target === copy) continue
-//       if (copy && isPlainObject(copy)) {
-//         clone = acc && isArray(acc) ? acc : {}
-//         target[key] = merge(clone, copy)
-//       } else if (copy !== undefined) {
-//         target[key] = copy
-//       }
-//     }
-//   }
-//   return target
-// }
+  result.width = span.offsetWidth - result.width
+  result.height = span.offsetHeight - result.height
+  span.parentNode && span.parentNode.removeChild(span)
+  return result
+}
 
 /*************下面的代码是封装promise请求*************/
 // export const awaitWrap = (promise: Promise<Result<any>>) =>

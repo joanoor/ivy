@@ -1,29 +1,96 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <el-config-provider :locale="zhCn">
+    <router-view v-slot="{ Component }">
+      <transition
+        name="custom-classes"
+        enter-active-class="animate__animated animate__tada"
+        leave-active-class="animate__animated animate__bounceOutRight"
+      >
+        <div class="">
+          <component :is="Component" />
+        </div>
+      </transition>
+    </router-view>
+  </el-config-provider>
 </template>
 
+<script setup lang="ts">
+import { _console, getBrowserInfo } from '@ivy/core'
+import zhCn from 'element-plus/lib/locale/lang/zh-cn'
+
+/**
+ * 判断是否是支持的浏览器
+ */
+const dialogShow = ref(false)
+const browserInfo = getBrowserInfo()
+if (browserInfo) {
+  const realBrowserInfo = Array.isArray(browserInfo)
+    ? browserInfo[0]
+    : browserInfo
+  if (['IE/7', 'IE/8', 'IE/9', 'IE/10'].includes(realBrowserInfo)) {
+    dialogShow.value = true
+    _console.error(`当前浏览器：${realBrowserInfo}`)
+  }
+}
+</script>
+
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
+#app {
+  min-width: $minWidth;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.lefti {
+  width: 100px;
+  height: 100px;
+  background-color: red;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.group.reorder {
+  flex-direction: row;
+}
+
+h1 {
+  color: white;
+  font-weight: 400;
+}
+
+.group {
+  width: 740px;
+  height: auto;
+  padding: 4px;
+  background: #111;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: black;
+  position: relative;
+}
+
+.box {
+  margin: 4px;
+  padding: 8px;
+  font-size: 22px;
+  line-height: 28px;
+}
+
+.box:nth-child(1) {
+  background: rgba(85, 102, 205, 0.7);
+}
+
+.box:nth-child(2) {
+  background: rgba(125, 70, 200, 0.7);
+}
+
+.box:nth-child(3) {
+  background: rgba(33, 150, 243, 0.7);
+}
+
+.box:nth-child(4) {
+  background: rgba(0, 188, 212, 0.7);
+}
+
+.button {
+  padding: 10px 20px;
+  margin-bottom: 10px;
 }
 </style>
