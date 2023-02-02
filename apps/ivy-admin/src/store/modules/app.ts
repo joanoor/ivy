@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
-
 import { Menu, menuList } from '@/layout/components/LayoutSideBar/menuList'
+import { DictType } from '@/libs/shared/types'
+import { queryDict } from '@/api'
+import { DICT_FIELDS } from '@/libs/shared/constant'
 
 export const usePathStore = defineStore('breadcrumbs', {
   persist: true,
@@ -13,6 +15,7 @@ export const usePathStore = defineStore('breadcrumbs', {
         children: [],
       },
     ] as Menu[],
+    systemDict: {} as DictType
   }),
   actions: {
     setBreadCrumb(path: string) {
@@ -34,8 +37,13 @@ export const usePathStore = defineStore('breadcrumbs', {
         firstLevelMenu && secondLevelMenu
           ? [firstLevelMenu, secondLevelMenu]
           : firstLevelMenu
-          ? [firstLevelMenu]
-          : []
+            ? [firstLevelMenu]
+            : []
     },
+
+    async querySystemDict(data: typeof DICT_FIELDS) {
+      const res = await queryDict(data)
+      this.systemDict = res.result
+    }
   },
 })

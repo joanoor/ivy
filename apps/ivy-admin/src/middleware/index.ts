@@ -1,7 +1,8 @@
 import { Router } from 'vue-router'
 import store2 from 'store2'
 import { SYS_CONSTANT } from '@/libs/shared/constant'
-// import { useGlobalStore, useUserStore, usePermissionStore } from '@/store'
+import { useGlobalStore, useUserStore, usePermissionStore } from '@/store'
+import { isEmpty, _console } from '@ivy/core'
 // import { isEmpty } from '@ivy/core'
 
 // 可以不需要token的页面
@@ -60,12 +61,17 @@ export function setupRouterGuard(router: Router) {
     //     }
     //   }
     // }
+    // const useGlobal = useGlobalStore()
     // try {
-    //   const useGlobal = useGlobalStore()
-    //   await useGlobal.getDicts()
-    //   await useGlobal.getAllOrg()
-    // } catch (error) {
-    //   console.log(error)
+    //   if (isEmpty(useGlobal.dicts)) {
+    //     await useGlobal.getDicts()
+    //   }
+    //   if (isEmpty(useGlobal.orgList) || isEmpty(useGlobal.orgTree)) {
+    //     await useGlobal.getAllOrg()
+    //   }
+    // } catch (err) {
+    //   _console.error('middleware中请求出错')
+    //   console.error(err)
     // }
     if (store2.get(SYS_CONSTANT.AUTH_TOKEN)) {
       if (to.path === '/login') return true

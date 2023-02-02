@@ -1,6 +1,6 @@
 import { BaseURLType } from '@/libs/shared/types'
 import { http } from '@/plugins/request'
-import { RequestOptions } from '@ivy/chart'
+import type { RequestOptions } from '@ivy/request'
 import type { Result, ResultPagingData, ResultElectricityStruct } from './model'
 
 export const getAllMeterPage = <QueryParams = Recordable>(

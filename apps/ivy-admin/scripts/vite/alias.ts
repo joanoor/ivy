@@ -15,5 +15,9 @@ export function configAlias(): Alias[] {
       find: '@styles',
       replacement: pathResolve('src/styles'),
     },
+    {
+      find: '#',
+      replacement: pathResolve('types'),
+    },
   ]
 }

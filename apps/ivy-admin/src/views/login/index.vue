@@ -56,7 +56,6 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
 import useLogin from '@/hooks/useLogin'
 import useCommon from '@/hooks/useCommon'
 
@@ -64,6 +63,7 @@ const checked = ref(false)
 const loading = ref(false)
 
 const { loginFormRef, loginForm, loginFormRules, handleLoginForm } = useLogin()
+
 const { timeSayHello, projectName } = useCommon()
 
 // 背景视频控制

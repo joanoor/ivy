@@ -54,6 +54,7 @@
     "node": ">=14.0.0"
   },
   "dependencies": {
+    "@types/webpack-env": "^1.18.0",
     "axios": "^1.2.6",
     "dayjs": "^1.11.7",
     "deepmerge": "^4.3.0",

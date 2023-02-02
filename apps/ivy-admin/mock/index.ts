@@ -23,7 +23,7 @@ export default [
       return {
         code: 200,
         message: 'success',
-        data: {
+        result: {
           name: 'xixi',
         },
       }

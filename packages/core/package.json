@@ -11,8 +11,5 @@
   "license": "ISC",
   "dependencies": {
     "is-promise": "^4.0.0"
-  },
-  "devDependencies": {
-    "@types/webpack-env": "^1.18.0"
   }
 }

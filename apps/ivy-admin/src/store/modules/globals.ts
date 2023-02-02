@@ -1,15 +1,15 @@
 import { getAllOrgList, getAllOrgTree, queryDict } from '@/api'
 import { defineStore } from 'pinia'
 import { DICT_FIELDS } from '@/libs/shared/constant'
-import { ResultOrgStruct } from '@/api/model'
+import { ResponseOrgStruct } from '@/api/model'
 import { DictType } from '@/libs/shared/types'
 
 export const useGlobalStore = defineStore('globals', {
   state: () => ({
     tloading: false,
     dicts: {} as DictType,
-    orgTree: [] as ResultOrgStruct[],
-    orgList: [] as ResultOrgStruct[],
+    orgTree: [] as ResponseOrgStruct[],
+    orgList: [] as ResponseOrgStruct[],
   }),
   getters: {},
   actions: {

@@ -1,9 +1,17 @@
 import { http } from '@/plugins/request'
-import { Result, ResultOrgStruct } from './model'
+import { Result, ResponseOrgStruct, ResponseLogin } from './model'
 import type { DictType } from '@/libs/shared/types'
-import { DICT_FIELDS } from '@/libs/shared/constant'
+
 
 export * from './terminal'
+export * from './model'
+
+export const handleLogin = <T>(data: T) => {
+  return http.post<ResponseLogin>({
+    url: `api/login`,
+    data
+  })
+}
 
 /**
  * 获取项目字典
@@ -16,7 +24,7 @@ export * from './terminal'
  * 波特率,BAUDRATE
  * 设备状态,METER_STATE
  */
-export const queryDict = (codeTypes: typeof DICT_FIELDS) => {
+export const queryDict = <T>(codeTypes: T) => {
   return http.post<Result<DictType>>({
     url: `/system/code/codelist`,
     data: {
@@ -27,7 +35,7 @@ export const queryDict = (codeTypes: typeof DICT_FIELDS) => {
 
 // 获取所有的组织，返回结果是数组（树形）
 export const getAllOrgTree = () => {
-  return http.get<Result<ResultOrgStruct[]>>({
+  return http.get<Result<ResponseOrgStruct[]>>({
     url: `/system/org/tree`,
     params: {
       orgNo: '00000',
@@ -36,10 +44,21 @@ export const getAllOrgTree = () => {
 }
 // 获取所有的组织，返回结果是数组（不是树形）
 export const getAllOrgList = () => {
-  return http.get<Result<ResultOrgStruct[]>>({
+  return http.get<Result<ResponseOrgStruct[]>>({
     url: `/system/org/all`,
     params: {
       orgNo: '00000',
     },
+  })
+}
+
+
+export const testError = () => {
+
+  return http.get<Result<ResponseOrgStruct[]>>({
+    url: `dossier/electricitymeter/testError`,
+    params: {
+      a: ''
+    }
   })
 }

@@ -34,16 +34,16 @@ function easeInOutCubic(value: number) {
  */
 export const _console: Console<string> = {
   log(str) {
-    console.log(`%c${str}`, 'background:#303133;color:#fff;fontSize:14px')
+    console.log(`%c${str}`, 'background:#303133;color:#fff;fontSize:14px;padding:3px 10px;')
   },
   warn(str) {
-    console.log(`%c${str}`, 'background:#E6A23C;color:#fff;fontSize:14px')
+    console.log(`%c${str}`, 'background:#E6A23C;color:#fff;fontSize:14px;padding:3px 10px;')
   },
   error(str) {
-    console.log(`%c${str}`, 'background:#FC0505;color:#fff;fontSize:14px')
+    console.log(`%c${str}`, 'background:#FC0505;color:#fff;fontSize:14px;padding:3px 10px;')
   },
   success(str) {
-    console.log(`%c${str}`, 'background:#67C23A;color:#fff;fontSize:14px')
+    console.log(`%c${str}`, 'background:#67C23A;color:#fff;fontSize:14px;padding:3px 10px;')
   },
 }
 

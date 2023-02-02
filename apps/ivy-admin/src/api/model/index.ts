@@ -1,5 +1,4 @@
 import { DictionaryStruct, FormPropRule } from '@/libs/shared/types'
-import { DefineComponent, Raw } from 'vue'
 
 export * from './dict'
 export * from './terminalType'
@@ -36,6 +35,13 @@ export interface ResultPagingData<T> {
   total: number
 }
 
+/******************************************************************/
+export interface ResponseLogin {
+  name: string
+  token: string
+  role: string
+}
+
 export interface FirstListValue {
   update: string
   value: string | number
@@ -56,7 +62,7 @@ export interface FirstListValue {
   value: string | number
 }
 
-export interface ResultOrgStruct {
+export interface ResponseOrgStruct {
   orgId: number
   orgNo: string
   orgName: string

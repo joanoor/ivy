@@ -2,7 +2,6 @@
  * 对请求的数据进行处理
  */
 import {
-  AxiosError,
   AxiosRequestConfig,
   AxiosResponse,
   InternalAxiosRequestConfig,
@@ -27,7 +26,18 @@ export abstract class AxiosTransform {
     options: RequestOptions
   ) => AxiosRequestConfig
 
-  /***********************************************************************/
+  /**
+   * 当请求接口成功时处理响应数据
+   */
+  transformRequestHook?: <T = Result>(
+    res: AxiosResponse<T>,
+    options: RequestOptions
+  ) => any
+
+  /**
+   * 当网络请求请求失败时处理失败
+   */
+  requestCatchHook?: (e: Error, options: RequestOptions) => Promise<any>
 
   /**
    * request统一拦截器
@@ -38,36 +48,24 @@ export abstract class AxiosTransform {
   ) => InternalAxiosRequestConfig
 
   /**
-   * response统一拦截器
-   *
+   * response统一拦截器  
    * 当http网络请求正常，接口正常返回数据（不论接口返回的状态码是不是正常的成功码）时，执行此方法。
    */
   responseInterceptors?: (res: AxiosResponse) => AxiosResponse
 
   /**
-   * request统一拦截器，对request错误进行处理
+   * request统一拦截器错误处理
    */
   requestInterceptorsCatch?: (error: Error) => void
 
   /**
-   * response统一拦截器，对http网络错误进行处理
-   *
-   * 当http网络请求失败（网络响应状态代码status不是200），不论接口是否正常返回数据，都会执行此方法。
+   * response统一拦截器错误处理
    */
-  responseInterceptorsCatch?: (error: AxiosError) => any
+  responseInterceptorsCatch?: (axiosInstance: AxiosResponse, error: Error) => void
 
   /***********************************************************************/
 
-  /**
-   * 发生在统一拦截之后，当请求接口成功时执行
-   */
-  transformRequestHook?: <T = Result>(
-    res: AxiosResponse<T>,
-    options: RequestOptions
-  ) => any
 
-  /**
-   * 发生在统一拦截之后，当请求失败时执行
-   */
-  requestCatchHook?: (e: Error, options: RequestOptions) => Promise<any>
+
+
 }

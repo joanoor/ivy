@@ -1,10 +1,10 @@
 <template>
-  <p>{{toThousands(count)}}</p>
+  <p>{{convertToThousands(count)}}</p>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
-import { toThousands } from '@ivy/core'
+import { convertToThousands } from '@ivy/core'
 
 
 const props = withDefaults(defineProps<{

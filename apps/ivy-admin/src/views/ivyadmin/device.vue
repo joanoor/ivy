@@ -63,7 +63,7 @@
 <script setup lang="ts">
 import useQueryTable from '@/hooks/web/useQueryTable'
 import type { ResultElectricityStruct } from '@/api/model'
-import { getAllMeterPage } from '@/api'
+import { getAllMeterPage, testError } from '@/api'
 import { useGlobalStore } from '@/store'
 import useDecodeDict from '@/hooks/web/useDecodeDict'
 import useDialog from '@/hooks/web/useDialog'
@@ -129,6 +129,7 @@ const {
     },
   ],
   expectOmitedColumnNames: ['meterId'],
+  lazy:true
 })
 
 const formProps = defineFormTypes([
@@ -173,6 +174,11 @@ const showScope = (row: ResultElectricityStruct) => {
   dialogVisiable.value = true
   onEchoForm(row)
 }
+
+onMounted(async () => {
+  const res = await testError()
+  console.log(`有问题吗`,res )
+})
 </script>
 
 <style lang="scss" scoped>

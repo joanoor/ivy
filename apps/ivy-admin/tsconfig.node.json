@@ -1,15 +1,14 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true
   },
   "include": [
+    "src/enums/**/*.ts",
+    "src/api/**/*.ts",
     "scripts/**/*.ts",
+    "types/**/*.ts",
     "vite.config.ts",
-    "types/**/*.ts"
   ]
 }

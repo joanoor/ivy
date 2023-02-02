@@ -208,8 +208,8 @@ describe(`测试utils模块代码`, () => {
         age: 1,
       },
     }
-    const mockDeepMerge = jest.spyOn(utils, 'deepMerge')
-    const returnValue = utils.deepMerge(obj1, obj2, obj3)
+    const mockDeepMerge = jest.spyOn(utils, 'mergeAll')
+    const returnValue = utils.mergeAll(obj1, obj2, obj3)
 
     expect(mockDeepMerge).toBeCalled()
     expect(mockDeepMerge).toBeCalledTimes(1)
@@ -323,9 +323,9 @@ describe(`测试utils模块代码`, () => {
   })
 
   test('numberThousandths: 将输入的数字转换成千分位写法', () => {
-    expect(utils.toThousands(34)).toBe('34')
-    expect(utils.toThousands(1234)).toBe('1,234')
-    expect(utils.toThousands(123456)).toBe('123,456')
+    expect(utils.convertToThousands(34)).toBe('34')
+    expect(utils.convertToThousands(1234)).toBe('1,234')
+    expect(utils.convertToThousands(123456)).toBe('123,456')
   })
 
   test('arrScrambling: 将一个数组转换成乱序数组', () => {
@@ -338,8 +338,8 @@ describe(`测试utils模块代码`, () => {
   })
 
   test('randomString: 生成指定长度的一串随机字符串', () => {
-    expect(utils.randomString(8).length).toBe(8)
-    expect(utils.randomString(100).length).toBe(100)
+    expect(utils.genRandomString(8).length).toBe(8)
+    expect(utils.genRandomString(100).length).toBe(100)
   })
 
   test('firstLetterUpper: 将字符串首字母大写', () => {
@@ -350,19 +350,19 @@ describe(`测试utils模块代码`, () => {
   })
 
   test('strToAsterisk: 将手机号码转换成中间四位为星号', () => {
-    expect(utils.strToAsterisk('17755429999')).toBe('177****9999')
-    expect(utils.strToAsterisk('18274648477555', 3, 9)).toBe('182******77555')
-    expect(() => utils.strToAsterisk('123')).toThrow(
+    expect(utils.convertStrToAsterisk('17755429999')).toBe('177****9999')
+    expect(utils.convertStrToAsterisk('18274648477555', 3, 9)).toBe('182******77555')
+    expect(() => utils.convertStrToAsterisk('123')).toThrow(
       '字符串长度不能小于指定的区间'
     )
   })
 
   test('chineseMoney: 将数字转化为汉字大写金额', () => {
-    const mockDigitUpperCase = jest.spyOn(utils, 'chineseMoney')
-    expect(utils.chineseMoney(123.44)).toBe('壹佰贰拾叁元肆角肆分')
+    const mockDigitUpperCase = jest.spyOn(utils, 'convertChineseMoney')
+    expect(utils.convertChineseMoney(123.44)).toBe('壹佰贰拾叁元肆角肆分')
     expect(mockDigitUpperCase).toBeCalledWith(123.44)
-    expect(utils.chineseMoney(123)).toBe('壹佰贰拾叁元整')
-    expect(utils.chineseMoney(0.5)).toBe('伍角')
+    expect(utils.convertChineseMoney(123)).toBe('壹佰贰拾叁元整')
+    expect(utils.convertChineseMoney(0.5)).toBe('伍角')
   })
 
   test('toFullScreen: 打开浏览器全屏', () => {

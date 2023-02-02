@@ -1,4 +1,4 @@
-import { checkStatus, createAxios, ResultEnum } from '@ivy/request'
+import { checkStatus, createAxios, ResultEnum, AxiosError } from '@ivy/request'
 import 'element-plus/es/components/message/style/css'
 import { ElMessage } from 'element-plus'
 import store from 'store2'
@@ -9,7 +9,7 @@ export const http = createAxios({
     import.meta.env.MODE === 'development'
       ? import.meta.env.VITE_APP_BASEAPI_DEV
       : import.meta.env.VITE_APP_BASEAPI_PROD,
-  timeout: 30000,
+  timeout: 15000,
   transform: {
     // 接口正常返回数据的时候，若是需要对返回数据进行处理，则执行以下方法
     transformRequestHook(response, options) {
@@ -22,12 +22,13 @@ export const http = createAxios({
       if (!isTransformResponse) return response.data
 
       if (!response.data) throw new Error('请求出错，请稍后重试')
+
       const result = response.data as unknown as Result
       const { code, message } = result
       const hasSuccess = [ResultEnum.SUCCESS, '200', 0, '0'].indexOf(code) > -1
       if (hasSuccess) return result ?? ''
       else {
-        const [errMessage] = checkStatus(code, message)
+        const errMessage = checkStatus(code, message)
         ElMessage.error(errMessage)
         throw new Error(
           `The network request returns a data error-->${code}-->${errMessage}`
@@ -35,14 +36,13 @@ export const http = createAxios({
       }
     },
 
-    // 请求 —— 统一拦截器
     requestInterceptors: (config, options) => {
       const token = store.get('AUTH_TOKEN')
       if (
         token &&
         (config as Recordable)?.requestOptions?.withToken !== false
       ) {
-        ;(config as Recordable).headers['Authorization'] =
+        ; (config as Recordable).headers['Authorization'] =
           options.authenticationScheme
             ? `${options.authenticationScheme} ${token}`
             : token
@@ -51,18 +51,12 @@ export const http = createAxios({
       return config
     },
 
-    // 响应 —— http请求网络错误拦截器
-    responseInterceptorsCatch: ({ response }) => {
-      if (response?.status) {
-        const [errorMessage] = checkStatus(
-          response?.status,
-          response?.data?.message
-        )
-        ElMessage.error(errorMessage)
-        // 如果返回的不是Promise.reject，那么将会接着执行transformRequestHook中的代码；如果返回的是Promise.reject，那么将会执行requestCatchHook中的代码
-        return Promise.reject(errorMessage)
-      }
-    },
+    responseInterceptorsCatch: (instance, err) => {
+      // @ts-ignore
+      const errorMessage = err.message ?? (err.response?.data as any)?.message
+      ElMessage.error(errorMessage)
+      return Promise.reject(err)
+    }
   },
   requestOptions: {
     isTransformResponse: true,

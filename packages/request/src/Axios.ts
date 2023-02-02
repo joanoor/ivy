@@ -124,7 +124,7 @@ export class IAxios {
       return config
     }, undefined)
 
-    // request拦截器(当接口请求出错时执行)
+    // request拦截器报错时
     requestInterceptorsCatch &&
       isFunction(requestInterceptorsCatch) &&
       this.axiosInstance.interceptors.request.use(
@@ -132,7 +132,7 @@ export class IAxios {
         requestInterceptorsCatch
       )
 
-    // response拦截器(当http网络正常，且接口返回code也正常时执行)
+    // response拦截器
     this.axiosInstance.interceptors.response.use((res: AxiosResponse<any>) => {
       res && axiosCanceler.removePending(res.config)
       if (responseInterceptors && isFunction(responseInterceptors)) {
@@ -141,12 +141,12 @@ export class IAxios {
       return res
     }, undefined)
 
-    // response拦截器(当http网络出错时执行)
+    // response拦截器报错时
     responseInterceptorsCatch &&
       isFunction(responseInterceptorsCatch) &&
       this.axiosInstance.interceptors.response.use(
         undefined,
-        responseInterceptorsCatch
+        (error) => responseInterceptorsCatch(this.axiosInstance, error)
       )
   }
 
@@ -296,6 +296,7 @@ export class IAxios {
       this.axiosInstance
         .request<any, AxiosResponse<Result>>(conf)
         .then((res: AxiosResponse<Result>) => {
+          console.log(`request--->then`, res)
           if (transformRequestHook && isFunction(transformRequestHook)) {
             try {
               const ret = transformRequestHook(res, opt)
@@ -311,8 +312,7 @@ export class IAxios {
         })
         .catch((e: Error | AxiosError) => {
           if (requestCatchHook && isFunction(requestCatchHook)) {
-            reject(requestCatchHook(e, opt))
-            return
+            return reject(requestCatchHook(e, opt))
           }
           if (axios.isAxiosError(e)) {
             // rewrite error message from axios in here

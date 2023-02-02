@@ -22,7 +22,7 @@
               <el-col :span="12" :offset="0">
                 <div class="flex flex-col h-full justify-center">
                   <TextEllipsis
-                    :message="toThousands(totalPowerCount)"
+                    :message="convertToThousands(totalPowerCount)"
                     class="mt-4 heavy"
                   ></TextEllipsis>
                   <div class="flex items-center amount-detail mt-1">
@@ -58,7 +58,7 @@
               <el-col :span="12" :offset="0">
                 <div class="flex flex-col h-full justify-center">
                   <TextEllipsis
-                    :message="toThousands(totalWaterCount)"
+                    :message="convertToThousands(totalWaterCount)"
                     class="mt-4 heavy"
                   ></TextEllipsis>
                   <div class="flex items-center amount-detail mt-1">
@@ -94,7 +94,7 @@
               <el-col :span="12" :offset="0">
                 <div class="flex flex-col h-full justify-center">
                   <TextEllipsis
-                    :message="toThousands(totalGenPowerCount)"
+                    :message="convertToThousands(totalGenPowerCount)"
                     class="mt-4 heavy"
                   ></TextEllipsis>
                   <div class="flex items-center amount-detail mt-1">
@@ -130,7 +130,7 @@
               <el-col :span="12" :offset="0">
                 <div class="flex flex-col h-full justify-center">
                   <TextEllipsis
-                    :message="toThousands(totalEmissionCount)"
+                    :message="convertToThousands(totalEmissionCount)"
                     class="mt-4 heavy"
                   ></TextEllipsis>
                   <div class="flex items-center amount-detail mt-1">
@@ -444,7 +444,7 @@ import useDigitFlop from '@/hooks/component/useDigitFlop'
 
 // 引入其他
 import { FirstListValue } from '@/api/model'
-import { toThousands } from '@ivy/core'
+import { convertToThousands } from '@ivy/core'
 
 const timerank: string[] = ['今日', '本月', '今年', '自定义']
 const rank: string[] = ['用电', '用水', '用气']
