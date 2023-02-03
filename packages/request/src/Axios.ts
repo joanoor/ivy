@@ -9,7 +9,7 @@ import type {
 import type { CreateAxiosOptions } from './axiosTransform'
 import { AxiosCanceler } from './axiosCancel'
 import { cloneDeep, isFunction } from 'lodash-es'
-import { ContentTypeEnum, RequestEnum, RequestOptions, Result } from '../types'
+import { ContentTypeEnum, RequestEnum, RequestOptions, Result } from './types'
 // import { UploadFileParams } from './types'
 
 /**

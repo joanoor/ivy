@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+  },
+  "include": [
+    "src",
+    "node_modules/@ivy/configs/global.d.ts"
+  ],
+  "extends": "./node_modules/@ivy/configs/base.json",
+}

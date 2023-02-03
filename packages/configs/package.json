@@ -1,0 +1,14 @@
+{
+  "name": "@ivy/configs",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "files": [
+    "base.json",
+    "nextjs.json",
+    "react-library.json",
+    "global.d.ts"
+  ],
+  "dependencies": {}
+}

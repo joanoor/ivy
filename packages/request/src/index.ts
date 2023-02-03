@@ -1,8 +1,8 @@
-import type { AxiosTransform, CreateAxiosOptions } from './src/axiosTransform'
+import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform'
 import { mergeAll, setObjToUrlParams, isString } from '@ivy/core'
-import { formatRequestDate, addTimeStamp } from './src/helper'
+import { formatRequestDate, addTimeStamp } from './helper'
 import { RequestEnum, ContentTypeEnum } from './types'
-import { IAxios } from './src/Axios'
+import { IAxios } from './Axios'
 
 // transform的默认值
 const defaultTransform: AxiosTransform = {
@@ -129,8 +129,7 @@ export const createAxios = (opt?: Partial<CreateAxiosOptions>) => {
   )
 }
 
-export * from './src/axiosTransform'
-export * from './src/checkStatus'
-export * from './src/helper'
+export * from './axiosTransform'
+export * from './checkStatus'
+export * from './helper'
 export * from './types'
-export * from 'axios'

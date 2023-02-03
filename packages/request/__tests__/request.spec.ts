@@ -1,4 +1,4 @@
-import { createAxios } from '../index'
+import { createAxios } from '../src/index'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import { IAxios } from '../src/Axios'

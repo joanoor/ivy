@@ -10,7 +10,7 @@ import type {
 
 declare module 'vue' {
   export type JSXComponent<Props = any> =
-    | { new (): ComponentPublicInstance<Props> }
+    | { new(): ComponentPublicInstance<Props> }
     | FunctionalComponent<Props>
 }
 
@@ -46,19 +46,7 @@ declare global {
   }
 
   // vue
-  type PropType<T> = VuePropType<T>
-  type VueNode = VNodeChild | JSX.Element
 
-  type Recordable<T = any> = Record<string, T>
-  type AnyFunction = (...args: any[]) => any
-  type ConstructorFunction = new (...args: any[]) => any
-  type Values<T> = T[keyof T]
-  type EventType = Event & MouseEvent & TouchEvent
-  type ReadonlyRecordable<T = any> = {
-    readonly [key: string]: T
-  }
-  type TimeoutHandle = ReturnType<typeof setTimeout>
-  type IntervalHandle = ReturnType<typeof setInterval>
 
   // VITE环境配置
   interface ViteEnv {

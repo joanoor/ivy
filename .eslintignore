@@ -1,0 +1,11 @@
+.snapshots/
+dist/
+node_modules/
+.next/
+.vercel/
+.turbo/
+.umi/
+
+.demo/
+.renderer/
+pnpm-lock.yaml

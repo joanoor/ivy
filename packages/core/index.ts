@@ -1,5 +1,0 @@
-export * from './src/is'
-export * from './src/validType'
-export * from './src/utils'
-export * from './src/dm'
-export { cloneDeep, debounce, throttle } from 'lodash-es'

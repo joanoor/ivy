@@ -6,7 +6,7 @@ import {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from 'axios'
-import { RequestOptions, Result } from '../types'
+import { RequestOptions, Result } from './types'
 
 export interface CreateAxiosOptions extends AxiosRequestConfig {
   authenticationScheme?: string

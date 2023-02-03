@@ -1,4 +1,4 @@
-import { checkStatus, createAxios, ResultEnum, AxiosError } from '@ivy/request'
+import { checkStatus, createAxios, AxiosError } from '@ivy/request'
 import 'element-plus/es/components/message/style/css'
 import { ElMessage } from 'element-plus'
 import store from 'store2'
@@ -25,7 +25,7 @@ export const http = createAxios({
 
       const result = response.data as unknown as Result
       const { code, message } = result
-      const hasSuccess = [ResultEnum.SUCCESS, '200', 0, '0'].indexOf(code) > -1
+      const hasSuccess = [200, '200', 0, '0'].indexOf(code) > -1
       if (hasSuccess) return result ?? ''
       else {
         const errMessage = checkStatus(code, message)

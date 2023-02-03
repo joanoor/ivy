@@ -172,13 +172,18 @@ importers:
       echarts: 5.4.1
       element-resize-detector: 1.2.4
 
+  packages/configs:
+    specifiers: {}
+
   packages/convert:
     specifiers: {}
 
   packages/core:
     specifiers:
+      '@ivy/configs': workspace:*
       is-promise: ^4.0.0
     dependencies:
+      '@ivy/configs': link:../configs
       is-promise: 4.0.0
 
   packages/form:
@@ -191,8 +196,10 @@ importers:
 
   packages/request:
     specifiers:
+      '@ivy/configs': workspace:*
       '@ivy/core': workspace:*
     dependencies:
+      '@ivy/configs': link:../configs
       '@ivy/core': link:../core
 
 packages:
