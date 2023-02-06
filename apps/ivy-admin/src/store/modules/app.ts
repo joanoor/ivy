@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
 import { Menu, menuList } from '@/layout/components/LayoutSideBar/menuList'
-import { DictType } from '@/libs/shared/types'
+import { DictType } from '@/libs/types'
 import { queryDict } from '@/api'
-import { DICT_FIELDS } from '@/libs/shared/constant'
+import { DICT_FIELDS } from '@/libs/constant'
 
 export const usePathStore = defineStore('breadcrumbs', {
   persist: true,

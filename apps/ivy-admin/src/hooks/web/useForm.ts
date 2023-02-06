@@ -19,16 +19,16 @@ import {
   UnwrapRef,
 } from 'vue'
 import { FormInstance } from 'element-plus'
-import { createFormAndRule } from '@/libs/formAndRules/records'
-import { ResultColumnsData } from '@/api/model'
-import type { DictionaryStruct, FormPropRule } from '@/libs/shared/types'
+import { createFormAndRule } from '@/libs/utils/formAndRules/records'
+import { ResultColumnsData } from '@/api/types'
+import type { DictionaryStruct, FormPropRule } from '@/libs/types'
 import { generateDictionary } from './useDecodeDict'
 import {
   submitForm,
   resetFormFields,
   Callback,
   ResetCallBack,
-} from '@/libs/formAndRules/form'
+} from '@/libs/utils/formAndRules/form'
 
 interface RuleItemExtend extends RuleItem {
   trigger: string

@@ -8,6 +8,7 @@ declare type EventType = Event & MouseEvent & TouchEvent
 declare type ReadonlyRecordable<T = any> = {
   readonly [key: string]: T
 }
+declare type Nullable<T> = T | null;
 declare type TimeoutHandle = ReturnType<typeof setTimeout>
 declare type IntervalHandle = ReturnType<typeof setInterval>
 

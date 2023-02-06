@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import store from 'store2'
-import { SYS_CONSTANT, } from '@/libs/shared/constant'
+import { SYS_CONSTANT, } from '@/libs/constant'
 import { handleLogin, ResponseLogin } from '@/api'
 
 export const useUserStore = defineStore('user', {

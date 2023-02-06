@@ -66,7 +66,7 @@ import type {
   Result,
   ResultElectricityStruct,
   ResultPagingData,
-} from '@/api/model'
+} from '@/api/model/types/types'
 import { getAllMeterPage } from '@/api'
 import { useGlobalStore } from '@/store'
 import useDecodeDict from '@/hooks/web/useDecodeDict'

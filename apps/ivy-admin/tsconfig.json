@@ -1,7 +1,10 @@
 {
-  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
     "useDefineForClassFields": true,
     "jsx": "preserve",
     "sourceMap": true,
@@ -13,7 +16,29 @@
     "skipLibCheck": true,
     "types": [
       "element-plus/global"
-    ]
+    ],
+    "strict": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "#/*": [
+        "types/*"
+      ],
+      "@ivy/core": [
+        "../../packages/core/src"
+      ],
+      "@ivy/chart": [
+        "../../packages/chart/src"
+      ],
+      "@ivy/request": [
+        "../../packages/request/src"
+      ],
+      "@ivy/form": [
+        "../../packages/form/src"
+      ],
+    },
   },
   "include": [
     "src/**/*.ts",
@@ -24,7 +49,8 @@
     "types/**/*.d.ts",
     "mock/**/*.ts",
     "auto-imports.d.ts",
-    "components.d.ts"
+    "components.d.ts",
+    "node_modules/@ivy/configs/global.d.ts"
   ],
   "references": [
     {

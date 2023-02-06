@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { ResultColumnsData } from '@/api/model'
+import { ResultColumnsData } from '@/api/model/types/types'
 import Pagination from '@/components/Pagination/Pagination.vue'
 import useDecodeDict from '@/hooks/web/useDecodeDict'
 import { useGlobalStore } from '@/store'

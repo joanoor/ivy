@@ -4,9 +4,9 @@ import { defineStore } from 'pinia';
 import { store } from '@/store';
 
 import { formatToDateTime } from '@/utils/dateUtil';
-import projectSetting from '@/settings/projectSetting';
+import projectSetting from '@/libs/settings/projectSetting';
 
-import { ErrorTypeEnum } from '@/enums/exceptionEnum';
+import { ErrorTypeEnum } from '@/libs/enums/exceptionEnum';
 
 export interface ErrorLogState {
   errorLogInfoList: Nullable<ErrorLogInfo[]>;

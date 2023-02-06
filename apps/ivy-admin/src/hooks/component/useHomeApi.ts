@@ -1,5 +1,5 @@
 import { reactive, onMounted } from 'vue'
-import { ConsumePower } from '@/api/model'
+import { ConsumePower } from '@/api/types'
 import { http } from '@/plugins/request'
 
 export default function (url: string) {

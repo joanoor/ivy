@@ -1,5 +1,5 @@
 import type { MockMethod } from 'vite-plugin-mock'
-import { FirstInfo, FirstListValue, Result } from '../src/api/model'
+import { FirstInfo, FirstListValue, Result } from '../src/api/types'
 import { mock } from 'mockjs'
 
 // 初始数据

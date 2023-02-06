@@ -443,7 +443,7 @@ import useHomeApi from '@/hooks/component/useHomeApi'
 import useDigitFlop from '@/hooks/component/useDigitFlop'
 
 // 引入其他
-import { FirstListValue } from '@/api/model'
+import { FirstListValue } from '@/api/model/types/types'
 import { convertToThousands } from '@ivy/core'
 
 const timerank: string[] = ['今日', '本月', '今年', '自定义']

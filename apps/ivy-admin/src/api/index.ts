@@ -1,10 +1,10 @@
 import { http } from '@/plugins/request'
-import { Result, ResponseOrgStruct, ResponseLogin } from './model'
-import type { DictType } from '@/libs/shared/types'
+import { Result, ResponseOrgStruct, ResponseLogin } from './types'
+import type { DictType } from '@/libs/types'
 
 
 export * from './terminal'
-export * from './model'
+export * from './types'
 
 export const handleLogin = <T>(data: T) => {
   return http.post<ResponseLogin>({

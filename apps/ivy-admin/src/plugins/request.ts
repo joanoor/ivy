@@ -1,8 +1,8 @@
-import { checkStatus, createAxios, AxiosError } from '@ivy/request'
+import { checkStatus, createAxios } from '@ivy/request'
 import 'element-plus/es/components/message/style/css'
 import { ElMessage } from 'element-plus'
 import store from 'store2'
-import { Result } from '@/api/model'
+import { Result } from '@/api/types'
 
 export const http = createAxios({
   baseURL:

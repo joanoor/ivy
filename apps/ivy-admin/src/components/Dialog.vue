@@ -56,7 +56,7 @@
 </template>
 
 <script setup lang="ts">
-import { ResultColumnsData } from '@/api/model'
+import { ResultColumnsData } from '@/api/model/types/types'
 import { FormInstance } from 'element-plus'
 import { computed } from 'vue'
 

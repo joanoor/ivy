@@ -14,6 +14,7 @@
     "@ivy/core": "workspace:*",
     "@ivy/form": "workspace:*",
     "@ivy/request": "workspace:*",
+    "@ivy/configs": "workspace:*",
     "@unocss/reset": "^0.49.1",
     "@vueuse/core": "^9.12.0",
     "element-plus": "^2.2.28",

@@ -1,4 +1,4 @@
-import { MenuTypeEnum, MenuModeEnum, TriggerEnum, MixSidebarTriggerEnum } from '../src/enums/menuEnum';
+import { MenuTypeEnum, MenuModeEnum, TriggerEnum, MixSidebarTriggerEnum } from '../src/libs/enums/menuEnum';
 import {
   ContentEnum,
   PermissionModeEnum,
@@ -6,7 +6,7 @@ import {
   RouterTransitionEnum,
   SettingButtonPositionEnum,
   SessionTimeoutProcessingEnum,
-} from '../src/enums/appEnum';
+} from '../src/libs/enums/appEnum';
 
 import { CacheTypeEnum } from '@/enums/cacheEnum';
 

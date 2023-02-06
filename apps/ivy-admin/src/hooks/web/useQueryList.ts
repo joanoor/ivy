@@ -6,8 +6,8 @@ import { reactive, toRefs, UnwrapRef, onMounted, watch, ref, Ref } from 'vue'
 import type { RequestOptions } from '@ivy/request'
 import { textSize } from '@ivy/core'
 import { useGlobalStore } from '@/store'
-import type { Result, ResultColumnsData, ResultPagingData } from '@/api/model'
-import type { BaseURLType } from '@/libs/shared/types'
+import type { Result, ResultColumnsData, ResultPagingData } from '@/api/types'
+import type { BaseURLType } from '@/libs/types'
 import { TableInstance } from 'element-plus'
 
 // 拿到字典，去设置列的selectOption字段

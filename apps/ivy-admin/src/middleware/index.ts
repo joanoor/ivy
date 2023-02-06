@@ -1,6 +1,6 @@
 import { Router } from 'vue-router'
 import store2 from 'store2'
-import { SYS_CONSTANT } from '@/libs/shared/constant'
+import { SYS_CONSTANT } from '@/libs/constant'
 import { useGlobalStore, useUserStore, usePermissionStore } from '@/store'
 import { isEmpty, _console } from '@ivy/core'
 // import { isEmpty } from '@ivy/core'

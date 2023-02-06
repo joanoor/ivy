@@ -1,8 +1,8 @@
-import { getAllOrgList, getAllOrgTree, queryDict } from '@/api'
 import { defineStore } from 'pinia'
-import { DICT_FIELDS } from '@/libs/shared/constant'
-import { ResponseOrgStruct } from '@/api/model'
-import { DictType } from '@/libs/shared/types'
+import { getAllOrgList, getAllOrgTree, queryDict } from '@/api'
+import { ResponseOrgStruct } from '@/api/dossier/terminalType'
+import { DICT_FIELDS } from '@/libs/constant'
+import { DictType,DictionaryStruct } from '@/libs/types'
 
 export const useGlobalStore = defineStore('globals', {
   state: () => ({
@@ -27,6 +27,16 @@ export const useGlobalStore = defineStore('globals', {
       const { result: orgListResult } = await getAllOrgList()
       this.orgTree = orgResult
       this.orgList = orgListResult
+    },
+    setCustomDicts(
+      dict: Record<Uppercase<string>, DictionaryStruct[]>,
+      callback?: () => void
+    ) {
+      this.dicts = {
+        ...this.dicts,
+        ...dict,
+      }
+      callback && callback()
     },
   },
 })

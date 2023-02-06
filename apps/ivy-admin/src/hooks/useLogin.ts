@@ -1,5 +1,5 @@
 import { useUserStore } from '@/store/modules/user'
-import { submitForm } from '@/libs/formAndRules/form'
+import { submitForm } from '@/libs/utils/formAndRules/form'
 import { useRouter } from 'vue-router'
 import useForm, { defineFormTypes } from './web/useForm'
 

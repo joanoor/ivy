@@ -2,7 +2,7 @@
  * 整个项目中对字典进行处理
  */
 
-import type { DictionaryStruct } from '@/libs/shared/types'
+import type { DictionaryStruct } from '@/libs/types'
 import { useGlobalStore } from '@/store'
 
 // 拿到字典

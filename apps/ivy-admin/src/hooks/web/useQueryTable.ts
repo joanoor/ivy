@@ -16,8 +16,8 @@ import {
 import type { RequestOptions } from '@ivy/request'
 import { textSize } from '@ivy/core'
 import { useGlobalStore } from '@/store'
-import type { Result, ResultColumnsData, ResultPagingData } from '@/api/model'
-import type { BaseURLType } from '@/libs/shared/types'
+import type { Result, ResultColumnsData, ResultPagingData } from '@/api/types'
+import type { BaseURLType } from '@/libs/types'
 import { useEventListener, useElementBounding } from '@vueuse/core'
 
 // 拿到字典，去设置列的selectOption字段

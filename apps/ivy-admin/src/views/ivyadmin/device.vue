@@ -62,7 +62,7 @@
 
 <script setup lang="ts">
 import useQueryTable from '@/hooks/web/useQueryTable'
-import type { ResultElectricityStruct } from '@/api/model'
+import type { ResultElectricityStruct } from '@/api/model/types/types'
 import { getAllMeterPage, testError } from '@/api'
 import { useGlobalStore } from '@/store'
 import useDecodeDict from '@/hooks/web/useDecodeDict'

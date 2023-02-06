@@ -15,6 +15,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.0.1",
     "@types/deepmerge": "^2.2.0",
     "@types/expect-puppeteer": "^4.4.7",
     "@types/inquirer": "^9.0.3",
@@ -54,6 +55,7 @@
     "node": ">=14.0.0"
   },
   "dependencies": {
+    "@ivy/configs": "workspace:*",
     "@types/webpack-env": "^1.18.0",
     "axios": "^1.2.6",
     "dayjs": "^1.11.7",
