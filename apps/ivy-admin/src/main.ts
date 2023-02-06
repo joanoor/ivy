@@ -5,9 +5,8 @@ import { setupRouterGuard } from './middleware' // 路由导航守卫
 import { setupStyles } from './styles' // 样式
 import { setupStore } from './store' // pinia
 import { setupPlugins } from './plugins' // 插件
-import {setupGlobDirectives} from './directives'
-// import { setupErrorHandle } from '/@/logics/error-handle';
-
+import { setupGlobDirectives } from './directives'
+import { setupErrorHandle } from '@/libs/error' // 错误处理
 
 // 仿nest.js启动
 async function bootstrap() {
@@ -17,6 +16,8 @@ async function bootstrap() {
   setupRouterGuard(router)
   setupPlugins(app)
   setupStyles()
+  setupErrorHandle(app)
+  setupGlobDirectives(app)
   app.mount('#app')
 }
 

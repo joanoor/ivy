@@ -3,13 +3,24 @@
     "composite": true,
     "module": "ESNext",
     "moduleResolution": "Node",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "#/*": [
+        "types/*"
+      ],
+    }
   },
   "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
     "build/**/*.ts",
     "vite.config.ts",
     "mock/**/*.ts",
-    "./types/**/*.ts",
+    "types/**/*.ts",
     "node_modules/@ivy/configs/global.d.ts"
   ]
 }
