@@ -111,6 +111,7 @@ importers:
       '@ivy/request': workspace:*
       '@types/crypto-js': ^4.1.1
       '@types/nprogress': ^0.2.0
+      '@unocss/core': ^0.49.4
       '@unocss/reset': ^0.49.1
       '@vitejs/plugin-legacy': ^3.0.2
       '@vitejs/plugin-vue': ^4.0.0
@@ -149,6 +150,7 @@ importers:
       '@ivy/core': link:../../packages/core
       '@ivy/form': link:../../packages/form
       '@ivy/request': link:../../packages/request
+      '@unocss/core': 0.49.4
       '@unocss/reset': 0.49.1
       '@vueuse/core': 9.12.0_vue@3.2.45
       crypto-js: 4.1.1
@@ -1902,6 +1904,10 @@ packages:
   /@unocss/core/0.49.1:
     resolution: {integrity: sha512-l+L1c8eCwfaQA1sAYDE+xJ+r9ocfyTo9KzRUOIy5eV/wxC82HoLtJN8wIGuWaY8fGQh/gT74Czfq7g7BFNKhaw==}
     dev: true
+
+  /@unocss/core/0.49.4:
+    resolution: {integrity: sha512-1RNV+KBgRo0uuaa5Etwc5cfxkdhJelIXRFz3LeXBOU4dIrTzBAMr352M+oZ/nnkbnAROGf3icTE0UcmSaCA2RQ==}
+    dev: false
 
   /@unocss/inspector/0.49.1:
     resolution: {integrity: sha512-oC/FOtOCcVP3Yp0me3/2+c/X5OVEnstFKmdEimuJB+z0G8j9l2SLHSqJfBMQm2TCH359sZkybk0kiMg5luwXPA==}

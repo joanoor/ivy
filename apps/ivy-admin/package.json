@@ -9,12 +9,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ivy/core": "workspace:*",
-    "@ivy/request": "workspace:*",
-    "@ivy/form": "workspace:*",
+    "@element-plus/icons-vue": "^2.0.10",
     "@ivy/chart": "workspace:*",
     "@ivy/configs": "workspace:*",
-    "@element-plus/icons-vue": "^2.0.10",
+    "@ivy/core": "workspace:*",
+    "@ivy/form": "workspace:*",
+    "@ivy/request": "workspace:*",
+    "@unocss/core": "^0.49.4",
     "@unocss/reset": "^0.49.1",
     "@vueuse/core": "^9.12.0",
     "crypto-js": "^4.1.1",

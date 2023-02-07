@@ -3,7 +3,13 @@
  *
  * 如果这里进行了配置，则无需在vite插件中在进行配置，只需要引入插件即可。参见：https://juejin.cn/post/7142466784971456548
  */
-import { defineConfig, presetUno, presetIcons, presetAttributify } from 'unocss'
+import {
+  presetUno,
+  presetIcons,
+  presetAttributify,
+  defineConfig,
+  UserConfig,
+} from 'unocss'
 
 export default defineConfig({
   presets: [
@@ -55,4 +61,4 @@ export default defineConfig({
       },
     },
   ],
-})
+} as UserConfig)

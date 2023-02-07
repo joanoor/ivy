@@ -1,6 +1,6 @@
 import type { LocaleType } from '../types/config'
 
-import { set } from 'lodash-es'
+import { set } from '@ivy/core'
 
 export const loadLocalePool: LocaleType[] = []
 
