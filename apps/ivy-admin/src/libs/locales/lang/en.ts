@@ -1,12 +1,12 @@
-import { genMessage } from '../helper';
-import antdLocale from 'ant-design-vue/es/locale/en_US';
+import { genMessage } from '../helper'
+import elementLocale from 'ant-design-vue/es/locale/en_US'
 
-const modules = import.meta.globEager('./en/**/*.ts');
+const modules = import.meta.globEager('./en/**/*.ts')
 export default {
   message: {
     ...genMessage(modules, 'en'),
-    antdLocale,
+    elementLocale,
   },
   dateLocale: null,
   dateLocaleName: 'en',
-};
+}

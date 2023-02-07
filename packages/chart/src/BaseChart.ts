@@ -22,7 +22,7 @@ import type {
   AxisTickOption2,
   ChartType,
   SplitLineOption2,
-} from '../types'
+} from './types'
 
 // type RadiusAxisOption2 = EChartsOption['radiusAxis']
 

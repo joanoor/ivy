@@ -1,6 +1,6 @@
 import { visualizer } from 'rollup-plugin-visualizer'
 import { PluginOption } from 'vite'
-import { isReportMode } from '../utils'
+import { isReportMode } from '../../utils'
 
 export function configVisualizerConfig() {
   if (isReportMode()) {

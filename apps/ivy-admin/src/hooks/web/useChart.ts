@@ -1,9 +1,8 @@
-import { createChart } from '@ivy/chart'
-import type { EChartsOption } from 'echarts'
+import MyEcharts, { createChart } from '@ivy/chart'
 import { ref, Ref, unref } from 'vue'
 
 export default function (
-  chartOption: EChartsOption,
+  chartOption: MyEcharts.EChartsOption,
   option: {
     lazy: false
   }

@@ -7,7 +7,7 @@ import * as echarts from 'echarts'
 import type { ECharts, EChartsOption, EChartsCoreOption } from 'echarts'
 import elementResizeDetectorMaker from 'element-resize-detector'
 import { debounce } from 'lodash-es'
-import type { MoreOpt, ThemeOpt } from '../types'
+import type { MoreOpt, ThemeOpt } from './types'
 
 export class IChart {
   private echartInstance: ECharts

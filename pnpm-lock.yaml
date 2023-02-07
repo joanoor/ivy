@@ -4,7 +4,11 @@ importers:
 
   .:
     specifiers:
+      '@ivy/chart': workspace:*
       '@ivy/configs': workspace:*
+      '@ivy/core': workspace:*
+      '@ivy/form': workspace:*
+      '@ivy/request': workspace:*
       '@rollup/plugin-node-resolve': ^15.0.1
       '@types/deepmerge': ^2.2.0
       '@types/expect-puppeteer': ^4.4.7
@@ -22,7 +26,6 @@ importers:
       '@typescript-eslint/parser': ^5.9.1
       axios: ^1.2.6
       axios-mock-adapter: ^1.21.1
-      chalk: ^5.2.0
       coveralls: ^3.1.1
       dayjs: ^1.11.7
       deepmerge: ^4.3.0
@@ -38,6 +41,7 @@ importers:
       jest-mock-console: ^2.0.0
       lodash-es: ^4.17.21
       mockjs: ^1.1.0
+      picocolors: ^1.0.0
       prettier: latest
       qs: ^6.11.0
       rollup: ^3.12.0
@@ -47,7 +51,11 @@ importers:
       turbo: latest
       typescript: ^4.9.5
     dependencies:
+      '@ivy/chart': link:packages/chart
       '@ivy/configs': link:packages/configs
+      '@ivy/core': link:packages/core
+      '@ivy/form': link:packages/form
+      '@ivy/request': link:packages/request
       '@types/webpack-env': 1.18.0
       axios: 1.2.6
       dayjs: 1.11.7
@@ -70,7 +78,6 @@ importers:
       '@typescript-eslint/eslint-plugin': 5.49.0_m6tbzvr4xlk3mnjhhcnwwtg7r4
       '@typescript-eslint/parser': 5.49.0_4vsywjlpuriuw3tl5oq6zy5a64
       axios-mock-adapter: 1.21.2_axios@1.2.6
-      chalk: 5.2.0
       coveralls: 3.1.1
       dotenv: 16.0.3
       eslint: 8.33.0
@@ -83,6 +90,7 @@ importers:
       jest-location-mock: 1.0.9
       jest-mock-console: 2.0.0_jest@28.1.3
       mockjs: 1.1.0
+      picocolors: 1.0.0
       prettier: 2.8.3
       rollup: 3.12.0
       rollup-plugin-visualizer: 5.9.0_rollup@3.12.0
@@ -101,15 +109,19 @@ importers:
       '@ivy/core': workspace:*
       '@ivy/form': workspace:*
       '@ivy/request': workspace:*
+      '@types/crypto-js': ^4.1.1
       '@types/nprogress': ^0.2.0
       '@unocss/reset': ^0.49.1
       '@vitejs/plugin-legacy': ^3.0.2
       '@vitejs/plugin-vue': ^4.0.0
       '@vitejs/plugin-vue-jsx': ^3.0.0
       '@vueuse/core': ^9.12.0
+      crypto-js: ^4.1.1
       element-plus: ^2.2.28
+      mitt: ^3.0.0
       pinia: ^2.0.29
       pinia-plugin-persistedstate: ^3.0.2
+      resize-observer-polyfill: ^1.5.1
       sass: ^1.58.0
       store2: ^2.14.2
       terser: ^5.16.2
@@ -126,6 +138,7 @@ importers:
       vite-plugin-style-import: ^2.0.0
       vite-plugin-vue-setup-extend: ^0.4.0
       vue: ^3.2.45
+      vue-i18n: ^9.2.2
       vue-router: ^4.1.6
       vue-tsc: ^1.0.11
       xlsx: ^0.18.5
@@ -138,16 +151,21 @@ importers:
       '@ivy/request': link:../../packages/request
       '@unocss/reset': 0.49.1
       '@vueuse/core': 9.12.0_vue@3.2.45
+      crypto-js: 4.1.1
       element-plus: 2.2.28_vue@3.2.45
+      mitt: 3.0.0
       pinia: 2.0.29_2hxmazfbcwwtly5fgw7ckvmlau
       pinia-plugin-persistedstate: 3.0.2_pinia@2.0.29
+      resize-observer-polyfill: 1.5.1
       store2: 2.14.2
       vue: 3.2.45
+      vue-i18n: 9.2.2_vue@3.2.45
       vue-router: 4.1.6_vue@3.2.45
       xlsx: 0.18.5
     devDependencies:
       '@iconify-json/ant-design': 1.1.4
       '@iconify-json/ep': 1.1.8
+      '@types/crypto-js': 4.1.1
       '@types/nprogress': 0.2.0
       '@vitejs/plugin-legacy': 3.0.2_terser@5.16.2+vite@4.0.4
       '@vitejs/plugin-vue': 4.0.0_vite@4.0.4+vue@3.2.45
@@ -170,12 +188,10 @@ importers:
 
   packages/chart:
     specifiers:
-      '@ivy/configs': workspace:*
       '@types/element-resize-detector': ^1.1.3
       echarts: ^5.2.2
       element-resize-detector: ^1.2.4
     dependencies:
-      '@ivy/configs': link:../configs
       '@types/element-resize-detector': 1.1.3
       echarts: 5.4.1
       element-resize-detector: 1.2.4
@@ -188,29 +204,18 @@ importers:
 
   packages/core:
     specifiers:
-      '@ivy/configs': workspace:*
       is-promise: ^4.0.0
     dependencies:
-      '@ivy/configs': link:../configs
       is-promise: 4.0.0
 
   packages/form:
     specifiers:
-      '@ivy/configs': workspace:*
-      '@ivy/core': workspace:*
       async-validator: ^4.2.5
     dependencies:
-      '@ivy/configs': link:../configs
-      '@ivy/core': link:../core
       async-validator: 4.2.5
 
   packages/request:
-    specifiers:
-      '@ivy/configs': workspace:*
-      '@ivy/core': workspace:*
-    dependencies:
-      '@ivy/configs': link:../configs
-      '@ivy/core': link:../core
+    specifiers: {}
 
 packages:
 
@@ -939,6 +944,44 @@ packages:
       - supports-color
     dev: true
 
+  /@intlify/core-base/9.2.2:
+    resolution: {integrity: sha512-JjUpQtNfn+joMbrXvpR4hTF8iJQ2sEFzzK3KIESOx+f+uwIjgw20igOyaIdhfsVVBCds8ZM64MoeNSx+PHQMkA==}
+    engines: {node: '>= 14'}
+    dependencies:
+      '@intlify/devtools-if': 9.2.2
+      '@intlify/message-compiler': 9.2.2
+      '@intlify/shared': 9.2.2
+      '@intlify/vue-devtools': 9.2.2
+    dev: false
+
+  /@intlify/devtools-if/9.2.2:
+    resolution: {integrity: sha512-4ttr/FNO29w+kBbU7HZ/U0Lzuh2cRDhP8UlWOtV9ERcjHzuyXVZmjyleESK6eVP60tGC9QtQW9yZE+JeRhDHkg==}
+    engines: {node: '>= 14'}
+    dependencies:
+      '@intlify/shared': 9.2.2
+    dev: false
+
+  /@intlify/message-compiler/9.2.2:
+    resolution: {integrity: sha512-IUrQW7byAKN2fMBe8z6sK6riG1pue95e5jfokn8hA5Q3Bqy4MBJ5lJAofUsawQJYHeoPJ7svMDyBaVJ4d0GTtA==}
+    engines: {node: '>= 14'}
+    dependencies:
+      '@intlify/shared': 9.2.2
+      source-map: 0.6.1
+    dev: false
+
+  /@intlify/shared/9.2.2:
+    resolution: {integrity: sha512-wRwTpsslgZS5HNyM7uDQYZtxnbI12aGiBZURX3BTR9RFIKKRWpllTsgzHWvj3HKm3Y2Sh5LPC1r0PDCKEhVn9Q==}
+    engines: {node: '>= 14'}
+    dev: false
+
+  /@intlify/vue-devtools/9.2.2:
+    resolution: {integrity: sha512-+dUyqyCHWHb/UcvY1MlIpO87munedm3Gn6E9WWYdWrMuYLcoIoOEVDWSS8xSwtlPU+kA+MEQTP6Q1iI/ocusJg==}
+    engines: {node: '>= 14'}
+    dependencies:
+      '@intlify/core-base': 9.2.2
+      '@intlify/shared': 9.2.2
+    dev: false
+
   /@istanbuljs/load-nyc-config/1.1.0:
     resolution: {integrity: sha512-VjeHSlIzpv/NyD3N0YuHfXOPDIixcA1q2ZV98wsMqcYlPmv2n3Yb2lYP9XMElnaFVXg5A7YLTeLu6V84uQDjmQ==}
     engines: {node: '>=8'}
@@ -1491,6 +1534,10 @@ packages:
     resolution: {integrity: sha512-1kbcJ40lLB7MHsj39U4Sh1uTd2E7rLEa79kmDpI6cy+XiXsteB3POdQomoq4FxszMrO3ZYchkhYJw7A2862b3w==}
     dependencies:
       '@babel/types': 7.20.7
+    dev: true
+
+  /@types/crypto-js/4.1.1:
+    resolution: {integrity: sha512-BG7fQKZ689HIoc5h+6D2Dgq1fABRa0RbBWKBd9SP/MVRVXROflpm5fhwyATX5duFmbStzyzyycPB8qUYKDH3NA==}
     dev: true
 
   /@types/deepmerge/2.2.0:
@@ -3005,6 +3052,10 @@ packages:
       shebang-command: 2.0.0
       which: 2.0.2
     dev: true
+
+  /crypto-js/4.1.1:
+    resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==}
+    dev: false
 
   /css-select/4.3.0:
     resolution: {integrity: sha512-wPpOYtnsVontu2mODhA19JrqWxNsfdatRKd64kmpRbQgh1KtItko5sTnEpPdpSaJszTOhEMlF/RPz28qj4HqhQ==}
@@ -5620,6 +5671,10 @@ packages:
       yallist: 4.0.0
     dev: true
 
+  /mitt/3.0.0:
+    resolution: {integrity: sha512-7dX2/10ITVyqh4aOSVI9gdape+t9l2/8QxHrFmUXu4EEUpdlxl6RudZUPZoc+zuY2hk1j7XxVroIVIan/pD/SQ==}
+    dev: false
+
   /mixin-deep/1.3.2:
     resolution: {integrity: sha512-WRoDn//mXBiJ1H40rqa3vH0toePwSsGb45iInWlTySa+Uu4k3tYUSxa2v1KqAiLtvlrSzaExqS1gtk96A9zvEA==}
     engines: {node: '>=0.10.0'}
@@ -6353,6 +6408,10 @@ packages:
   /requires-port/1.0.0:
     resolution: {integrity: sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==}
     dev: true
+
+  /resize-observer-polyfill/1.5.1:
+    resolution: {integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==}
+    dev: false
 
   /resolve-cwd/3.0.0:
     resolution: {integrity: sha512-OrZaX2Mb+rJCpH/6CpSqt9xFVpN++x01XnN2ie9g6P5/3xelLAkXWVADpdz1IHD/KFfEXyE6V0U01OQ3UO2rEg==}
@@ -7676,6 +7735,19 @@ packages:
         optional: true
     dependencies:
       vue: 3.2.45
+
+  /vue-i18n/9.2.2_vue@3.2.45:
+    resolution: {integrity: sha512-yswpwtj89rTBhegUAv9Mu37LNznyu3NpyLQmozF3i1hYOhwpG8RjcjIFIIfnu+2MDZJGSZPXaKWvnQA71Yv9TQ==}
+    engines: {node: '>= 14'}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      '@intlify/core-base': 9.2.2
+      '@intlify/shared': 9.2.2
+      '@intlify/vue-devtools': 9.2.2
+      '@vue/devtools-api': 6.5.0
+      vue: 3.2.45
+    dev: false
 
   /vue-router/4.1.6_vue@3.2.45:
     resolution: {integrity: sha512-DYWYwsG6xNPmLq/FmZn8Ip+qrhFEzA14EI12MsMgVxvHFDYvlr4NXpVF5hrRH1wVcDP8fGi5F4rxuJSl8/r+EQ==}

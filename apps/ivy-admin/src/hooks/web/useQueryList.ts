@@ -2,7 +2,7 @@
  * 不带分页的列表
  */
 
-import { reactive, toRefs, UnwrapRef, onMounted, watch, ref, Ref } from 'vue'
+import { reactive, toRefs, UnwrapRef, onMounted, ref, Ref } from 'vue'
 import type { RequestOptions } from '@ivy/request'
 import { textSize } from '@ivy/core'
 import { useGlobalStore } from '@/store'
@@ -123,9 +123,9 @@ export default function <
           const tmpColumn = customColumns.find(column => column.name === v.name)
           return tmpColumn
             ? {
-              ...v,
-              ...tmpColumn,
-            }
+                ...v,
+                ...tmpColumn,
+              }
             : v
         })
 

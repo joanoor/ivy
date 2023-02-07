@@ -1,5 +1,5 @@
 import type { Alias } from 'vite'
-import { pathResolve } from './utils'
+import { pathResolve } from '../utils'
 
 export function configAlias(): Alias[] {
   return [

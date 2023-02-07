@@ -3,7 +3,7 @@ import {
   MenuModeEnum,
   TriggerEnum,
   MixSidebarTriggerEnum,
-} from '@/libs/enums/menuEnum'
+} from '../enums/menuEnum'
 import {
   ContentEnum,
   PermissionModeEnum,
@@ -11,9 +11,9 @@ import {
   RouterTransitionEnum,
   SettingButtonPositionEnum,
   SessionTimeoutProcessingEnum,
-} from '@/libs/enums/appEnum'
+} from '../enums/appEnum'
 
-import { CacheTypeEnum } from '@/libs/enums/cacheEnum'
+import { CacheTypeEnum } from '../enums/cacheEnum'
 
 export type LocaleType = 'zh_CN' | 'en' | 'ru' | 'ja' | 'ko'
 
@@ -153,6 +153,7 @@ export interface GlobConfig {
   // Project abbreviation
   shortName: string
 }
+
 export interface GlobEnvConfig {
   // Site title
   VITE_GLOB_APP_TITLE: string

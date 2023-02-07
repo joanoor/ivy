@@ -1,9 +1,4 @@
-import type {
-  BarSeriesOption,
-  XAXisComponentOption,
-} from 'echarts'
-
-
+import type { BarSeriesOption, XAXisComponentOption } from 'echarts'
 
 export type ChartType =
   | 'mix'
@@ -22,8 +17,6 @@ export type ChartType =
   | 'gauge'
   | 'polarBar'
   | 'sunburst'
-
-
 
 export interface CreateChartConfig {
   chartType?: ChartType
@@ -53,5 +46,3 @@ export type AxisLabelOption2 = PropValue<XAXisComponentOption, 'axisLabel'>
 export type SplitLineOption2 = XAXisComponentOption['splitLine']
 export type AxisLineOption2 = PropValue<XAXisComponentOption, 'axisLine'>
 export type AxisPointerOption2 = PropValue<XAXisComponentOption, 'axisPointer'>
-
-

@@ -1,23 +1,14 @@
 {
+  "extends": "./node_modules/@ivy/configs/base.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
     "useDefineForClassFields": true,
     "jsx": "preserve",
     "sourceMap": true,
     "isolatedModules": true,
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
     "skipLibCheck": true,
     "types": [
       "element-plus/global"
     ],
-    "strict": true,
     "baseUrl": "./",
     "paths": {
       "@/*": [
@@ -27,16 +18,16 @@
         "types/*"
       ],
       "@ivy/core": [
-        "../../packages/core/src"
+        "../../packages/core"
       ],
       "@ivy/chart": [
-        "../../packages/chart/src"
+        "../../packages/chart"
       ],
       "@ivy/request": [
-        "../../packages/request/src"
+        "../../packages/request"
       ],
       "@ivy/form": [
-        "../../packages/form/src"
+        "../../packages/form"
       ],
     },
   },

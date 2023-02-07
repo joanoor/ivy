@@ -10,16 +10,16 @@ export function configHtmlPlugin(env: ViteEnv, isBuild: boolean) {
         title: VITE_GLOB_APP_TITLE,
         minaScript: `
         <!-- 1. 引入dayjs -->
-        <script src="./js/dayjs.min.js"></script>
-        <script src="./js/isLeapYear.js"></script>
-        <script src="./js/quarterOfYear.min.js"></script>
+        <script src="./js/cdnjs/dayjs.min.js"></script>
+        <script src="./js/cdnjs/isLeapYear.js"></script>
+        <script src="./js/cdnjs/quarterOfYear.min.js"></script>
       
         <!-- 2. 引入nprogress -->
-        <script src="./js/nprogress.min.js"></script>
-        <link href="./js/nprogress.min.css" rel="stylesheet" />
+        <script src="./js/cdnjs/nprogress.min.js"></script>
+        <link href="./js/cdnjs/nprogress.min.css" rel="stylesheet" />
       
         <!-- 3. 引入gsap 3.11.1版本 -->
-        <script src="./js/gsap.min.js"></script>
+        <script src="./js/cdnjs/gsap.min.js"></script>
       
       
         <!-- 4. 引入打印 -->
@@ -30,15 +30,15 @@ export function configHtmlPlugin(env: ViteEnv, isBuild: boolean) {
         `,
         minaConfigScript: `
         <!-- 引入gsap相关动画插件 3.11.1版本 -->
-        <script src="./js/TextPlugin.min.js"></script>
-        <script src="./js/ScrollTrigger.min.js"></script>
-        <script src="./js/ScrollToPlugin.min.js"></script>
-        <script src="./js/PixiPlugin.min.js"></script>
-        <script src="./js/Observer.min.js"></script>
-        <script src="./js/MotionPathPlugin.min.js"></script>
-        <script src="./js/Flip.min.js"></script>
-        <script src="./js/CSSRulePlugin.min.js"></script>
-        <script src="./js/Draggable.min.js"></script>
+        <script src="./js/cdnjs/TextPlugin.min.js"></script>
+        <script src="./js/cdnjs/ScrollTrigger.min.js"></script>
+        <script src="./js/cdnjs/ScrollToPlugin.min.js"></script>
+        <script src="./js/cdnjs/PixiPlugin.min.js"></script>
+        <script src="./js/cdnjs/Observer.min.js"></script>
+        <script src="./js/cdnjs/MotionPathPlugin.min.js"></script>
+        <script src="./js/cdnjs/Flip.min.js"></script>
+        <script src="./js/cdnjs/CSSRulePlugin.min.js"></script>
+        <script src="./js/cdnjs/Draggable.min.js"></script>
         `,
       },
     },

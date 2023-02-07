@@ -1,4 +1,4 @@
-import { debounce } from '@ivy/chart'
+import { debounce } from '@ivy/core'
 import { onMounted, ref } from 'vue'
 const marginRight = 48
 export default function () {

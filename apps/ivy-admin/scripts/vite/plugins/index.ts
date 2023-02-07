@@ -16,7 +16,7 @@ import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import UnpluginSvgComponent from 'unplugin-svg-component/vite'
-import { pathResolve } from '../utils'
+import { pathResolve } from '../../utils'
 
 export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   const {

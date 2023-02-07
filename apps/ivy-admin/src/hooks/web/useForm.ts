@@ -2,12 +2,7 @@
  * 与表单相关的操作
  */
 
-import {
-  cloneDeep,
-  isString,
-  _console,
-  genRandomString,
-} from '@ivy/core'
+import { cloneDeep, isString, _console, genRandomString } from '@ivy/core'
 import { generateFormAndRules, BaseStruct, RuleItem } from '@ivy/form'
 import {
   ref,
@@ -275,7 +270,7 @@ export default function <FormStruct>(
     nextTick(() => {
       // 必须要放在nextTick中执行，否则如果一开始就会给表单赋初值，当重置表单的时候就不对了
       for (const prop of Object.keys(data.form as Recordable)) {
-        ; (data.form as Recordable)[prop] = obj[prop]
+        ;(data.form as Recordable)[prop] = obj[prop]
       }
     })
   }

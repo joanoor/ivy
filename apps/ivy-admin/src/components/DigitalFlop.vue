@@ -1,31 +1,31 @@
 <template>
-  <p>{{convertToThousands(count)}}</p>
+  <p>{{ convertToThousands(count) }}</p>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
 import { convertToThousands } from '@ivy/core'
 
-
-const props = withDefaults(defineProps<{
-  s?: number
-  digit: number
-}>(), {
-  s: 50,
-  digit: 0
-})
+const props = withDefaults(
+  defineProps<{
+    s?: number
+    digit: number
+  }>(),
+  {
+    s: 50,
+    digit: 0,
+  }
+)
 
 let dflopTimer: NodeJS.Timer
-const digitRef = ref<HTMLSpanElement>()
 let step = parseInt(props.digit / props.s + '')
-let tmpN = ref(0)  // 临时值，用于计算
-let count = ref(0)  // 记录每一次计算的结果，作为下一次的初始值
+let tmpN = ref(0) // 临时值，用于计算
+let count = ref(0) // 记录每一次计算的结果，作为下一次的初始值
 
 const flopFunc = () => {
-  console.log(`执行flopFunc`,)
+  console.log(`执行flopFunc`)
   dflopTimer = setInterval(() => {
     if (props.digit > count.value) {
-
       tmpN.value += step
       if (tmpN.value > props.digit) {
         clearInterval(dflopTimer)

@@ -1,19 +1,19 @@
 {
   "extends": "./node_modules/@ivy/configs/base.json",
   "compilerOptions": {
-    "baseUrl": "./packages",
+    "baseUrl": "./",
     "paths": {
       "@ivy/core": [
-        "core/src"
+        "./packages/core"
       ],
       "@ivy/chart": [
-        "chart/src"
+        "./packages/chart"
       ],
       "@ivy/request": [
-        "request/src"
+        "./packages/request"
       ],
       "@ivy/form": [
-        "form/src"
+        "./packages/form"
       ],
     }
   },

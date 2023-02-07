@@ -1,4 +1,4 @@
-import type { ErrorLogInfo } from '#/store'
+import type { ErrorLogInfo } from '@/libs/types/store'
 
 import { defineStore } from 'pinia'
 import { store } from '@/store'
@@ -46,7 +46,7 @@ export const useErrorLogStore = defineStore({
      * @param error
      * @returns
      */
-    addAjaxErrorInfo(error) {
+    addAjaxErrorInfo(error: any) {
       // const { useErrorHandle } = projectSetting;
       // if (!useErrorHandle) {
       //   return;

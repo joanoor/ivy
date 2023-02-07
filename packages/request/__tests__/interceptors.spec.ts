@@ -1,4 +1,4 @@
-import { createAxios, checkStatus } from '../src/index'
+import { createAxios, checkStatus } from '../index'
 import sys from '../src/sys'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'

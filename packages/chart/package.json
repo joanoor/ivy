@@ -2,9 +2,9 @@
   "name": "@ivy/chart",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,7 +14,6 @@
   "dependencies": {
     "@types/element-resize-detector": "^1.1.3",
     "echarts": "^5.2.2",
-    "element-resize-detector": "^1.2.4",
-    "@ivy/configs": "workspace:*"
+    "element-resize-detector": "^1.2.4"
   }
 }

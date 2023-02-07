@@ -2,9 +2,9 @@
   "name": "@ivy/form",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,8 +12,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@ivy/core": "workspace:*",
-    "@ivy/configs": "workspace:*",
     "async-validator": "^4.2.5"
   }
 }

@@ -3,6 +3,7 @@ import 'element-plus/es/components/message/style/css'
 import { ElMessage } from 'element-plus'
 import store from 'store2'
 import { Result } from '@/api/types'
+import { useErrorLogStoreWithOut } from '@/store'
 
 export const http = createAxios({
   baseURL:
@@ -42,7 +43,7 @@ export const http = createAxios({
         token &&
         (config as Recordable)?.requestOptions?.withToken !== false
       ) {
-        ; (config as Recordable).headers['Authorization'] =
+        ;(config as Recordable).headers['Authorization'] =
           options.authenticationScheme
             ? `${options.authenticationScheme} ${token}`
             : token
@@ -51,12 +52,15 @@ export const http = createAxios({
       return config
     },
 
-    responseInterceptorsCatch: (instance, err) => {
+    // 响应错误拦截，拦截的是网络错误
+    responseInterceptorsCatch: (_instance, err) => {
+      const errorLogStore = useErrorLogStoreWithOut()
+      errorLogStore.addAjaxErrorInfo(err)
       // @ts-ignore
       const errorMessage = err.message ?? (err.response?.data as any)?.message
       ElMessage.error(errorMessage)
       return Promise.reject(err)
-    }
+    },
   },
   requestOptions: {
     isTransformResponse: true,

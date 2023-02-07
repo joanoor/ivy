@@ -12,6 +12,21 @@
       </transition>
     </router-view>
   </el-config-provider>
+  <el-dialog
+    title="提示"
+    v-model="dialogShow"
+    align-center
+    append-to-body
+    width="30%"
+  >
+    <span></span>
+    <template #footer>
+      <span>
+        <el-button @click="dialogShow = false">Cancel</el-button>
+        <el-button type="primary" @click="">OK</el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
 
 <script setup lang="ts">

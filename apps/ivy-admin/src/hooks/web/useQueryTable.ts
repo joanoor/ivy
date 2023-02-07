@@ -141,9 +141,9 @@ export default function <
           const tmpColumn = customColumns.find(column => column.name === v.name)
           return tmpColumn
             ? {
-              ...v,
-              ...tmpColumn,
-            }
+                ...v,
+                ...tmpColumn,
+              }
             : v
         })
 

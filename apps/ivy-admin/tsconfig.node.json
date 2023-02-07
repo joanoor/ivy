@@ -1,23 +1,11 @@
 {
+  "extends": "./node_modules/@ivy/configs/base.json",
   "compilerOptions": {
     "composite": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "./",
-    "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "#/*": [
-        "types/*"
-      ],
-    }
+    "allowSyntheticDefaultImports": true
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "build/**/*.ts",
+    "scripts/**/*.ts",
     "vite.config.ts",
     "mock/**/*.ts",
     "types/**/*.ts",
