@@ -1,7 +1,7 @@
 /**
  * Multi-language related operations
  */
-import type { LocaleType } from '@/libs/types/config'
+import type { LocaleType } from '@/libs/types'
 
 import { i18n } from './setupI18n'
 import { useLocaleStoreWithOut } from '@/store'
