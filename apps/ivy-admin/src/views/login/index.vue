@@ -65,6 +65,7 @@ const loading = ref(false)
 const { loginFormRef, loginForm, loginFormRules, handleLoginForm } = useLogin()
 
 const { timeSayHello, projectName } = useCommon()
+throw new Error(' 错除了')
 
 // 背景视频控制
 const controlVideoPlaySpeed = () => {
