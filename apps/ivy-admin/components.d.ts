@@ -7,6 +7,14 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AppDarkModeToggle: typeof import('./src/components/Applicatioin/src/AppDarkModeToggle.vue')['default']
+    AppLocalePicker: typeof import('./src/components/Applicatioin/src/AppLocalePicker.vue')['default']
+    AppLogo: typeof import('./src/components/Applicatioin/src/AppLogo.vue')['default']
+    AppProvider: typeof import('./src/components/Applicatioin/src/AppProvider.vue')['default']
+    AppSearch: typeof import('./src/components/Applicatioin/src/search/AppSearch.vue')['default']
+    AppSearchFooter: typeof import('./src/components/Applicatioin/src/search/AppSearchFooter.vue')['default']
+    AppSearchKeyItem: typeof import('./src/components/Applicatioin/src/search/AppSearchKeyItem.vue')['default']
+    AppSearchModal: typeof import('./src/components/Applicatioin/src/search/AppSearchModal.vue')['default']
     BoxContainer: typeof import('./src/components/BoxContainer.vue')['default']
     ButtonList: typeof import('./src/components/ButtonList.vue')['default']
     Card: typeof import('./src/components/Card.vue')['default']

@@ -10,7 +10,7 @@ import type {
 
 declare module 'vue' {
   export type JSXComponent<Props = any> =
-    | { new(): ComponentPublicInstance<Props> }
+    | { new (): ComponentPublicInstance<Props> }
     | FunctionalComponent<Props>
 }
 
@@ -47,7 +47,6 @@ declare global {
 
   // vue
 
-
   // VITE环境配置
   interface ViteEnv {
     VITE_PORT: number
@@ -67,13 +66,13 @@ declare global {
   }
 }
 
-interface ImportMetaEnv extends ViteEnv {
+declare interface ImportMetaEnv extends ViteEnv {
   readonly VITE_APP_TITLE: string
   readonly VITE_APP_BASEAPI_DEV: string
   readonly VITE_APP_BASEAPI_PROD: string
   // 更多环境变量...
 }
 
-interface ImportMeta {
+declare interface ImportMeta {
   readonly env: ImportMetaEnv
 }

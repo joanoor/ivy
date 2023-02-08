@@ -1,4 +1,9 @@
-import type { Cache } from './types'
+interface Cache<T = any> {
+  value?: T
+  timeoutId?: ReturnType<typeof setTimeout>
+  time?: number
+  alive?: number
+}
 
 const NOT_ALIVE = 0
 
@@ -15,7 +20,7 @@ export class Memory<T = any, V = any> {
     return this.cache
   }
 
-  setCache(cache: any) {
+  setCache(cache: Recordable) {
     this.cache = cache
   }
 

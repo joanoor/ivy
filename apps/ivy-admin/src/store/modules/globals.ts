@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
 import { getAllOrgList, getAllOrgTree, queryDict } from '@/api'
 import { ResponseOrgStruct } from '@/api/dossier/terminalType'
-import { DICT_FIELDS } from '@/libs/constant'
-import { DictType,DictionaryStruct } from '@/libs/types'
+import { DictType, DictionaryStruct } from '@/libs/types'
+import { DICT_FIELDS } from '@/libs/enums/dictEnum'
 
 export const useGlobalStore = defineStore('globals', {
   state: () => ({

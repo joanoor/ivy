@@ -15,6 +15,12 @@
       "@ivy/form": [
         "./packages/form"
       ],
+      "@ivy/cache": [
+        "./packages/cache"
+      ],
+      "@ivy/cipher": [
+        "./packages/cipher"
+      ],
     }
   },
   "include": [

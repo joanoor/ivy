@@ -59,6 +59,8 @@
     "@ivy/request": "workspace:*",
     "@ivy/form": "workspace:*",
     "@ivy/chart": "workspace:*",
+    "@ivy/cipher": "workspace:*",
+    "@ivy/cache": "workspace:*",
     "@ivy/configs": "workspace:*",
     "@types/webpack-env": "^1.18.0",
     "axios": "^1.2.6",

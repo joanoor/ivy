@@ -2,6 +2,7 @@
   "extends": "./node_modules/@ivy/configs/base.json",
   "compilerOptions": {
     "useDefineForClassFields": true,
+    "experimentalDecorators": true,
     "jsx": "preserve",
     "sourceMap": true,
     "isolatedModules": true,
@@ -9,7 +10,7 @@
     "types": [
       "element-plus/global"
     ],
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       "@/*": [
         "src/*"
@@ -28,6 +29,12 @@
       ],
       "@ivy/form": [
         "../../packages/form"
+      ],
+      "@ivy/cache": [
+        "../../packages/cache"
+      ],
+      "@ivy/cipher": [
+        "../../packages/cipher"
       ],
     },
   },

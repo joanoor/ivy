@@ -1,25 +1,36 @@
-import { cacheCipher } from '@/libs/settings/encryptionSetting'
-
-import { AesEncryption } from '@/libs/utils/cipher'
+import { AesEncryption } from '@ivy/cipher'
 import { isNullOrUnDef } from '@ivy/core'
 import { CreateStorageParams } from './types'
 
-class WebStorage {
-  /**
-   *
-   * @param {*} storage
-   */
-  constructor(
-    private storage: Storage,
-    private encryption: AesEncryption,
-    private hasEncrypt: boolean,
-    private prefixKey?: string,
-    private timeout: Nullable<number> = null
-  ) {
+interface WebStorageCon extends Omit<CreateStorageParams, 'key' | 'iv'> {
+  encryption: AesEncryption
+}
+
+/**
+ * Cache class
+ * Construction parameters can be passed into localStorage, sessionStorage,
+ * @class Cache
+ * @example
+ */
+export class WebStorage {
+  private storage: Storage
+  private encryption: AesEncryption
+  private hasEncrypt: boolean
+  private prefixKey?: string
+  private timeout: Nullable<number> = null
+
+  constructor({
+    storage,
+    prefixKey,
+    encryption,
+    hasEncrypt,
+    timeout,
+  }: WebStorageCon) {
     this.storage = storage
     this.prefixKey = prefixKey
     this.encryption = encryption
     this.hasEncrypt = hasEncrypt
+    this.timeout = timeout || null
   }
 
   private getKey(key: string) {
@@ -50,7 +61,7 @@ class WebStorage {
   /**
    * Read cache
    * @param {string} key
-   * @param {*} def
+   * @param {*} def 默认值
    * @memberof Cache
    */
   get(key: string, def: any = null): any {
@@ -85,28 +96,4 @@ class WebStorage {
   clear(): void {
     this.storage.clear()
   }
-}
-
-export const createStorage = ({
-  prefixKey = '',
-  storage = sessionStorage,
-  key = cacheCipher.key,
-  iv = cacheCipher.iv,
-  timeout = null,
-  hasEncrypt = true,
-}: Partial<CreateStorageParams> = {}) => {
-  if (hasEncrypt && [key.length, iv.length].some(item => item !== 16)) {
-    throw new Error('When hasEncrypt is true, the key or iv must be 16 bits!')
-  }
-
-  const encryption = new AesEncryption({ key, iv })
-
-  /**
-   * Cache class
-   * Construction parameters can be passed into sessionStorage, localStorage,
-   * @class Cache
-   * @example
-   */
-
-  return new WebStorage(storage, encryption, hasEncrypt, prefixKey, timeout)
 }

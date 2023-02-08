@@ -1,4 +1,4 @@
-import type { LocaleSetting, LocaleType } from '@/libs/types/config'
+import type { LocaleSetting, LocaleType } from '@/libs/types'
 
 export const LOCALE: { [key: string]: LocaleType } = {
   ZH_CN: 'zh_CN',

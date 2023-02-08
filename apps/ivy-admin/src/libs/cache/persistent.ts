@@ -1,5 +1,4 @@
-import { createLocalStorage, createSessionStorage } from '@/libs/cache'
-import { Memory } from './memory'
+import { createLocalStorage, createSessionStorage, Memory } from '@ivy/cache'
 import {
   TOKEN_KEY,
   USER_INFO_KEY,

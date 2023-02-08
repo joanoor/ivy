@@ -1,10 +1,10 @@
-import type { LocaleSetting, LocaleType } from '@/libs/types/config'
+import type { LocaleSetting, LocaleType } from '@/libs/types'
 
 import { defineStore } from 'pinia'
 import { store } from '@/store'
 
 import { LOCALE_KEY } from '@/libs/enums/cacheEnum'
-import { createLocalStorage } from '@/libs/cache'
+import { createLocalStorage } from '@ivy/cache'
 import { localeSetting } from '@/libs/settings/localeSetting'
 
 const ls = createLocalStorage()
@@ -21,9 +21,12 @@ export const useLocaleStore = defineStore({
     localInfo: lsLocaleSetting,
   }),
   getters: {
+    // 是否显示语言选择器
     getShowPicker(): boolean {
       return !!this.localInfo?.showPicker
     },
+
+    // 获取当前语言，默认 简体中文
     getLocale(): LocaleType {
       return this.localInfo?.locale ?? 'zh_CN'
     },
