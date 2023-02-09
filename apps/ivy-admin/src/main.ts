@@ -8,7 +8,6 @@ import { registerGlobComp } from './components'
 import { setupPlugins } from './plugins' // 插件
 import { setupGlobDirectives } from './directives'
 import { setupErrorHandle } from '@/libs/error' // 错误处理
-import { setupI18n } from './libs/locales/setupI18n'
 
 // 仿nest.js启动
 async function bootstrap() {
@@ -25,10 +24,6 @@ async function bootstrap() {
 
   // 路由导航守卫
   setupRouterGuard(router)
-
-  // 多语言配置
-  // 异步案例：语言文件可能从服务器端获取
-  await setupI18n(app)
 
   // 注册全局指令
   setupGlobDirectives(app)

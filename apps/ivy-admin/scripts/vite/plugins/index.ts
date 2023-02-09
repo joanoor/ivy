@@ -70,7 +70,7 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
     Components({
       resolvers: [
         IconsResolver({
-          enabledCollections: ['ant-design', 'ep', 'carbon'],
+          enabledCollections: ['ant-design', 'ep', 'carbon', 'ion'],
           customCollections: ['iemp'],
         }),
         ElementPlusResolver(),

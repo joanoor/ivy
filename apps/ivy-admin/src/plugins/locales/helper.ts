@@ -1,5 +1,4 @@
-import type { LocaleType } from '../types/config'
-
+import type { LocaleType } from '@/libs/types'
 import { set } from '@ivy/core'
 
 export const loadLocalePool: LocaleType[] = []
@@ -12,17 +11,11 @@ export function setLoadLocalePool(cb: (loadLocalePool: LocaleType[]) => void) {
   cb(loadLocalePool)
 }
 
-export function genMessage(
-  langs: Record<string, Record<string, any>>,
-  prefix = 'lang'
-) {
+export function genMessage(langs: Record<string, Recordable>, prefix = 'lang') {
   const obj: Recordable = {}
-
   Object.keys(langs).forEach(key => {
     const langFileModule = langs[key].default
-    let fileName = key.replace(`./${prefix}/`, '').replace(/^\.\//, '')
-    const lastIndex = fileName.lastIndexOf('.')
-    fileName = fileName.substring(0, lastIndex)
+    const fileName = key.replace(`${prefix}/`, '')
     const keyList = fileName.split('/')
     const moduleName = keyList.shift()
     const objKey = keyList.join('.')

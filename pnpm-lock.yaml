@@ -108,6 +108,7 @@ importers:
       '@element-plus/icons-vue': ^2.0.10
       '@iconify-json/ant-design': ^1.1.4
       '@iconify-json/ep': ^1.1.8
+      '@iconify-json/ion': ^1.1.7
       '@ivy/cache': workspace:*
       '@ivy/chart': workspace:*
       '@ivy/cipher': workspace:*
@@ -172,6 +173,7 @@ importers:
     devDependencies:
       '@iconify-json/ant-design': 1.1.4
       '@iconify-json/ep': 1.1.8
+      '@iconify-json/ion': 1.1.7
       '@types/nprogress': 0.2.0
       '@vitejs/plugin-legacy': 3.0.2_terser@5.16.2+vite@4.0.4
       '@vitejs/plugin-vue': 4.0.0_vite@4.0.4+vue@3.2.45
@@ -943,6 +945,12 @@ packages:
 
   /@iconify-json/ep/1.1.8:
     resolution: {integrity: sha512-pHCrsWU1R9/pTDU+Fps4+mjqOQFLtpGdXWegkhQ1P1DlgQAlCPyICtl6E1s8b7VwJMeZXaK84HA02UF6WD0o/Q==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify-json/ion/1.1.7:
+    resolution: {integrity: sha512-HxYWad6XbqoCX8ymbu/Sw93ZDF7VM36WKRNbgZIi6+ZL+uk3vNP9Tj6K2ZOiahANbpYllSlA2MzlX0MAl+LJsQ==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true

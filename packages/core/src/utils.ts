@@ -34,16 +34,28 @@ function easeInOutCubic(value: number) {
  */
 export const _console: Console<string> = {
   log(str) {
-    console.log(`%c${str}`, 'background:#303133;color:#fff;fontSize:14px;padding:3px 10px;')
+    console.log(
+      `%c${str}`,
+      'background:#303133;color:#fff;fontSize:14px;padding:3px 10px;'
+    )
   },
   warn(str) {
-    console.log(`%c${str}`, 'background:#E6A23C;color:#fff;fontSize:14px;padding:3px 10px;')
+    console.log(
+      `%c${str}`,
+      'background:#E6A23C;color:#fff;fontSize:14px;padding:3px 10px;'
+    )
   },
   error(str) {
-    console.log(`%c${str}`, 'background:#FC0505;color:#fff;fontSize:14px;padding:3px 10px;')
+    console.log(
+      `%c${str}`,
+      'background:#FC0505;color:#fff;fontSize:14px;padding:3px 10px;'
+    )
   },
   success(str) {
-    console.log(`%c${str}`, 'background:#67C23A;color:#fff;fontSize:14px;padding:3px 10px;')
+    console.log(
+      `%c${str}`,
+      'background:#67C23A;color:#fff;fontSize:14px;padding:3px 10px;'
+    )
   },
 }
 
@@ -82,10 +94,15 @@ export function mergeAll(target: Recordable, ...sources: Recordable[]) {
   return target
 }
 
-/** 
+/**
+ * 什么都不做，用于占位
+ */
+export const noop = () => {}
+
+/**
  * 对传入的数字，展示小数点后面的指定位数
  * @param num 要处理的数字
- * @param fixed 小数点后面的位数  
+ * @param fixed 小数点后面的位数
  * @returns
  */
 export function toFixed(num: number, fixed = 2) {
@@ -100,7 +117,7 @@ export function toFixed(num: number, fixed = 2) {
 export function arrScrambling<T>(arr: T[]): T[] {
   for (let i = 0; i < arr.length; i++) {
     const randomIndex = Math.round(Math.random() * (arr.length - 1 - i)) + i
-      ;[arr[i], arr[randomIndex]] = [arr[randomIndex], arr[i]]
+    ;[arr[i], arr[randomIndex]] = [arr[randomIndex], arr[i]]
   }
   return arr
 }
@@ -401,8 +418,9 @@ export function convertToThousands(n: number) {
         num.slice(0, remainder) +
         ',' +
         num.slice(remainder, len).match(/\d{3}/g)?.join(',') +
-        temp
-      ) + decimal
+        temp +
+        decimal
+      )
     } else {
       // 3的整数倍
       return num.slice(0, len).match(/\d{3}/g)?.join(',') + temp + decimal
@@ -410,17 +428,20 @@ export function convertToThousands(n: number) {
   }
 }
 
-
-
 /**
- * 将字符串中间指定区间字符替换成指定字符串  
+ * 将字符串中间指定区间字符替换成指定字符串
  * @param str
  * @param start default 3
  * @param end default 7
  * @param fill default *
  * @returns
  */
-export function convertStrToAsterisk(str: string, start = 3, end = 7, fill = '*') {
+export function convertStrToAsterisk(
+  str: string,
+  start = 3,
+  end = 7,
+  fill = '*'
+) {
   if (str.length < end) {
     throw new Error('字符串长度不能小于指定的区间')
   }
@@ -529,24 +550,22 @@ export function openWindow(
       url,
       'ZyiisPopup',
       'top=' +
-      y +
-      ',left=' +
-      x +
-      ',scrollbars=' +
-      scrollbars +
-      ',dialog=yes,modal=yes,width=' +
-      width +
-      ',height=' +
-      height +
-      ',resizable=no'
+        y +
+        ',left=' +
+        x +
+        ',scrollbars=' +
+        scrollbars +
+        ',dialog=yes,modal=yes,width=' +
+        width +
+        ',height=' +
+        height +
+        ',resizable=no'
     )
     //     new Function('try { win.resizeTo(width, height); } catch(e) { }')()
     eval('try { win.resizeTo(width, height); } catch(e) { }')
     win ? win.focus() : ''
   }
 }
-
-
 
 /**
  * 获取当前URL中的query对象
@@ -607,7 +626,6 @@ export function getBrowserInfo() {
     return agent.match(regStrChrome)
   }
 }
-
 
 /**
 

@@ -65,10 +65,16 @@ export function encryptByMd5(password: string) {
   return md5(password).toString()
 }
 
-export const cmdRSAEncrypt = (key: string, value: string) => {
+/**
+ * rsa加密
+ * @param publicKey 公钥，一般由接口返回给前端
+ * @param value 将被加密的字符串
+ * @returns
+ */
+export const cmdRSAEncrypt = (publicKey: string, value: string) => {
   const Encrypt = new JSEncrypt({
     default_key_size: '1024',
   })
-  Encrypt.setPublicKey(key)
+  Encrypt.setPublicKey(publicKey)
   return Encrypt.encrypt(value)
 }

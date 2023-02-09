@@ -16,4 +16,4 @@ export * from './modules/user'
 export * from './modules/permission'
 export * from './modules/app'
 export * from './modules/errorLog'
-export * from './modules/locale'
+export * from './modules/locale' // 语言环境

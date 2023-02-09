@@ -1,12 +1,18 @@
 <template>
-  <div class="h-screen w-screen relative login-container overflow-hidden">
-    <div class="absolute login-logo z-10 flex items-center text-white">
-      <SvgIcon name="sc_white" size="32"></SvgIcon>
-      <div class="ml-3">{{ projectName }}</div>
+  <div relative overflow-hidden class="h-screen w-screen login-container">
+    <div absolute z-10 flex items-center text-white class="login-logo">
+      <el-icon size="32">
+        <SvgIcon name="sc_white"></SvgIcon>
+      </el-icon>
+      <div class="ml-3">{{ t('sys.app.projectName') }}</div>
     </div>
+    <AppLocalePicker absolute z-10></AppLocalePicker>
+    <!-- <div absolute z-10 pr-0 pb-0>
+      <HelloWorld msg="I love the world"></HelloWorld>
+    </div> -->
     <div class="flex flex-col login absolute z-10 h-screen bg-white">
       <div class="login-title">{{ timeSayHello }}，欢迎使用</div>
-      <div class="login-subtitle mb-5">{{ projectName }}</div>
+      <div class="login-subtitle mb-5">{{ t('sys.app.projectName') }}</div>
       <el-form
         ref="loginFormRef"
         class="loginform form"
@@ -58,13 +64,20 @@
 <script setup lang="ts">
 import useLogin from '@/hooks/useLogin'
 import useCommon from '@/hooks/useCommon'
+import { useI18n } from 'vue-i18n'
+import { AppLocalePicker } from '@/components/Applicatioin'
+import { createAsyncComponent } from '@/libs/utils/factory/createAsyncComponent'
+
+// const HelloWorld = createAsyncComponent(
+//   () => import('@/components/HelloWorld.vue')
+// )
 
 const checked = ref(false)
 const loading = ref(false)
 
 const { loginFormRef, loginForm, loginFormRules, handleLoginForm } = useLogin()
 
-const { timeSayHello, projectName } = useCommon()
+const { timeSayHello } = useCommon()
 
 // 背景视频控制
 const controlVideoPlaySpeed = () => {
@@ -72,6 +85,8 @@ const controlVideoPlaySpeed = () => {
   $video.playbackRate = 0.66
 }
 onMounted(controlVideoPlaySpeed)
+
+const { t } = useI18n()
 </script>
 
 <style lang="scss" scoped>

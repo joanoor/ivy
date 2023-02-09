@@ -1,3 +1,7 @@
+.el-popper {
+  --el-popper-border-radius: var(--el-popover-border-radius, 2px) !important;
+}
+
 %dropdown {
   .el-dropdown-menu {
     padding: 0;

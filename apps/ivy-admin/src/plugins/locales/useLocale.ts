@@ -1,9 +1,9 @@
 /**
- * Multi-language related operations
+ * 用于切换语言
  */
 import type { LocaleType } from '@/libs/types'
 
-import { i18n } from './setupI18n'
+import { i18n } from './'
 import { useLocaleStoreWithOut } from '@/store'
 import { unref, computed } from 'vue'
 import { loadLocalePool, setHtmlPageLang } from './helper'
@@ -32,14 +32,16 @@ export function useLocale() {
   const getShowLocalePicker = computed(() => localeStore.getShowPicker)
 
   const getElementLocale = computed((): any => {
-    // return i18n.global.getLocaleMessage(unref(getLocale))?.elementLocale ?? {}
-    return {}
+    // @ts-ignore
+    return i18n.global.getLocaleMessage(unref(getLocale))?.elementLocale ?? {}
   })
 
   // Switching the language will change the locale of useI18n
   // And submit to configuration modification
   async function changeLocale(locale: LocaleType) {
     const globalI18n = i18n.global
+
+    // 当前的语言环境
     const currentLocale = unref(globalI18n.locale)
     if (currentLocale === locale) {
       return locale

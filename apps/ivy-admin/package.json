@@ -34,6 +34,7 @@
   "devDependencies": {
     "@iconify-json/ant-design": "^1.1.4",
     "@iconify-json/ep": "^1.1.8",
+    "@iconify-json/ion": "^1.1.7",
     "@types/nprogress": "^0.2.0",
     "@vitejs/plugin-legacy": "^3.0.2",
     "@vitejs/plugin-vue": "^4.0.0",

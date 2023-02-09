@@ -20,12 +20,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
 import LayoutHeader from './components/LayoutHeader.vue'
 import LayoutSideBar from './components/LayoutSideBar/index.vue'
 
 import LayoutContainer from './components/LayoutContainer.vue'
-const cachedViews = ref('')
 
 const projectName = computed(() => `${window.config.projectName}`)
 </script>
