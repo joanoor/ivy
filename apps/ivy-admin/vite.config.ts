@@ -1,9 +1,8 @@
 import { loadEnv, defineConfig } from 'vite'
-import { createVitePlugins } from './scripts/vite/plugins'
-import { configAlias } from './scripts/vite/alias'
-import { createProxy } from './scripts/vite/proxy'
-import { wrapperEnv } from './scripts/utils'
-
+import { createVitePlugins } from '../../scripts/vite/plugins'
+import { configAlias } from '../../scripts/vite/alias'
+import { createProxy } from '../../scripts/vite/proxy'
+import { pathResolve, wrapperEnv } from '../../scripts/utils'
 export default defineConfig(({ command, mode }) => {
   const root = process.cwd()
   const env = loadEnv(mode, root)
@@ -12,7 +11,6 @@ export default defineConfig(({ command, mode }) => {
   const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE } = viteEnv
 
   const isBuild = command === 'build'
-
   return {
     base: VITE_PUBLIC_PATH,
     root,
@@ -44,7 +42,7 @@ export default defineConfig(({ command, mode }) => {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@use './src/styles/modules' as *;`,
+          additionalData: `@use '../../shared/styles/modules' as *;`,
         },
       },
     },

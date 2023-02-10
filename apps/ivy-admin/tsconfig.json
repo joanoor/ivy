@@ -2,11 +2,6 @@
   "extends": "./node_modules/@ivy/configs/base.json",
   "compilerOptions": {
     "useDefineForClassFields": true,
-    "experimentalDecorators": true,
-    "jsx": "preserve",
-    "sourceMap": true,
-    "isolatedModules": true,
-    "skipLibCheck": true,
     "types": [
       "element-plus/global"
     ],
@@ -15,26 +10,14 @@
       "@/*": [
         "src/*"
       ],
-      "#/*": [
-        "types/*"
+      "@views": [
+        "src/views/*"
       ],
-      "@ivy/core": [
-        "../../packages/core"
+      "@shared/*": [
+        "../../shared/*"
       ],
-      "@ivy/chart": [
-        "../../packages/chart"
-      ],
-      "@ivy/request": [
-        "../../packages/request"
-      ],
-      "@ivy/form": [
-        "../../packages/form"
-      ],
-      "@ivy/cache": [
-        "../../packages/cache"
-      ],
-      "@ivy/cipher": [
-        "../../packages/cipher"
+      "@scripts/*": [
+        "../../scripts/*"
       ],
     },
   },
@@ -45,14 +28,14 @@
     "src/**/*.vue",
     "types/**/*.ts",
     "types/**/*.d.ts",
-    "mock/**/*.ts",
     "auto-imports.d.ts",
     "components.d.ts",
+    "vite.config.ts",
     "node_modules/@ivy/configs/global.d.ts"
   ],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.js"
   ]
 }

@@ -525,7 +525,7 @@ export function exitFullscreen() {
  * @deprecated
  */
 /* istanbul ignore next */
-export function openWindow(
+export function openNewWindow(
   url: string,
   windowName: string,
   width: number,
@@ -565,6 +565,23 @@ export function openWindow(
     eval('try { win.resizeTo(width, height); } catch(e) { }')
     win ? win.focus() : ''
   }
+}
+
+export function openWindow(
+  url: string,
+  opt?: {
+    target?: TargetContext | string
+    noopener?: boolean
+    noreferrer?: boolean
+  }
+) {
+  const { target = '__blank', noopener = true, noreferrer = true } = opt || {}
+  const feature: string[] = []
+
+  noopener && feature.push('noopener=yes')
+  noreferrer && feature.push('noreferrer=yes')
+
+  window.open(url, target, feature.join(','))
 }
 
 /**

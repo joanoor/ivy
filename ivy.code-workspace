@@ -4,5 +4,12 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"i18n-ally.localesPaths": [
+			"shared/libs/locales",
+			"shared/libs/locales/lang",
+			"apps/ivy-admin/src/plugins/locales",
+			"apps/ivy-admin/src/plugins/locales/lang"
+		]
+	}
 }

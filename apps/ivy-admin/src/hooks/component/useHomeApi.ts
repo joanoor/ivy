@@ -1,6 +1,6 @@
 import { reactive, onMounted } from 'vue'
-import { ConsumePower } from '@/api/types'
-import { http } from '@/plugins/request'
+import { http } from '@shared/utils/http'
+import { ConsumePower } from '@/api/mock/model'
 
 export default function (url: string) {
   const consumeTotalData = reactive<ConsumePower>({

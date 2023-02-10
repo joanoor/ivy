@@ -1,7 +1,7 @@
-import { useUserStore } from '@/store/modules/user'
-import { submitForm } from '@/libs/utils/formAndRules/form'
+import { useUserStore } from '@shared/store/modules/user'
+import { submitForm } from '@shared/utils/formAndRules/form'
 import { useRouter } from 'vue-router'
-import useForm, { defineFormTypes } from './web/useForm'
+import useForm, { defineFormTypes } from '@shared/hooks/web/useForm'
 
 export default function () {
   const userStore = useUserStore()
@@ -20,7 +20,7 @@ export default function () {
     formRef: loginFormRef,
   } = useForm<
     {
-      [P in typeof formProps[number] as P extends string ? P : never]:
+      [P in (typeof formProps)[number] as P extends string ? P : never]:
         | string
         | number
     } & { [x: string]: string | number }
@@ -39,6 +39,30 @@ export default function () {
         })
     }
   })
+
+  const formProps2 = defineFormTypes([
+    {
+      name: 'username',
+      default: 'xixi',
+      required: true,
+    },
+    {
+      name: 'age',
+      default: 20,
+    },
+    {
+      name: 'married',
+      default: true,
+    },
+    'male',
+  ])
+
+  const { form: form2 } = useForm<
+    {
+      [P in (typeof formProps2)[number] as P extends string ? P : never]: any
+    } & { [x: string]: any }
+  >(formProps2)
+  console.log(`生成的表单form2`, form2.value)
 
   return {
     loginFormRef,

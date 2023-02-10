@@ -1,4 +1,4 @@
-import { withInstall } from '@/libs/utils'
+import { withInstall } from '@shared/utils'
 import chart from './src/Chart.vue'
 import echartMap from './src/EchartMap.vue'
 

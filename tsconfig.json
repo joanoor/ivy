@@ -1,7 +1,7 @@
 {
   "extends": "./node_modules/@ivy/configs/base.json",
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       "@ivy/core": [
         "./packages/core"
@@ -25,12 +25,22 @@
   },
   "include": [
     "apps/**/*.ts",
+    "apps/**/*.tsx",
     "apps/**/*.d.ts",
     "packages/**/*.ts",
     "packages/**/*.d.ts",
+    "mock/**/*.ts",
+    "mock/**/*.d.ts",
+    "scripts/**/*.ts",
+    "scripts/**/*.d.ts",
+    "shared/**/*.ts",
+    "shared/**/*.tsx",
+    "shared/**/*.d.ts",
     "node_modules/@ivy/configs/global.d.ts" // 全局类型
   ],
   "exclude": [
-    "dist"
+    "node_modules",
+    "dist",
+    "**/*.js"
   ]
 }

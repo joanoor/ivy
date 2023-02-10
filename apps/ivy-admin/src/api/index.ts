@@ -1,15 +1,16 @@
 import { http } from '@/plugins/request'
-import { Result, ResponseOrgStruct, ResponseLogin } from './types'
+import { Result } from '@shared/types'
+
 import type { DictType } from '@/libs/types'
+import { ResponseLogin } from './sys/model/userModel'
+import { ResponseOrgStruct } from './dossier/model/terminalModel'
 
-
-export * from './terminal'
-export * from './types'
+export * from './dossier/terminal'
 
 export const handleLogin = <T>(data: T) => {
   return http.post<ResponseLogin>({
     url: `api/login`,
-    data
+    data,
   })
 }
 
@@ -52,13 +53,11 @@ export const getAllOrgList = () => {
   })
 }
 
-
 export const testError = () => {
-
   return http.get<Result<ResponseOrgStruct[]>>({
     url: `dossier/electricitymeter/testError`,
     params: {
-      a: ''
-    }
+      a: '',
+    },
   })
 }
