@@ -66,7 +66,7 @@ import useLogin from '@/hooks/useLogin'
 import useCommon from '@/hooks/useCommon'
 import { useI18n } from 'vue-i18n'
 import { AppLocalePicker } from '@/components/Applicatioin'
-import { createAsyncComponent } from '@/libs/utils/factory/createAsyncComponent'
+// import { createAsyncComponent } from '@/libs/utils/factory/createAsyncComponent'
 
 // const HelloWorld = createAsyncComponent(
 //   () => import('@/components/HelloWorld.vue')
