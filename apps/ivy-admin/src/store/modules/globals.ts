@@ -6,7 +6,7 @@ interface GlobalStoreState {
   dicts: DictType
 }
 
-export const useSharedGlobalStore = defineStore('shared-globals', {
+export const useGlobalStore = defineStore('globals', {
   state: (): GlobalStoreState => ({
     dicts: {} as DictType,
   }),

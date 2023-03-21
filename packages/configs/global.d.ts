@@ -38,6 +38,8 @@ declare type Nullable<T> = T | null
 declare type TimeoutHandle = ReturnType<typeof setTimeout>
 declare type IntervalHandle = ReturnType<typeof setInterval>
 
+declare type Arrayable<T> = T[] | T
+
 declare type ExitFullscreen = typeof document.exitFullscreen
 declare type RequestFullscreen =
   typeof document.documentElement.requestFullscreen

@@ -12,6 +12,16 @@ export default function () {
   const data = reactive({
     dialogVisiable: false, // 弹框是否打开
     dialogTitle: '', // 弹框的标题
+    confirmWord: '创建',
+    cancelWord: '取消',
+  })
+
+  watchEffect(() => {
+    if (data.dialogTitle.includes('编辑')) {
+      data.confirmWord = '更新'
+    } else {
+      data.confirmWord = '创建'
+    }
   })
 
   const onCallbackDialog = (callback?: () => void) => {

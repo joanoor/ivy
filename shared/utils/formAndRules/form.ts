@@ -10,14 +10,14 @@ export type Callback = (
 export type ResetCallBack = (...args: any[]) => void
 
 export const submitForm =
-  (func: Callback) => (formEl: FormInstance | undefined) => {
+  (callback: Callback) => (formEl: FormInstance | undefined) => {
     if (!formEl) return
-    formEl.validate(func)
+    formEl.validate(callback)
   }
 
 export const resetFormFields =
-  (func?: ResetCallBack) => (formEl: FormInstance | undefined) => {
+  (callback?: ResetCallBack) => (formEl: FormInstance | undefined) => {
     if (!formEl) return
-    if (func) func()
+    if (callback) callback()
     formEl.resetFields()
   }

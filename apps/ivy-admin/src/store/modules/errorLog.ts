@@ -1,15 +1,19 @@
+import type { ErrorLogInfo } from 'shared/types/store'
+
 import { defineStore } from 'pinia'
 import { store } from '../'
-import type { ErrorLogInfo } from '../../types/store'
-import { formatToDateTime } from '../../utils/dateUtil'
-import { ErrorTypeEnum } from '../../enums/exceptionEnum'
+
+import { formatToDateTime } from 'shared/utils/dateUtil'
+// import projectSetting from '@/libs/settings/projectSetting';
+
+import { ErrorTypeEnum } from 'shared/enums/exceptionEnum'
 
 export interface ErrorLogState {
   errorLogInfoList: Nullable<ErrorLogInfo[]>
   errorLogListCount: number
 }
 
-export const useSharedErrorLogStore = defineStore({
+export const useErrorLogStore = defineStore({
   id: 'app-error-log',
   state: (): ErrorLogState => ({
     errorLogInfoList: null,
@@ -74,5 +78,5 @@ export const useSharedErrorLogStore = defineStore({
 
 // Need to be used outside the setup
 export function useErrorLogStoreWithOut() {
-  return useSharedErrorLogStore(store)
+  return useErrorLogStore(store)
 }

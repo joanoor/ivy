@@ -1,6 +1,6 @@
 import { openWindow } from '@ivy/core'
 import { dataURLtoBlob, urlToBase64 } from './base64Conver'
-import { utils, WorkBook, write } from 'xlsx'
+import { WorkBook, write } from 'xlsx'
 
 /**
  * Download online pictures

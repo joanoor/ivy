@@ -2,7 +2,7 @@ import '@unocss/reset/normalize.css'
 import 'uno.css'
 import { autoImport } from '../utils'
 
-export function setupStyles() {
+export function setupSharedStyles() {
   autoImport(
     import.meta.glob(
       ['./main.scss', './**/*', '!./modules/**/*', '!./theme/**/*'],

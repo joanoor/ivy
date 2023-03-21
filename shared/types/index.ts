@@ -8,6 +8,3 @@ export * from './form' // 表单
 export * from './locale' // 国际化
 export * from './store' // 存储
 export * from './request' // 网络请求
-
-// 分页接口的baseUrl
-export type BaseURLType = 'electricitymeter' | 'bb'

@@ -2,7 +2,7 @@
  * 整个项目中对字典进行处理
  */
 
-import type { DictionaryStruct } from '@/libs/types'
+import type { DictionaryStruct } from '@/types'
 import { useGlobalStore } from '@/store'
 
 // 拿到字典
@@ -10,10 +10,13 @@ const useGlobal = useGlobalStore()
 
 export const generateDictionary = (
   customDictionary: Record<string, DictionaryStruct[]>
-) => ({
-  ...useGlobal.dicts,
-  ...customDictionary,
-})
+) => {
+  useGlobal.setDicts(customDictionary)
+  return {
+    ...useGlobal.dicts,
+    ...customDictionary,
+  }
+}
 
 /**
  * table展示数据的时候，将接口返回的数据翻译成字典中对应的数据，若数据为空，则翻译成'--'
@@ -44,11 +47,11 @@ export default function (
     placeWord2?: string
   ) => {
     if (dictName) {
+      // ?? 空值合并运算符只对undefined和null进行处理
       return (
         (dictionary[dictName]?.filter(v => v.value === row[prop])[0]?.name ||
           row[prop]) ??
-        placeWord2 ??
-        placeWord
+        (placeWord2 || placeWord)
       )
     } else {
       return row[prop] ?? placeWord2 ?? placeWord

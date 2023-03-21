@@ -25,6 +25,9 @@ class Pattern {
   // 国内手机号码
   private readonly mobile = /^1[3456789]\d{9}$/
 
+  // 国内电话号码
+  private readonly phone = /^0\d{2,3}-?\d{7,8}$/
+
   // 日期
   private readonly date /* eslint-disable no-useless-escape */ =
     /((^((1[8-9]\d{2})|([2-9]\d{3}))([-\/\._])(10|12|0?[13578])([-\/\._])(3[01]|[12][0-9]|0?[1-9])$)|(^((1[8-9]\d{2})|([2-9]\d{3}))([-\/\._])(11|0?[469])([-\/\._])(30|[12][0-9]|0?[1-9])$)|(^((1[8-9]\d{2})|([2-9]\d{3}))([-\/\._])(0?2)([-\/\._])(2[0-8]|1[0-9]|0?[1-9])$)|(^([2468][048]00)([-\/\._])(0?2)([-\/\._])(29)$)|(^([3579][26]00)([-\/\._])(0?2)([-\/\._])(29)$)|(^([1][89][0][48])([-\/\._])(0?2)([-\/\._])(29)$)|(^([2-9][0-9][0][48])([-\/\._])(0?2)([-\/\._])(29)$)|(^([1][89][2468][048])([-\/\._])(0?2)([-\/\._])(29)$)|(^([2-9][0-9][2468][048])([-\/\._])(0?2)([-\/\._])(29)$)|(^([1][89][13579][26])([-\/\._])(0?2)([-\/\._])(29)$)|(^([2-9][0-9][13579][26])([-\/\._])(0?2)([-\/\._])(29)$))/
@@ -50,7 +53,7 @@ class Pattern {
    * @param { string } value
    * @returns { boolean } true 符合身份证id规则，false不符合规则
    */
-  testIdCardNo(value: string): boolean {
+  testIdCardNo(value: string) {
     return this.idCardNo.test(value.trim())
   }
 
@@ -60,7 +63,7 @@ class Pattern {
    * @param { string } value
    * @returns { boolean }
    */
-  testCn(value: string): boolean {
+  testCn(value: string) {
     return this.allchinese.test(value.trim())
   }
 
@@ -70,8 +73,18 @@ class Pattern {
    * @param { string } value
    * @returns { boolean }
    */
-  testMobile(value: string): boolean {
+  testMobile(value: string) {
     return this.mobile.test(value.trim())
+  }
+
+  /**
+   * 电话号码检测
+   * @date 2020-07-08
+   * @param { string } value
+   * @returns { boolean }
+   */
+  testPhone(value: string) {
+    return this.phone.test(value.trim())
   }
 
   /**
@@ -80,7 +93,7 @@ class Pattern {
    * @param { string } value
    * @returns { boolean }
    */
-  testEmail(value: string): boolean {
+  testEmail(value: string) {
     return this.email.test(value.trim())
   }
 
@@ -90,7 +103,7 @@ class Pattern {
    * @param { string } value
    * @returns { boolean }
    */
-  testUrl(value: string): boolean {
+  testUrl(value: string) {
     return this.url.test(value.trim())
   }
 

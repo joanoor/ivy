@@ -21,9 +21,11 @@ export interface ResultColumnsData extends FormPropRule<string> {
   format?: string
   readOnly?: boolean
   notes?: string // 是否与字典相关的说明名字，其中含有字典名称，可以正则匹配出来
-  width?: string // 列的宽度
+  width?: string | number // 列的宽度
+  minWidth?: string | number // 列的最小宽度
   fixed?: boolean | 'right' | 'left' // 列是否固定
   selectOption?: DictionaryStruct[] // 如果与字典相关，从字典中获取select选项(可以是接口返回的字典，也可以是用户自定义的字典)
+  transform?: (...args: any[]) => string // 自定义字段的转换规则（正常字段就是默认展示或者字典中转换，但是有时候需要自定义）
   [x: string]: any
 }
 

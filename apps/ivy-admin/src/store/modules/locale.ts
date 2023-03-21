@@ -1,9 +1,11 @@
-import type { LocaleSetting, LocaleType } from '../../types'
+import type { LocaleSetting, LocaleType } from 'shared/types'
+
 import { defineStore } from 'pinia'
-import { createLocalStorage } from '@ivy/cache'
 import { store } from '../'
-import { LOCALE_KEY } from '../../enums/cacheEnum'
-import { localeSetting } from '../../settings/localeSetting'
+
+import { LOCALE_KEY } from 'shared/enums/cacheEnum'
+import { createLocalStorage } from '@ivy/cache'
+import { localeSetting } from 'shared/settings/localeSetting'
 
 const ls = createLocalStorage()
 
@@ -13,7 +15,7 @@ interface LocaleState {
   localInfo: LocaleSetting
 }
 
-export const useSharedLocaleStore = defineStore({
+export const useLocaleStore = defineStore({
   id: 'app-locale',
   state: (): LocaleState => ({
     localInfo: lsLocaleSetting,
@@ -52,5 +54,5 @@ export const useSharedLocaleStore = defineStore({
 
 // Need to be used outside the setup
 export function useLocaleStoreWithOut() {
-  return useSharedLocaleStore(store)
+  return useLocaleStore(store)
 }

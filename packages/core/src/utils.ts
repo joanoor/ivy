@@ -2,10 +2,6 @@ import qs from 'qs'
 import { isNumber } from './is'
 import { pattern } from './validType'
 
-interface funcObject {
-  [propName: string]: any
-}
-
 interface Console<T = string> {
   log: (str: T) => void
   warn: (str: T) => void
@@ -194,7 +190,7 @@ export function autoImport(
   ignores?: string[]
 ): any {
   const result: unknown[] = []
-  const funcObj: funcObject = {}
+  const funcObj: Recordable = {}
   files.keys().forEach(file => {
     if (typeName === fileType.ISSCRIPT) {
       const fileName: string =
@@ -429,7 +425,7 @@ export function convertToThousands(n: number) {
 }
 
 /**
- * 将字符串中间指定区间字符替换成指定字符串
+ * 脱敏处理，将字符串中间指定区间字符替换成指定字符串
  * @param str
  * @param start default 3
  * @param end default 7
@@ -567,6 +563,11 @@ export function openNewWindow(
   }
 }
 
+/**
+ * 打开新的浏览器标签页
+ * @param url 地址
+ * @param opt
+ */
 export function openWindow(
   url: string,
   opt?: {
@@ -645,12 +646,10 @@ export function getBrowserInfo() {
 }
 
 /**
-
-/**
  * 根据传入的字符串的个数，来设置初始的宽和高
- * @param text 
- * @param fontSize 
- * @returns 
+ * @param text
+ * @param fontSize
+ * @returns
  */
 /* istanbul ignore next */
 export function textSize(text: string, fontSize = '14px') {
