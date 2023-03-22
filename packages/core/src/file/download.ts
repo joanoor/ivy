@@ -63,14 +63,14 @@ function download(blob: string, fileName: string) {
  * @param mime
  * @param bom
  */
-export function downloadFileByOnlineUrl(
+export function downloadByOnlineUrl(
   url: string,
   filename: string,
   mime?: string,
   bom?: BlobPart
 ) {
   convertUrlToBase64(url).then(base64 => {
-    downloadFileByBase64(base64, filename, mime, bom)
+    downloadByBase64(base64, filename, mime, bom)
   })
 }
 
@@ -81,14 +81,14 @@ export function downloadFileByOnlineUrl(
  * @param mime
  * @param bom
  */
-export function downloadFileByBase64(
+export function downloadByBase64(
   buf: string,
   filename: string,
   mime?: string,
   bom?: BlobPart
 ) {
   const base64Buf = convertDataURLtoBlob(buf)
-  downloadFileByData(base64Buf, filename, mime, bom)
+  downloadByData(base64Buf, filename, mime, bom)
 }
 
 /**
@@ -98,7 +98,7 @@ export function downloadFileByBase64(
  * @param {*} mime
  * @param {*} bom
  */
-export function downloadFileByData(
+export function downloadByData(
   data: BlobPart,
   filename: string,
   mime?: string,
@@ -115,7 +115,7 @@ export function downloadFileByData(
  * Download file according to file address
  * @param {*} sUrl
  */
-export function downloadFileByUrl({
+export function downloadByUrl({
   url,
   target = '_blank',
   fileName,
@@ -164,7 +164,7 @@ export function downloadFileByUrl({
  * @param fileName
  * @param callback
  */
-export function downloadFileByBlob(ablob: any, fileName: string) {
+export function downloadByBlob(ablob: any, fileName: string) {
   let blob = ''
   if (typeof ablob == 'object' && ablob instanceof Blob) {
     blob = URL.createObjectURL(ablob) // 创建blob地址
@@ -180,7 +180,7 @@ export function downloadFileByBlob(ablob: any, fileName: string) {
  * @param option
  * @returns
  */
-export function downloadFileByJson<T extends any[]>(
+export function downloadByJson<T extends any[]>(
   data: T,
   option: {
     tableName: string
@@ -202,5 +202,5 @@ export function downloadFileByJson<T extends any[]>(
     fileName = fileName.split('.')[0] + '.xlsx'
   }
 
-  downloadFileByBlob(workbookBlob, fileName)
+  downloadByBlob(workbookBlob, fileName)
 }
