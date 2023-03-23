@@ -1,10 +1,9 @@
-import { UploadFile } from 'element-plus'
 import { read, WorkBook } from 'xlsx'
 
 /**
  * @description: base64 to blob
  */
-export function convertDataURLtoBlob(base64Buf: string): Blob {
+export function dataUrl2Blob(base64Buf: string): Blob {
   const arr = base64Buf.split(',')
   const typeItem = arr[0]
   const mime = typeItem.match(/:(.*?);/)![1]
@@ -21,10 +20,7 @@ export function convertDataURLtoBlob(base64Buf: string): Blob {
  * img url to base64
  * @param url
  */
-export function convertUrlToBase64(
-  url: string,
-  mineType?: string
-): Promise<string> {
+export function imgUrl2Base64(url: string, mineType?: string): Promise<string> {
   return new Promise((resolve, reject) => {
     let canvas = document.createElement('CANVAS') as Nullable<HTMLCanvasElement>
     const ctx = canvas!.getContext('2d')
@@ -47,16 +43,16 @@ export function convertUrlToBase64(
 }
 
 /**
- * 将excel转换成json
+ * 将excel Blob文件转换成json
  * @param rawFile
  * @param callback
  */
-export function convertExcelToJson(
-  rawFile: UploadFile,
+export function excelBlob2Json(
+  fileBlob: Blob,
   callback: (data: WorkBook) => void
 ) {
   const fileReader = new FileReader()
-  fileReader.readAsBinaryString(rawFile.raw as Blob)
+  fileReader.readAsBinaryString(fileBlob)
   fileReader.onload = async ev => {
     const blobData = ev?.target?.result
     const workbook = read(blobData, {

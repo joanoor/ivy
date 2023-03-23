@@ -1,5 +1,4 @@
 import qs from 'qs'
-import { isNumber } from './is'
 import { pattern } from './validType'
 
 interface Console<T = string> {
@@ -71,23 +70,6 @@ export function getTypeOfValue(value: unknown) {
  */
 export function getPropValue<T, K extends keyof T>(obj: T, key: K) {
   return obj[key]
-}
-
-/**
- * 一次性合并任意多个对象
- * @param target
- * @param src
- */
-export function mergeAll(target: Recordable, ...sources: Recordable[]) {
-  for (const src of sources) {
-    for (const key in src) {
-      target[key] =
-        getTypeOfValue(target[key]) === 'object'
-          ? mergeAll(target[key], src[key])
-          : src[key]
-    }
-  }
-  return target
 }
 
 /**
@@ -312,85 +294,6 @@ export function setObjToUrlParams(baseUrl: string, obj: any): string {
   return /\?$/.test(baseUrl)
     ? baseUrl + parameters
     : baseUrl.replace(/\/?$/, '?') + parameters
-}
-
-/**
- * Generates a random hexadecimal color code
- * 生成随机的十六进制颜色代码
- * @returns {string}
- */
-export function randomHexColorCode() {
-  const n = (Math.random() * 0xfffff * 1000000).toString(16)
-  return '#' + n.slice(0, 6)
-}
-
-/**
- * Converts a color code to an rgb() or rgba() string if alpha value is provided
- * @param hex
- * @returns
- */
-export function hexToRGB(hex: string) {
-  let alpha = false
-  let h: string = hex.slice(hex.startsWith('#') ? 1 : 0)
-  if (h.length === 3) {
-    const pattern = /^[A-Fa-f0-9]{3}$/
-    if (!pattern.test(h)) throw new Error('输入的参数不符合16进制颜色')
-    else h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2]
-  } else if (h.length === 6) {
-    const pattern = /^[A-Fa-f0-9]{6}$/
-    if (!pattern.test(h)) throw new Error('输入的参数不符合16进制颜色')
-  } else if (h.length === 8) {
-    const pattern = /^[A-Fa-f0-9]{8}$/
-    if (!pattern.test(h)) throw new Error('输入的参数不符合16进制颜色')
-    else alpha = true
-  } else {
-    throw new Error('输入的参数不符合16进制颜色')
-  }
-  const n = parseInt(h, 16)
-  return (
-    'rgb' +
-    (alpha ? 'a' : '') +
-    '(' +
-    (n >>> (alpha ? 24 : 16)) +
-    ', ' +
-    ((n & (alpha ? 0x00ff0000 : 0x00ff00)) >>> (alpha ? 16 : 8)) +
-    ', ' +
-    ((n & (alpha ? 0x0000ff00 : 0x0000ff)) >>> (alpha ? 8 : 0)) +
-    (alpha ? `, ${n & 0x000000ff}` : '') +
-    ')'
-  )
-}
-
-/**
- * Converts the values of RGB components to a hexadecimal color code
- * @param r
- * @param g
- * @param b
- * @returns
- */
-export function RGBToHex(r: string): string
-export function RGBToHex(r: number, g: number, b: number): string
-export function RGBToHex(r: string | number, g?: number, b?: number) {
-  if (isNumber(r)) {
-    if (g && b) {
-      if (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255) {
-        return `#${((r << 16) + (g << 8) + b).toString(16).padStart(6, '0')}`
-      } else {
-        throw new Error('非法的rgb颜色')
-      }
-    }
-  } else {
-    const result = r.match(/(?<=rgb\()(\d+),(\d+),(\d+)(?=\))/)
-    if (result) {
-      return RGBToHex(
-        parseInt(result[1]),
-        parseInt(result[2]),
-        parseInt(result[3])
-      )
-    } else {
-      throw new Error('非法的rgb颜色')
-    }
-  }
 }
 
 /**
@@ -721,4 +624,21 @@ export function textSize(text: string, fontSize = '14px') {
 //       return func
 //     }
 //   }
+// }
+
+/**
+ * 一次性合并任意多个对象
+ * @param target
+ * @param src
+ */
+// export function mergeAll(target: Recordable, ...sources: Recordable[]) {
+//   for (const src of sources) {
+//     for (const key in src) {
+//       target[key] =
+//         getTypeOfValue(target[key]) === 'object'
+//           ? mergeAll(target[key], src[key])
+//           : src[key]
+//     }
+//   }
+//   return target
 // }

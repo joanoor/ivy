@@ -1,5 +1,5 @@
 import type { AxiosTransform, CreateAxiosOptions } from './src/axiosTransform'
-import { mergeAll, setObjToUrlParams, isString } from '@ivy/core'
+import { setObjToUrlParams, isString, deepmerge } from '@ivy/core'
 import { formatRequestDate, addTimeStamp } from './src/helper'
 import { RequestEnum, ContentTypeEnum } from './src/types'
 import { IAxios } from './src/Axios'
@@ -91,12 +91,12 @@ const defaultTransform: AxiosTransform = {
 /**
  * 工厂函数，创建axios实例
  * @param opt
- * eg:
+ * @example
  * const axiosInstance = creaeAxios(opt)
  */
 export const createAxios = (opt?: Partial<CreateAxiosOptions>) => {
   return new IAxios(
-    mergeAll(
+    deepmerge(
       {
         // See https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#authentication_schemes
         // authentication schemes，e.g: Bearer

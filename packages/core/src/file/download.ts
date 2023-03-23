@@ -1,5 +1,5 @@
 import { openWindow } from '@ivy/core'
-import { convertDataURLtoBlob, convertUrlToBase64 } from './convertFile'
+import { dataUrl2Blob, imgUrl2Base64 } from './convertFile'
 import { utils, WorkBook, write } from 'xlsx'
 
 // 将字符串转ArrayBuffer
@@ -57,25 +57,25 @@ function download(blob: string, fileName: string) {
 }
 
 /**
- * Download online pictures
+ * 通过图片的在线地址下载图片
  * @param url
  * @param filename
  * @param mime
  * @param bom
  */
-export function downloadByOnlineUrl(
+export function downloadByImgUrl(
   url: string,
   filename: string,
   mime?: string,
   bom?: BlobPart
 ) {
-  convertUrlToBase64(url).then(base64 => {
+  imgUrl2Base64(url).then(base64 => {
     downloadByBase64(base64, filename, mime, bom)
   })
 }
 
 /**
- * Download pictures based on base64
+ * 通过base64下载文件
  * @param buf
  * @param filename
  * @param mime
@@ -87,8 +87,8 @@ export function downloadByBase64(
   mime?: string,
   bom?: BlobPart
 ) {
-  const base64Buf = convertDataURLtoBlob(buf)
-  downloadByData(base64Buf, filename, mime, bom)
+  const base64Buf = dataUrl2Blob(buf)
+  downloadByBlobData(base64Buf, filename, mime, bom)
 }
 
 /**
@@ -98,24 +98,30 @@ export function downloadByBase64(
  * @param {*} mime
  * @param {*} bom
  */
-export function downloadByData(
+export function downloadByBlobData(
   data: BlobPart,
   filename: string,
   mime?: string,
   bom?: BlobPart
 ) {
-  const blobData = typeof bom !== 'undefined' ? [bom, data] : [data]
-  const blob = new Blob(blobData, { type: mime || 'application/octet-stream' })
-
-  const blobURL = window.URL.createObjectURL(blob)
+  let blobURL = ''
+  if (typeof data == 'object' && data instanceof Blob) {
+    blobURL = URL.createObjectURL(data) // 创建blob地址
+  } else {
+    const blobData = typeof bom !== 'undefined' ? [bom, data] : [data]
+    const blob = new Blob(blobData, {
+      type: mime || 'application/octet-stream',
+    })
+    blobURL = URL.createObjectURL(blob)
+  }
   download(blobURL, filename)
 }
 
 /**
- * Download file according to file address
+ * 通过链接下载文件
  * @param {*} sUrl
  */
-export function downloadByUrl({
+export function downloadByFileUrl({
   url,
   target = '_blank',
   fileName,
@@ -159,22 +165,6 @@ export function downloadByUrl({
 }
 
 /**
- * 通过blob下载文件
- * @param ablob
- * @param fileName
- * @param callback
- */
-export function downloadByBlob(ablob: any, fileName: string) {
-  let blob = ''
-  if (typeof ablob == 'object' && ablob instanceof Blob) {
-    blob = URL.createObjectURL(ablob) // 创建blob地址
-  } else {
-    return
-  }
-  download(blob, fileName)
-}
-
-/**
  * 通过后端返回的json数据来下载excel
  * @param data
  * @param option
@@ -202,5 +192,5 @@ export function downloadByJson<T extends any[]>(
     fileName = fileName.split('.')[0] + '.xlsx'
   }
 
-  downloadByBlob(workbookBlob, fileName)
+  downloadByBlobData(workbookBlob, fileName)
 }

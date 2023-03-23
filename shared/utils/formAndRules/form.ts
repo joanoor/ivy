@@ -1,7 +1,6 @@
-import type { ElForm } from 'element-plus'
+import type { FormInstance } from 'element-plus'
 import type { ValidateFieldsError } from '@ivy/form'
 
-export type FormInstance = InstanceType<typeof ElForm>
 export type Callback = (
   isValid?: boolean,
   invalidFields?: ValidateFieldsError

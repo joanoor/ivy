@@ -1,5 +1,3 @@
-import { prefixCls } from '../settings/designSetting'
-
 type Mod = string | { [key: string]: any }
 type Mods = Mod | Mod[]
 
@@ -46,11 +44,11 @@ export function buildBEM(name: string) {
   }
 }
 
-export function createBEM(name: string) {
+export function createBEM(name: string, prefixCls: string) {
   return [buildBEM(`${prefixCls}-${name}`)]
 }
 
-export function createNamespace(name: string) {
+export function createNamespace(name: string, prefixCls: string) {
   const prefixedName = `${prefixCls}-${name}`
   return [prefixedName, buildBEM(prefixedName)] as const
 }

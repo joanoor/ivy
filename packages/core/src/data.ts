@@ -83,12 +83,13 @@ export const getDepth = (arr: any[], deep = 1): number => {
  * @param data
  * @param key
  */
-export const arrayToObject = (data: Record<string, any>[], key: string) => {
-  const obj: Recordable = {}
-  for (const item of data) {
-    obj[item[key]] = item
-  }
-  return obj
+export const arrayChangeToObj = (d: Recordable[], key: string) => {
+  if (!d) return {}
+  const data = cloneDeep(d)
+  return data.reduce((acc, cur) => {
+    acc[cur[key]] = cur
+    return acc
+  }, {})
 }
 
 export const changeToTree = (
