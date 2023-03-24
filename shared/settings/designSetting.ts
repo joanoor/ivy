@@ -1,3 +1,6 @@
+/**
+ * 样式方面的配置
+ */
 import { ThemeEnum } from '../enums/appEnum'
 
 export const prefixCls = 'vben'

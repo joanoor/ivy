@@ -1,17 +1,18 @@
 <template>
-  <div class="app-sidebar flex flex-col justify-between">
+  <div flex flex-col justify-between class="app-sidebar">
     <el-menu
       :default-active="activeIndex"
-      class="el-menu-vertical-demo overflow-y-auto"
+      overflow-y-auto
+      class="el-menu-vertical"
       :collapse="isCollapse"
+      :default-openeds="openedIndexs"
       @select="handleSelectMenu"
-      ref="menuRef"
     >
       <template v-for="menu in menuList">
         <template v-if="menu.children.length > 0">
-          <el-sub-menu :key="menu.menuId" :index="menu.menuId">
+          <el-sub-menu :key="menu.menuId" :index="'/' + menu.menuId">
             <template #title>
-              <el-icon class="mr-3">
+              <el-icon mr-3>
                 <SvgIcon :name="menu.icon" size="16"></SvgIcon>
               </el-icon>
               <span>{{ menu.menuName }}</span>
@@ -19,15 +20,15 @@
             <el-menu-item
               v-for="cmenu in menu.children"
               :index="'/' + cmenu.menuId"
-              class="ml-2"
+              ml-2
             >
               {{ cmenu.menuName }}
             </el-menu-item>
           </el-sub-menu>
         </template>
         <template v-else>
-          <el-menu-item :index="menu.menuId">
-            <el-icon class="mr-3">
+          <el-menu-item :index="'/' + menu.menuId">
+            <el-icon mr-3>
               <SvgIcon :name="menu.icon" size="16"></SvgIcon>
             </el-icon>
             <template #title>
@@ -37,9 +38,9 @@
         </template>
       </template>
     </el-menu>
-    <div class="fold mb-4 mt-4 text-right pr-4">
+    <div mb-4 mt-4 text-right pr-4 class="fold">
       <el-icon
-        class="cursor-pointer"
+        cursor-pointer
         style="backgroundcolor: #f7f8fa"
         @click="toggleCollapse"
       >
@@ -51,49 +52,32 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  ref,
-  computed,
-  onBeforeMount,
-  onMounted,
-  watchEffect,
-  watch,
-} from 'vue'
 import { ElMenu } from 'element-plus'
-import { useRouter } from 'vue-router'
 import { menuList } from './menuList'
-import { usePathStore } from '@/store'
-
-let activeIndex = ref('user_overview')
-
-const menuRef = ref<typeof ElMenu>()
 
 const router = useRouter()
+const route = useRoute()
+
+const activeIndex = ref('overview')
+const openedIndexs = ref<string[]>([])
 
 const isCollapse = ref(false)
-const handleOpen = (key: string, keyPath: string[]) => {
-  console.log('ttttttttttt', key, keyPath)
-}
-const handleClose = (key: string, keyPath: string[]) => {
-  console.log('aaaaaaaaaaa', key, keyPath)
-}
 
 const toggleCollapse = () => {
   isCollapse.value = !isCollapse.value
 }
 
-watchEffect(() => {
-  console.log(``)
-})
-
-const usePath = usePathStore()
-
 const handleSelectMenu = (index: string, indexPath: string[]) => {
-  console.log(`1===>`, index, '2===>', indexPath)
-  router.push('/' + indexPath.join(''))
+  router.push(indexPath.join(''))
 }
 
-onMounted(() => {})
+watchEffect(() => {
+  if (route.matched && route.matched.length > 0) {
+    const paths = route.path.split('/')
+    activeIndex.value = '/' + paths[paths.length - 1]
+    paths.length > 2 && (openedIndexs.value = ['/' + paths[1]])
+  }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -108,7 +92,7 @@ onMounted(() => {})
   }
 }
 
-.el-menu-vertical-demo:not(.el-menu--collapse) {
+.el-menu-vertical:not(.el-menu--collapse) {
   width: 220px;
   min-height: 400px;
 }

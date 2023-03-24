@@ -47,7 +47,7 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     RowNotice: typeof import('./src/components/RowNotice.vue')['default']
     SearchButton: typeof import('./src/components/SearchButton.vue')['default']
-    SearchContainer: typeof import('./src/components/SearchContainer.vue')['default']
+    SearchContainer: typeof import('../../shared/components/SeachContainer/src/SearchContainer.vue')['default']
     Table: typeof import('./src/components/Table/Table.vue')['default']
     TextEllipsis: typeof import('./src/components/TextEllipsis.vue')['default']
   }

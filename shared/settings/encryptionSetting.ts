@@ -1,4 +1,8 @@
-import { isDevMode } from '@/libs/utils/env'
+/**
+ * 加密设置
+ */
+
+import { isDevMode } from '@shared/utils/env'
 
 // System default cache time, in seconds
 export const DEFAULT_CACHE_TIME = 60 * 60 * 24 * 7

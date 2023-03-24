@@ -4,7 +4,7 @@
 
 import type { ErrorLogInfo } from '../types/store'
 
-import { useErrorLogStoreWithOut } from '../store/modules/errorLog'
+import { useErrorLogStoreWithOut } from '../store/modules/sharedErrorLog'
 
 import { ErrorTypeEnum } from '../enums/exceptionEnum'
 import { App } from 'vue'

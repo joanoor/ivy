@@ -1,18 +1,15 @@
 <template>
-  <div class="app-sc overflow-hidden">
-    <!-- Header -->
+  <div class="app-sc" overflow-hidden>
     <LayoutHeader :title="projectName"></LayoutHeader>
 
-    <div class="flex">
+    <div class="flex" overflow-hidden>
       <!-- 左侧菜单 -->
       <LayoutSideBar></LayoutSideBar>
 
       <!-- 主体内容 -->
-      <LayoutContainer class="flex-1 relative">
+      <LayoutContainer flex-1 relative>
         <router-view v-slot="{ Component }">
-          <!-- <transition name="fade-transform" mode="out-in"> -->
           <component :is="Component" />
-          <!-- </transition> -->
         </router-view>
       </LayoutContainer>
     </div>
@@ -30,6 +27,7 @@ const projectName = computed(() => `${window.config.projectName}`)
 
 <style lang="scss" scoped>
 .app-sc {
+  min-width: 1360px;
   background-color: #f7f8fa;
 }
 </style>

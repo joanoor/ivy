@@ -5,14 +5,18 @@
 import { UnwrapRef } from 'vue'
 import { cloneDeep, textSize } from '@ivy/core'
 import type { RequestOptions } from '@ivy/request'
-import { useGlobalStore } from '@/store'
-import type { Result, ResultColumnsData, ResultPagingData } from '@/types'
+import { useGlobalStore } from '@shared/store'
+import type {
+  Result,
+  ResultColumnsData,
+  ResultPagingData,
+} from '@shared/types/request'
 import { useEventListener, useElementBounding } from '@vueuse/core'
 import SelectionTable from '@/components/Table/SelectionTable.vue'
 import deepmerge from 'deepmerge'
 import useDownload from './useDownload'
-import useDecodeDict from '@/hooks/web/useDecodeDict'
-import { judgeWord } from '@/utils/index'
+import useDecodeDict from './useDecodeDict'
+import { judgeWord } from '@shared/utils'
 
 /**
  * 通过类型谓词转换指定变量的类型
@@ -107,6 +111,7 @@ export default function <
   const size2 = initialOption.queryParams?.page?.size || 10
 
   const tableRef = ref<HTMLElement | InstanceType<typeof SelectionTable>>()
+
   const tdata = reactive({
     loading: false, // 是否loading
     tableHeight: 500,
@@ -161,10 +166,7 @@ export default function <
           })
     } else {
       // 当属于下载excel的情况
-      saveXlxsOption = {
-        ...initialOption,
-        ...initialOption2,
-      }
+      saveXlxsOption = deepmerge(initialOption, initialOption2)
     }
 
     const {
@@ -182,7 +184,6 @@ export default function <
       ...(!isDownloadXlsx ? localHookOption : saveXlxsOption),
     }
 
-    console.log('所以最终的是==========>', expectOmitedColumnNames)
     const tmpQueryParams = isDownloadXlsx
       ? saveXlxsOption.queryParams || {}
       : localHookOption.queryParams || {}
@@ -466,15 +467,13 @@ export default function <
       // 表示选中下载
       tmpData = tdata.allSelectedData as Recordable[]
     }
-    tdata.tableColumns.forEach(col => {
-      if (col.dictName) {
-        tmpData.forEach(row => {
-          Object.keys(row).forEach(prop => {
-            row[prop] = onDecodeDict(row, prop, col.dictName)
-          })
-        })
-      }
+
+    tmpData.forEach(row => {
+      tdata.tableColumns.forEach(col => {
+        row[col.name] = onDecodeDict(row, col.name, col.dictName)
+      })
     })
+
     downloadExcel(tmpData, tdata.tableColumns, fileName, () => {
       tdata.loading = false
     })

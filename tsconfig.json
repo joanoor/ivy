@@ -4,22 +4,25 @@
     "baseUrl": ".",
     "paths": {
       "@ivy/core": [
-        "./packages/core"
+        "packages/core"
       ],
       "@ivy/chart": [
-        "./packages/chart"
+        "packages/chart"
       ],
       "@ivy/request": [
-        "./packages/request"
+        "packages/request"
       ],
       "@ivy/form": [
-        "./packages/form"
+        "packages/form"
       ],
       "@ivy/cache": [
-        "./packages/cache"
+        "packages/cache"
       ],
       "@ivy/cipher": [
-        "./packages/cipher"
+        "packages/cipher"
+      ],
+      "@shared/*": [
+        "shared/*"
       ],
     }
   },

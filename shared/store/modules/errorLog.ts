@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import { store } from '../'
+import { store } from '..'
 import type { ErrorLogInfo } from '../../types/store'
-import { formatToDateTime } from '../../utils/dateUtil'
+import { formatToDateTime } from '@ivy/core'
 import { ErrorTypeEnum } from '../../enums/exceptionEnum'
 
 export interface ErrorLogState {
@@ -9,7 +9,7 @@ export interface ErrorLogState {
   errorLogListCount: number
 }
 
-export const useSharedErrorLogStore = defineStore({
+export const useErrorLogStore = defineStore({
   id: 'app-error-log',
   state: (): ErrorLogState => ({
     errorLogInfoList: null,
@@ -74,5 +74,5 @@ export const useSharedErrorLogStore = defineStore({
 
 // Need to be used outside the setup
 export function useErrorLogStoreWithOut() {
-  return useSharedErrorLogStore(store)
+  return useErrorLogStore(store)
 }

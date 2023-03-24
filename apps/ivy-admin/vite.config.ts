@@ -1,8 +1,8 @@
 import { loadEnv, defineConfig } from 'vite'
-import { createVitePlugins } from '../../scripts/vite/plugins'
-import { configAlias } from '../../scripts/vite/alias'
-import { createProxy } from '../../scripts/vite/proxy'
-import { pathResolve, wrapperEnv } from '../../scripts/utils'
+import { createVitePlugins } from './scripts/vite/plugins'
+import { configAlias } from './scripts/vite/alias'
+import { createProxy } from './scripts/vite/proxy'
+import { pathResolve, wrapperEnv } from './scripts/utils'
 export default defineConfig(({ command, mode }) => {
   const root = process.cwd()
   const env = loadEnv(mode, root)

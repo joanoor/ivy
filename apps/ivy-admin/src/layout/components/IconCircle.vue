@@ -1,5 +1,5 @@
 <template>
-  <div class="icon-circle flex justify-center items-center cursor-pointer">
+  <div flex justify-center items-center cursor-pointer class="icon-circle">
     <slot></slot>
   </div>
 </template>

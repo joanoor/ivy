@@ -17,7 +17,7 @@
         "../../shared/*"
       ],
       "@scripts/*": [
-        "../../scripts/*"
+        "scripts/*"
       ],
     },
   },
@@ -28,10 +28,13 @@
     "src/**/*.vue",
     "types/**/*.ts",
     "types/**/*.d.ts",
+    "scripts/**/*.ts",
+    "scripts/**/*.d.ts",
     "auto-imports.d.ts",
     "components.d.ts",
     "vite.config.ts",
-    "node_modules/@ivy/configs/global.d.ts"
+    "node_modules/@ivy/configs/global.d.ts",
+    "../../shared/components/SeachContainer/src/SearchContainer.vue.ts"
   ],
   "exclude": [
     "node_modules",

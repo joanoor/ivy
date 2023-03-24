@@ -1,3 +1,7 @@
+/**
+ * 项目整体配置
+ */
+
 import type { ProjectConfig } from '../types'
 import {
   MenuTypeEnum,

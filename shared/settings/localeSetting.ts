@@ -1,3 +1,7 @@
+/**
+ * 国际化方面的配置
+ */
+
 import type { LocaleSetting, LocaleType } from '../types'
 
 export const LOCALE: { [key: string]: LocaleType } = {

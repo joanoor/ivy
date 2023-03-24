@@ -1,3 +1,4 @@
+import deepmerge from 'deepmerge'
 import qs from 'qs'
 import { pattern } from './validType'
 
@@ -6,12 +7,6 @@ interface Console<T = string> {
   warn: (str: T) => void
   error: (str: T) => void
   success: (str: T) => void
-}
-
-const fileType = {
-  ISSCRIPT: 'script',
-  ISCSS: 'style', // 样式文件
-  ISMIXINS: 'mixin', // mixin
 }
 
 function cubic(value: number) {
@@ -155,56 +150,6 @@ export function scrollToTop(element: HTMLElement) {
     }
   }
   rAF(frameFunc)
-}
-
-/**
- * webpack项目自动引入某一目录下js|ts文件或者样式文件
- * @param files require.context
- * @param typeName script 表示js文件，style 表示样式文件，mixin 表示全局混入
- * @param ignores 表示忽略的文件，哪些不需要自动引入的文件，写在这里
- *
- * @deprecated
- */
-/* istanbul ignore next */
-export function autoImport(
-  files: __WebpackModuleApi.RequireContext,
-  typeName: 'script' | 'style' | 'mixin',
-  ignores?: string[]
-): any {
-  const result: unknown[] = []
-  const funcObj: Recordable = {}
-  files.keys().forEach(file => {
-    if (typeName === fileType.ISSCRIPT) {
-      const fileName: string =
-        file
-          ?.split('/')
-          ?.pop()
-          ?.replace(/\.\w+$/, '') ?? ''
-      if (!ignores || ignores.indexOf(fileName) === -1) {
-        const jsConfig = files(file)
-        funcObj[fileName] = jsConfig?.default
-      }
-    } else if (typeName === fileType.ISCSS) {
-      /* 引入样式文件 */
-      const _tmps: string[] = file.split('/')
-      if (_tmps?.length > 0) {
-        if (!ignores || ignores.indexOf(_tmps[_tmps.length - 1]) !== -1)
-          files(file)
-      }
-    } else if (typeName === fileType.ISMIXINS) {
-      /* 自动混入全局（专用于vue） */
-      const fileName: string =
-        file
-          ?.split('/')
-          ?.pop()
-          ?.replace(/\.\w+$/, '') ?? ''
-      if (!ignores || ignores.indexOf(fileName) === -1) {
-        result.push(files(file)?.default || files(file))
-      }
-    }
-  })
-
-  return typeName === fileType.ISMIXINS ? result : funcObj
 }
 
 /**
@@ -574,6 +519,18 @@ export function textSize(text: string, fontSize = '14px') {
   return result
 }
 
+/**
+ * 判断是否可以使用dom
+ * @returns
+ */
+export function canUseDom() {
+  return !!(
+    typeof window !== 'undefined' &&
+    window.document &&
+    window.document.createElement
+  )
+}
+
 /**************************下面的代码是封装promise请求**************************/
 // export const awaitWrap = (promise: Promise<Result<any>>) =>
 //   promise
@@ -628,17 +585,14 @@ export function textSize(text: string, fontSize = '14px') {
 
 /**
  * 一次性合并任意多个对象
- * @param target
- * @param src
+ * @param sources
  */
-// export function mergeAll(target: Recordable, ...sources: Recordable[]) {
-//   for (const src of sources) {
-//     for (const key in src) {
-//       target[key] =
-//         getTypeOfValue(target[key]) === 'object'
-//           ? mergeAll(target[key], src[key])
-//           : src[key]
-//     }
-//   }
-//   return target
-// }
+export function mergeAll(...sources: Recordable[]) {
+  if (sources.length === 1) {
+    return sources[0]
+  } else {
+    return sources.reduce((acc, cur) => {
+      return deepmerge(acc, cur)
+    })
+  }
+}

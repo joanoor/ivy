@@ -7,72 +7,116 @@ export interface Menu {
 
 export const menuList: Menu[] = [
   {
-    menuId: 'dashboard',
-    icon: 'user_overview',
-    menuName: '用户概览',
+    menuId: 'overview',
+    icon: 'overview',
+    menuName: '概览首页',
     children: [],
   },
   {
-    menuId: 'device',
-    icon: 'device_manager',
-    menuName: '设备管理',
-    children: [],
-  },
-  {
-    menuId: 'chart',
-    icon: 'device_manager',
-    menuName: 'chart',
-    children: [],
-  },
-  {
-    menuId: 'analysis',
-    icon: 'energy_analysis',
-    menuName: '杂项',
+    menuId: 'jdmanager',
+    icon: 'jdgl',
+    menuName: '检定管理',
     children: [
       {
-        menuId: 'home',
+        menuId: 'chargerecord',
         icon: '',
-        menuName: '用能分析',
+        menuName: '充电记录管理',
         children: [],
       },
       {
-        menuId: 'canvas',
+        menuId: 'loadtask',
         icon: '',
-        menuName: '画布',
+        menuName: '复核任务管理',
         children: [],
       },
     ],
   },
-
   {
-    menuId: 'app_system_manager',
-    icon: 'system_manager',
-    menuName: '系统管理',
+    menuId: 'running',
+    icon: 'yxjc',
+    menuName: '运行监测',
     children: [
       {
-        menuId: 'organizations',
+        menuId: 'station',
         icon: '',
-        menuName: '组织管理',
+        menuName: '充电站运行监测',
         children: [],
       },
       {
-        menuId: 'regions',
+        menuId: 'meterequip',
         icon: '',
-        menuName: '企业管理',
+        menuName: '计量设备运行监测',
         children: [],
       },
+      {
+        menuId: 'bindingdevice',
+        icon: '',
+        menuName: '设备绑定',
+        children: [],
+      },
+    ],
+  },
+  {
+    menuId: 'cjmanager',
+    icon: 'cjgl',
+    menuName: '采集管理',
+    children: [
+      {
+        menuId: 'modifyparam',
+        icon: '',
+        menuName: '修改设备参数',
+        children: [],
+      },
+    ],
+  },
+  {
+    menuId: 'archives',
+    icon: 'archives',
+    menuName: '档案管理',
+    children: [
       // {
-      //   menuId: 'users',
-      //   icon:'',
-      //   menuName: '用户管理',
-      //   children: []
+      //   menuId: 'home',
+      //   icon: '',
+      //   menuName: '档案概览',
+      //   children: [],
       // },
-      // {
-      //   menuId: 'roles',
-      //   icon:'',
-      //   menuName: '角色管理',
-      //   children: []
-      // },
+      {
+        menuId: 'operator',
+        icon: '',
+        menuName: '运营商管理',
+        children: [],
+      },
+      {
+        menuId: 'supplier',
+        icon: '',
+        menuName: '供应商管理',
+        children: [],
+      },
+      {
+        menuId: 'chargingstation',
+        icon: '',
+        menuName: '充电站管理',
+        children: [],
+      },
+      {
+        menuId: 'chargingpile',
+        icon: '',
+        menuName: '充电桩管理',
+        children: [],
+      },
+      {
+        menuId: 'chargingMeterage',
+        icon: '',
+        menuName: '计量设备管理',
+        children: [],
+      },
+    ],
+  },
+  {
+    menuId: 'system',
+    icon: 'system',
+    menuName: '系统管理',
+    children: [
       {
         menuId: 'fields',
         icon: '',

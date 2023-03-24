@@ -1,85 +1,24 @@
 <template>
-  <div class="app-header flex items-center justify-between p-4">
-    <div class="flex items-center">
-      <img src="/sc.svg" alt="" class="banner mr-2" />
-      <span class="ml-2 sc-project-title">{{ title }}</span>
+  <div flex items-center justify-between p-4 class="app-header">
+    <div flex items-center>
+      <img src="/sc.svg" mr-2 class="banner" />
+      <span ml-2 class="sc-project-title">{{ title }}</span>
     </div>
-    <div class="flex items-center">
-      <div class="flex items-center">
-        <span class="qjsx mr-1 w-24">全局筛选</span>
-        <el-popover
-          placement="top-start"
-          trigger="hover"
-          content="全局筛选所需模块"
-        >
-          <template #reference>
-            <el-icon class="mr-4" :size="14" color="#c9cdd4">
-              <IAntDesignQuestionCircleOutlined />
-            </el-icon>
-          </template>
-        </el-popover>
-        <el-input
-          v-model="input2"
-          class="mr-4"
-          placeholder="全部"
-          :suffix-icon="Search"
-        />
-      </div>
-      <div class="flex items-center">
-        <el-dropdown
-          trigger="click"
-          popper-class="caution"
-          :hide-on-click="false"
-          placement="bottom-end"
-        >
-          <IconCircle class="mr-4">
-            <el-icon :size="12">
-              <el-badge is-dot :hidden="false">
-                <IEpBell />
-              </el-badge>
-            </el-icon>
-          </IconCircle>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item>
-                <NoticeInfo></NoticeInfo>
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
-        <IconCircle class="mr-4">
-          <el-icon :size="12">
-            <IEpSetting />
-          </el-icon>
-        </IconCircle>
-        <el-dropdown trigger="click" @command="handleCommand">
-          <SvgIcon name="avatar" size="32" className="cursor-pointer"></SvgIcon>
-          <!-- <el-icon class="el-icon--right">
-              <arrow-down />
-            </el-icon> -->
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item command="exit">退出</el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
-        <!-- <IconCircle class="ml-4">
-          <IAntDesignMessageFilled></IAntDesignMessageFilled>
-        </IconCircle> -->
-      </div>
-    </div>
+    <el-dropdown trigger="click" @command="handleCommand">
+      <el-icon size="32" cursor-pointer>
+        <SvgIcon name="avatar"></SvgIcon>
+      </el-icon>
+      <template #dropdown>
+        <el-dropdown-menu>
+          <el-dropdown-item command="exit">退出</el-dropdown-item>
+        </el-dropdown-menu>
+      </template>
+    </el-dropdown>
   </div>
 </template>
 
 <script lang="ts" setup>
-import IconCircle from './IconCircle.vue'
-import NoticeInfo from './NoticeInfo.vue'
-import { Search } from '@element-plus/icons-vue'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import store2 from 'store2'
-
-const router = useRouter()
+import { noop } from '@/libs/core'
 
 defineProps({
   title: {
@@ -88,14 +27,10 @@ defineProps({
   },
 })
 
-const input2 = ref('')
-
 const handleCommand = (e: string | number | object) => {
-  console.log('点击了 ', e)
   switch (e) {
     case 'exit':
-      store2.clearAll()
-      router.push('/login')
+      noop()
   }
 }
 </script>

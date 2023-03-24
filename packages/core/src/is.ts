@@ -1,5 +1,5 @@
 import { default as isMyPromise } from 'is-promise'
-import { isUndefined, isNull } from 'lodash-es'
+import { isUndefined, isNull, isString } from 'lodash-es'
 import { getTypeOfValue } from './utils'
 
 export {
@@ -23,6 +23,12 @@ export {
 export const isWindow = (val: unknown): val is Window =>
   typeof window !== 'undefined' && getTypeOfValue(val) === 'window'
 
+export const isBrowser = !!(
+  typeof window !== 'undefined' &&
+  window.document &&
+  window.document.createElement
+)
+
 export const isServer = typeof window === 'undefined'
 
 export const isClient = !isServer
@@ -43,4 +49,11 @@ export const isPromise = <T = any>(val: any): val is Promise<T> =>
 export const isHexColor = (color: string) => {
   const reg = /^#([0-9a-fA-F]{3}|[0-9a-fA-f]{6})$/
   return reg.test(color)
+}
+
+export const isStringNumber = (val: string): boolean => {
+  if (!isString(val)) {
+    return false
+  }
+  return !Number.isNaN(Number(val))
 }

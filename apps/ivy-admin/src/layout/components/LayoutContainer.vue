@@ -1,10 +1,8 @@
 <template>
-  <div class="app-container box-border overflow-y-auto">
-    <div class="w-full h-full flex flex-col">
-      <!-- 面包屑 -->
-      <LayoutBreadCrumb></LayoutBreadCrumb>
-      <slot></slot>
-    </div>
+  <div box-border overflow-hidden overflow-y-auto class="app-container">
+    <!-- 面包屑 -->
+    <LayoutBreadCrumb mb-4></LayoutBreadCrumb>
+    <slot></slot>
     <el-backtop target=".app-container"></el-backtop>
   </div>
 </template>
