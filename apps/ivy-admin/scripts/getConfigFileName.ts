@@ -7,3 +7,4 @@ export const getConfigFileName = (env: Recordable) => {
     .toUpperCase()
     .replace(/\s/g, '')
 }
+

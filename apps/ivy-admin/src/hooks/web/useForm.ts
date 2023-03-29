@@ -11,7 +11,7 @@ import {
 } from '@ivy/core'
 import { BaseStruct, generateFormAndRules, RuleItemExtend2 } from '@ivy/form'
 import { FormInstance } from 'element-plus'
-import { createFormAndRule } from '@utils/formAndRules/records'
+import { createFormAndRule } from '@shared/utils/formAndRules/records'
 import type { ResultColumnsData, DictionaryStruct, FormPropRule } from '@/types'
 import { generateDictionary } from './useDecodeDict'
 import {
@@ -19,7 +19,7 @@ import {
   resetFormFields,
   Callback,
   ResetCallBack,
-} from '@utils/formAndRules/form'
+} from '@shared/utils/formAndRules/form'
 import { UnwrapRef } from 'vue'
 
 /**

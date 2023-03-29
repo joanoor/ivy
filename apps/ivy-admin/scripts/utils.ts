@@ -1,7 +1,6 @@
-import fs from 'fs'
-import path from 'path'
+import {readFileSync} from 'fs'
 import dotenv from 'dotenv'
-import { resolve } from 'path'
+import { resolve } from 'path' 
 
 export function pathResolve(dir: string) {
   return resolve(process.cwd(), '.', dir)
@@ -14,6 +13,7 @@ export function isDevFn(mode: string): boolean {
 export function isProdFn(mode: string): boolean {
   return mode === 'production'
 }
+const cc:Fn
 
 /**
  * Whether to generate package preview
@@ -75,7 +75,7 @@ export function getEnvConfig(match = 'VITE_GLOB_', confFiles = getConfFiles()) {
   confFiles.forEach(item => {
     try {
       const env = dotenv.parse(
-        fs.readFileSync(path.resolve(process.cwd(), item))
+        readFileSync(resolve(process.cwd(), item))
       )
       envConfig = { ...envConfig, ...env }
     } catch (e) {
@@ -96,5 +96,5 @@ export function getEnvConfig(match = 'VITE_GLOB_', confFiles = getConfFiles()) {
  * @param dir file path
  */
 export function getRootPath(...dir: string[]) {
-  return path.resolve(process.cwd(), ...dir)
+  return resolve(process.cwd(), ...dir)
 }
