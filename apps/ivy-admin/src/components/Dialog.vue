@@ -8,8 +8,8 @@
   >
     <el-form
       :model="myForm"
-      :ref="formRef"
-      :rules="rules || {}"
+      ref="formRef2"
+      :rules="rules"
       :label-width="labelWidth"
       :inline="inline"
       size="default"
@@ -18,10 +18,17 @@
         v-for="col in formColumns"
         :key="col.name"
         :prop="col.name"
-        :label="col.title"
+        :label="col.title + '：'"
       >
         <template v-if="col.component === 'input'">
           <el-input
+            v-if="limitNum.includes(col.name)"
+            v-model="myForm[col.name]"
+            :placeholder="'请输入' + col.title"
+            oninput="value=value.replace(/[^0-9]/g,'')"
+          ></el-input>
+          <el-input
+            v-else
             v-model="myForm[col.name]"
             :placeholder="col.message"
           ></el-input>
@@ -44,30 +51,21 @@
           </el-select>
         </template>
       </el-form-item>
-      <el-form-item></el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="$emit('submit')">
-          {{ confirmWord }}
-        </el-button>
-        <el-button @click="dialogVisiable = false">{{ cancelWord }}</el-button>
-      </el-form-item>
     </el-form>
+    <template #footer>
+      <el-button type="primary" @click="$emit('submit')">
+        {{ confirmWord }}
+      </el-button>
+      <el-button @click="dialogVisiable = false">{{ cancelWord }}</el-button>
+    </template>
   </el-dialog>
 </template>
 
 <script setup lang="ts">
-import { ResultColumnsData } from '@/api/model/types/types'
+import { ResultColumnsData } from '@/types'
 import { FormInstance } from 'element-plus'
-import { computed } from 'vue'
 
 const emit = defineEmits(['update:visiable', 'update:form', 'submit'])
-
-const dialogVisiable = computed({
-  get: () => props.visiable,
-  set: value => {
-    emit('update:visiable', value)
-  },
-})
 
 const props = withDefaults(
   defineProps<{
@@ -76,7 +74,7 @@ const props = withDefaults(
     form: Recordable
     formColumns: ResultColumnsData[]
     rules?: Recordable
-    formRef: FormInstance
+    limitNum?: string[]
     confirmWord?: string
     cancelWord?: string
     inline?: boolean
@@ -87,10 +85,14 @@ const props = withDefaults(
     confirmWord: '创建',
     cancelWord: '取消',
     inline: false,
-    width: '45%',
-    labelWidth: '80px',
+    width: '40%',
+    labelWidth: '180px',
+    limitNum: () => ['dispSn'],
+    rules: () => ({}),
   }
 )
+
+const formRef2 = ref<FormInstance>()
 
 const myForm = computed({
   get: () => props.form,
@@ -99,8 +101,19 @@ const myForm = computed({
   },
 })
 
+const dialogVisiable = computed({
+  get: () => props.visiable,
+  set: value => {
+    emit('update:visiable', value)
+  },
+})
+
 // 关闭弹框
 const handleClose = () => {
-  emit('update:visiable', false)
+  dialogVisiable.value = false
 }
+
+defineExpose({
+  formRef2,
+})
 </script>

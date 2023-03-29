@@ -1,61 +1,190 @@
 import type { App } from 'vue'
 import type { AppRouteRecordRaw } from './types'
 import { createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter } from 'vue-router'
 import { normalRoutes, WHITE_NAME_LIST } from './routes'
 
 export const routes: AppRouteRecordRaw[] = [
   ...normalRoutes,
   {
+    name: 'preview',
+    path: '/preview',
+    component: () => import('@/views/jdmanager/preview.vue'),
+    meta: {
+      title: '预览文件',
+      icon: 'example',
+      breadList: [
+        { name: '检定管理' },
+        { name: '复核任务管理' },
+        { name: '预览文件' },
+      ],
+    },
+  },
+  {
     component: () => import('@/layout/default.vue'),
     path: '/',
-    redirect: '/dashboard',
+    redirect: '/overview',
     children: [
       {
-        name: 'dashboard',
-        path: '/dashboard/:page*',
-        component: () => import('@/views/ivy-admin/home.vue'),
+        name: 'overview',
+        path: '/overview/:page*',
+        component: () => import('@/views/overview/index.vue'),
         meta: {
-          title: '控制台',
+          title: '首页概览',
           icon: 'example',
+          breadList: [{ name: '首页概览' }],
         },
       },
       {
-        name: 'analysis',
-        path: '/analysis/home',
-        component: () => import('@/views/ivy-admin/analysis.vue'),
+        name: 'chargeRecord',
+        path: '/jdmanager/chargerecord',
+        component: () => import('@/views/jdmanager/chargeRecord.vue'),
         meta: {
-          title: '控制台',
+          title: '充电记录管理',
           icon: 'example',
+          breadList: [{ name: '检定管理' }, { name: '充电记录管理' }],
         },
       },
       {
-        name: 'canvas',
-        path: '/analysis/canvas',
-        component: () => import('@/views/ivy-admin/canvas.vue'),
+        name: 'loadTask',
+        path: '/jdmanager/loadtask',
+        component: () => import('@/views/jdmanager/loadTask.vue'),
         meta: {
-          title: '控制台',
+          title: '复核任务管理',
           icon: 'example',
+          breadList: [{ name: '检定管理' }, { name: '复核任务管理' }],
+        },
+      },
+      // {
+      //   name: 'preview',
+      //   path: '/jdmanager/preview',
+      //   component: () => import('@/views/jdmanager/preview.vue'),
+      //   meta: {
+      //     title: '预览文件',
+      //     icon: 'example',
+      //     breadList: [{ name: '检定管理' }, { name: '复核任务管理' }, { name: '预览文件' }],
+      //   },
+      // },
+      {
+        name: 'station',
+        path: '/running/station',
+        component: () => import('@/views/running/station.vue'),
+        meta: {
+          title: '充电站运行监测',
+          icon: 'example',
+          breadList: [{ name: '运行监测' }, { name: '充电站运行监测' }],
         },
       },
       {
-        name: 'device',
-        path: '/device',
-        component: () => import('@/views/ivy-admin/device.vue'),
+        name: 'meterEquip',
+        path: '/running/meterequip',
+        component: () => import('@/views/running/meterEquip.vue'),
         meta: {
-          title: '控制台',
+          title: '计量设备运行监测',
           icon: 'example',
+          breadList: [{ name: '运行监测' }, { name: '计量设备运行监测' }],
         },
       },
       {
-        name: 'chart',
-        path: '/chart',
-        component: () => import('@/views/ivy-admin/chart.vue'),
+        name: 'bindingDevice',
+        path: '/running/bindingdevice',
+        component: () => import('@/views/running/bindingDevice.vue'),
         meta: {
-          title: '控制台',
+          title: '设备绑定',
           icon: 'example',
+          breadList: [{ name: '运行监测' }, { name: '设备绑定' }],
         },
       },
+      {
+        name: 'modifyParam',
+        path: '/cjmanager/modifyparam',
+        component: () => import('@/views/cjmanager/modifyParam.vue'),
+        meta: {
+          title: '修改设备参数',
+          icon: 'example',
+          breadList: [{ name: '采集管理' }, { name: '修改设备参数' }],
+        },
+      },
+      {
+        name: 'archives',
+        path: '/archives/home',
+        component: () => import('@/views/archives/home.vue'),
+        meta: {
+          title: '档案概览',
+          icon: 'example',
+          breadList: [{ name: '档案管理' }, { name: '档案概览' }],
+        },
+      },
+      {
+        name: 'operator',
+        path: '/archives/operator',
+        component: () => import('@/views/archives/operator.vue'),
+        meta: {
+          title: '运营商管理',
+          icon: 'example',
+          breadList: [{ name: '档案管理' }, { name: '运营商管理' }],
+        },
+      },
+      {
+        name: 'supplier',
+        path: '/archives/supplier',
+        component: () => import('@/views/archives/supplier.vue'),
+        meta: {
+          title: '供应商管理',
+          icon: 'example',
+          breadList: [{ name: '档案管理' }, { name: '供应商管理' }],
+        },
+      },
+      {
+        name: 'chargingStation',
+        path: '/archives/chargingstation',
+        component: () => import('@/views/archives/chargingStation.vue'),
+        meta: {
+          title: '充电站管理',
+          icon: 'example',
+          breadList: [{ name: '档案管理' }, { name: '充电站管理' }],
+        },
+      },
+      {
+        name: 'chargingPile',
+        path: '/archives/chargingpile',
+        component: () => import('@/views/archives/chargingPile.vue'),
+        meta: {
+          title: '充电桩管理',
+          icon: 'example',
+          breadList: [{ name: '档案管理' }, { name: '充电桩管理' }],
+        },
+      },
+      {
+        name: 'chargingMeterage',
+        path: '/archives/chargingMeterage',
+        component: () => import('@/views/archives/chargingMeterage.vue'),
+        meta: {
+          title: '计量设备管理',
+          icon: 'example',
+          breadList: [{ name: '档案管理' }, { name: '计量设备管理' }],
+        },
+      },
+      {
+        name: 'fields',
+        path: '/system/fields',
+        component: () => import('@/views/system/fields.vue'),
+        meta: {
+          title: '字段管理',
+          icon: 'example',
+          breadList: [{ name: '系统管理' }, { name: '字段管理' }],
+        },
+      },
+      // {
+      //   name: 'demo',
+      //   path: '/archives/demo',
+      //   component: () => import('@/views/archives/demo.vue'),
+      //   meta: {
+      //     title: '测试',
+      //     icon: 'example',
+      //     breadList: [{ name: '档案管理' }, { name: '计量设备管理' }],
+      //   },
+      // },
     ],
   },
 ]

@@ -14,21 +14,23 @@ export const http = createAxios({
   transform: {
     // 接口正常返回数据的时候，若是需要对返回数据进行处理，则执行以下方法
     transformRequestHook(response, options) {
-      const { isTransformResponse, isReturnNativeResponse } = options
+      const { isTransformResponse, isReturnNativeResponse, showSuccessModal } =
+        options
 
       // 是否返回原生响应头 比如：需要获取响应头时使用该属性
       if (isReturnNativeResponse) return response
 
       // 是否不进行任何处理，直接返回
       if (!isTransformResponse) return response.data
-
       if (!response.data) throw new Error('请求出错，请稍后重试')
 
       const result = response.data as unknown as Result
       const { code, message } = result
       const hasSuccess = [200, '200', 0, '0'].indexOf(code) > -1
-      if (hasSuccess) return result ?? ''
-      else {
+      if (hasSuccess) {
+        if (showSuccessModal) ElMessage.success(message)
+        return result ?? ''
+      } else {
         const errMessage = checkStatus(code, message)
         ElMessage.error(errMessage)
         throw new Error(

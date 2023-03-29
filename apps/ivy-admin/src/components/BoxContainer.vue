@@ -1,6 +1,6 @@
 <template>
   <div
-    class="p-5"
+    p-5
     :style="{
       background: bgcolor,
       borderRadius: rounded,

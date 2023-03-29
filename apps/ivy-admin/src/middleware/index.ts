@@ -2,8 +2,6 @@ import { Router } from 'vue-router'
 import { useGlobalStore } from '@/store'
 import { isEmpty } from '@/libs/core'
 
-// 可以不需要token的页面
-
 window.NProgress.configure({
   showSpinner: false,
 })

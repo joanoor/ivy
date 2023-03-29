@@ -1,22 +1,47 @@
+import { http } from '@/utils/http'
 import { defineStore } from 'pinia'
-// import store from 'store2'
-import { Persistent } from 'shared/utils/cache/persistent'
-// import { SYS_CONSTANT } from '@/libs/constant'
-// import { handleLogin, ResponseLogin } from '@/api'
-import { useStorage } from '@vueuse/core'
+
+interface UserInfo {
+  companyId: string
+  companyName: string
+  departId: string
+  departName: string
+  id: string
+  userName: string
+  loginName: string
+  userStatus: string
+  userMobile: string
+  updateUser: string
+  updateTime: string
+  [x: string]: string | number
+}
+
+interface UserStoreStruct {
+  userInfo: UserInfo
+  token: string
+  defaultRoute: string
+}
 
 export const useUserStore = defineStore('user', {
-  state: () => ({
-    userInfo: {} as any,
+  state: (): UserStoreStruct => ({
+    userInfo: {} as UserInfo,
+    token: '',
+    defaultRoute: '/overview',
   }),
   getters: {},
   actions: {
-    loginByUser<T>(data: T): Promise<boolean> {
+    loginByUser(data: Recordable): Promise<boolean> {
       return new Promise((resolve, reject) => {
-        // handleLogin<T>(data)
+        // login<
+        //   Recordable,
+        //   {
+        //     result: {
+        //       token: string
+        //     }
+        //   }
+        // >(data)
         //   .then(res => {
-        //     // useStorage(SYS_CONSTANT.AUTH_TOKEN, res.token)
-        //     this.userInfo = res
+        //     store2.set(SYS_CONSTANT.AUTH_TOKEN, res.headers['authorization'])
         //     resolve(true)
         //   })
         //   .catch(err => {
@@ -24,6 +49,27 @@ export const useUserStore = defineStore('user', {
         //     reject(false)
         //   })
       })
+    },
+
+    // 获取用户信息
+    async getUserInfo() {
+      const res = await http.get<UserInfo>(
+        {
+          url: `api/users/current-user`,
+        },
+        {
+          joinPrefix: true,
+          urlPrefix: `${window.config.uaa_url}`,
+        }
+      )
+      this.userInfo = res
+    },
+
+    loginOutByUser() {
+      // loginOut().then(() => {
+      //   store2.clearAll()
+      //   router.push('/login')
+      // })
     },
   },
 })

@@ -36,6 +36,9 @@ importers:
       '@vitejs/plugin-legacy': ^3.0.2
       '@vitejs/plugin-vue': ^4.1.0
       '@vitejs/plugin-vue-jsx': ^3.0.1
+      '@vue-office/docx': ^0.2.4
+      '@vue-office/excel': ^0.2.10
+      '@vue-office/pdf': ^0.2.4
       '@vueuse/core': ^9.13.0
       axios: ^1.3.4
       axios-mock-adapter: ^1.21.2
@@ -76,6 +79,7 @@ importers:
       unplugin-icons: ^0.15.3
       unplugin-svg-component: ^0.4.6
       unplugin-vue-components: ^0.23.0
+      viewerjs: ^1.11.3
       vite: ^4.2.1
       vite-plugin-compression: ^0.5.1
       vite-plugin-html: ^3.2.0
@@ -100,6 +104,9 @@ importers:
       '@types/webpack-env': 1.18.0
       '@unocss/core': 0.49.8
       '@unocss/reset': 0.49.8
+      '@vue-office/docx': 0.2.4_vue@3.2.47
+      '@vue-office/excel': 0.2.10_vue@3.2.47
+      '@vue-office/pdf': 0.2.4_vue@3.2.47
       '@vueuse/core': 9.13.0_vue@3.2.47
       axios: 1.3.4
       dayjs: 1.11.7
@@ -111,6 +118,7 @@ importers:
       pinia-plugin-persistedstate: 3.1.0_pinia@2.0.33
       qs: 6.11.1
       resize-observer-polyfill: 1.5.1
+      viewerjs: 1.11.3
       vue: 3.2.47
       vue-i18n: 9.2.2_vue@3.2.47
       vue-router: 4.1.6_vue@3.2.47
@@ -141,7 +149,7 @@ importers:
       dotenv: 16.0.3
       eslint: 8.36.0
       eslint-config-prettier: 8.8.0_eslint@8.36.0
-      eslint-plugin-prettier: 4.2.1_ose2zoovovx4ulolhifz3tfzx4
+      eslint-plugin-prettier: 4.2.1_ywlv3zveqg2kxfq44lflihh5mm
       gsap: 3.11.5
       inquirer: 9.1.5
       jest: 28.1.3_2263m44mchjafa7bz7l52hbcpa
@@ -151,7 +159,7 @@ importers:
       mockjs: 1.1.0
       msw: 1.2.0_typescript@4.9.5
       picocolors: 1.0.0
-      prettier: 2.8.6
+      prettier: 2.8.7
       rollup: 3.20.0
       rollup-plugin-visualizer: 5.9.0_rollup@3.20.0
       sass: 1.59.3
@@ -2172,6 +2180,48 @@ packages:
       '@volar/vue-language-core': 1.2.0
     dev: true
 
+  /@vue-office/docx/0.2.4_vue@3.2.47:
+    resolution: {integrity: sha512-t+e7cRW8Pz15JrjCST79IJ1/f38mebptVQsS8d8ThpthysCRXH8aPQiCWNHqMtz4rUSkg4+9SpHn35/Zkx0ahg==}
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.7.1
+      vue: ^2.0.0 || >=3.0.0
+      vue-demi: ^0.13.11
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      vue: 3.2.47
+    dev: false
+
+  /@vue-office/excel/0.2.10_vue@3.2.47:
+    resolution: {integrity: sha512-XuCkdl1+aRuF64U+cwhgizXciiR0IY3RkxCaaEGTmtbZu/ye2RAMUAgIxcf5/0/RC6ZJ+2wU5n+zryxNRjEwlQ==}
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.7.1
+      vue: ^2.0.0 || >=3.0.0
+      vue-demi: ^0.13.11
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      vue: 3.2.47
+    dev: false
+
+  /@vue-office/pdf/0.2.4_vue@3.2.47:
+    resolution: {integrity: sha512-k09b77dKOAfLxiFk739WxqTqOIAdiTz0b0wmufwW15HZR9NmWVAbAMpkHBwgGyEjpsQQ15tIQv4nhRkhg6Yyeg==}
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.7.1
+      vue: ^2.0.0 || >=3.0.0
+      vue-demi: ^0.13.11
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      vue: 3.2.47
+    dev: false
+
   /@vue/babel-helper-vue-transform-on/1.0.2:
     resolution: {integrity: sha512-hz4R8tS5jMn8lDq6iD+yWL6XNB699pGIVLk7WSJnn1dbpjaazsjZQkieJoRX6gW5zpYSCFqQ7jUquPNY65tQYA==}
     dev: true
@@ -3676,7 +3726,7 @@ packages:
       eslint: 8.36.0
     dev: true
 
-  /eslint-plugin-prettier/4.2.1_ose2zoovovx4ulolhifz3tfzx4:
+  /eslint-plugin-prettier/4.2.1_ywlv3zveqg2kxfq44lflihh5mm:
     resolution: {integrity: sha512-f/0rXLXUt0oFYs8ra4w49wYZBG5GKZpAYsJSm6rnYL5uVDjd+zowwMwVZHnAjf4edNrKpCDYfXDgmRE/Ak7QyQ==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -3689,7 +3739,7 @@ packages:
     dependencies:
       eslint: 8.36.0
       eslint-config-prettier: 8.8.0_eslint@8.36.0
-      prettier: 2.8.6
+      prettier: 2.8.7
       prettier-linter-helpers: 1.0.0
     dev: true
 
@@ -6519,8 +6569,8 @@ packages:
       fast-diff: 1.2.0
     dev: true
 
-  /prettier/2.8.6:
-    resolution: {integrity: sha512-mtuzdiBbHwPEgl7NxWlqOkithPyp4VN93V7VeHVWBF+ad3I5avc0RVDT4oImXQy9H/AqxA2NSQH8pSxHW6FYbQ==}
+  /prettier/2.8.7:
+    resolution: {integrity: sha512-yPngTo3aXUUmyuTjeTUT75txrf+aMh9FiD7q9ZE/i6r0bPb22g4FsE6Y338PQX1bmfy08i9QQCB7/rcUAVntfw==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true
@@ -7962,6 +8012,10 @@ packages:
       core-util-is: 1.0.2
       extsprintf: 1.3.0
     dev: true
+
+  /viewerjs/1.11.3:
+    resolution: {integrity: sha512-efG3U61Umuj/1x6JAtdvnY9m407C/RkrkFilsMcLEWKDivpjNU3/FeL+feCY1Vkur9aQeBJ+z6K4CCPP7hv6vA==}
+    dev: false
 
   /vite-plugin-compression/0.5.1_vite@4.2.1:
     resolution: {integrity: sha512-5QJKBDc+gNYVqL/skgFAP81Yuzo9R+EAf19d+EtsMF/i8kFUpNi3J/H01QD3Oo8zBQn+NzoCIFkpPLynoOzaJg==}

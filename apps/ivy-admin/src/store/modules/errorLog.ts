@@ -1,12 +1,9 @@
-import type { ErrorLogInfo } from 'shared/types/store'
-
 import { defineStore } from 'pinia'
 import { store } from '../'
 
-import { formatToDateTime } from 'shared/utils/dateUtil'
-// import projectSetting from '@/libs/settings/projectSetting';
-
-import { ErrorTypeEnum } from 'shared/enums/exceptionEnum'
+import { formatToDateTime } from '@utils/dateUtil'
+import type { ErrorLogInfo } from '@/types'
+import { ErrorTypeEnum } from '@enums/exceptionEnum'
 
 export interface ErrorLogState {
   errorLogInfoList: Nullable<ErrorLogInfo[]>

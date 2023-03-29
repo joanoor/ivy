@@ -5,7 +5,7 @@ import { autoImport } from '@/utils'
 export function setupStyles() {
   autoImport(
     import.meta.glob(
-      ['./main.scss', './**/*', '!./modules/**/*', '!./theme/**/*'],
+      ['./main.scss', './**/*', '!./theme/**/*'],
       {
         eager: true,
         // query: '?inline',

@@ -33,8 +33,7 @@
     "auto-imports.d.ts",
     "components.d.ts",
     "vite.config.ts",
-    "node_modules/@ivy/configs/global.d.ts",
-    "../../shared/components/SeachContainer/src/SearchContainer.vue.ts"
+    "node_modules/@ivy/configs/global.d.ts"
   ],
   "exclude": [
     "node_modules",

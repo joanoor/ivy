@@ -1,15 +1,7 @@
 <template>
   <el-config-provider :locale="zhCn">
     <router-view v-slot="{ Component }">
-      <transition
-        name="custom-classes"
-        enter-active-class="animate__animated animate__tada"
-        leave-active-class="animate__animated animate__bounceOutRight"
-      >
-        <div class="">
-          <component :is="Component" />
-        </div>
-      </transition>
+      <component :is="Component" />
     </router-view>
   </el-config-provider>
   <el-dialog

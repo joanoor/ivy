@@ -12,12 +12,12 @@
   //   border-radius: 2px;
   // }
   &::-webkit-scrollbar-thumb {
-    background: rgba(144, 147, 153);
+    background: rgb(204, 206, 209);
     border-radius: 10px;
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background: rgba(144, 147, 153, .5);
+    background: rgba(227, 229, 231, 0.8);
   }
 
   &::-webkit-scrollbar-corner {

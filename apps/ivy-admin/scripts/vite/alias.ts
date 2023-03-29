@@ -20,28 +20,32 @@ export function configAlias(): Alias[] {
       replacement: pathResolve('src/utils'),
     },
     {
+      find: '@shard',
+      replacement: pathResolve('../../shared'),
+    },
+    {
       find: '@ivy/core',
-      replacement: pathResolve('src/libs/core'),
+      replacement: pathResolve('../../packages/core'),
     },
     {
       find: '@ivy/chart',
-      replacement: pathResolve('src/libs/chart'),
+      replacement: pathResolve('../../packages/chart'),
     },
     {
       find: '@ivy/request',
-      replacement: pathResolve('src/libs/request'),
+      replacement: pathResolve('../../packages/request'),
     },
     {
       find: '@ivy/form',
-      replacement: pathResolve('src/libs/form'),
+      replacement: pathResolve('../../packages/form'),
     },
     {
       find: '@ivy/cache',
-      replacement: pathResolve('src/libs/cache'),
+      replacement: pathResolve('../../packages/cache'),
     },
     {
       find: '@ivy/cipher',
-      replacement: pathResolve('src/libs/cipher'),
+      replacement: pathResolve('../../packages/cipher'),
     },
   ]
 }
