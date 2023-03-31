@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /// <reference types="vite/client" />
+/// <reference types="@ivy/configs/global" />
 
 import type {
   VNodeChild,

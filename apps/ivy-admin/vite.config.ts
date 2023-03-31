@@ -2,7 +2,7 @@ import { loadEnv, defineConfig } from 'vite'
 import { createVitePlugins } from './scripts/vite/plugins'
 import { configAlias } from './scripts/vite/alias'
 import { createProxy } from './scripts/vite/proxy'
-import { pathResolve, wrapperEnv } from './scripts/utils'
+import { wrapperEnv } from './scripts/utils'
 export default defineConfig(({ command, mode }) => {
   const root = process.cwd()
   const env = loadEnv(mode, root)
@@ -48,7 +48,7 @@ export default defineConfig(({ command, mode }) => {
     },
     plugins: [...createVitePlugins(viteEnv, isBuild)],
     optimizeDeps: {
-      include: ['@vue/runtime-core', '@vue/shared'],
+      include: [],
     },
   }
 })

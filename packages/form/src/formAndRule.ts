@@ -9,11 +9,13 @@ interface RuleItemExtend extends RuleItem {
   trigger: string
 }
 
+export type RuleItemExtend2=RuleItemExtend | RuleItemExtend[]
+
 export interface BaseStruct<T = string, R = boolean> {
   label: T // form表单项名称
   default: T | number // form表单项默认值
   required: R // form表单项是否含有校验规则
-  rule: RuleItemExtend[] // form表单项校验规则
+  rule: RuleItemExtend2 // form表单项校验规则
   id: T // form表单重名时，通过id来进行区分
 }
 
