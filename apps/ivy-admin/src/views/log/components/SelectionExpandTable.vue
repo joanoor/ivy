@@ -117,7 +117,7 @@
     </template>
   </el-table>
   <ButtonList>
-    <template #left>
+    <!-- <template #left>
       <slot name="button">
         <el-button
           type="info"
@@ -129,7 +129,7 @@
           {{ hasSelectedRow ? '导出所选' : '导出全部' }}
         </el-button>
       </slot>
-    </template>
+    </template> -->
     <template #right>
       <Pagination
         v-if="showPagination"

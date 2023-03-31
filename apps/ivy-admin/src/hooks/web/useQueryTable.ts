@@ -13,15 +13,7 @@ import deepmerge from 'deepmerge'
 import useDownload from './useDownload'
 import useDecodeDict from '@/hooks/web/useDecodeDict'
 import { judgeWord } from '@/utils/index'
-
-/**
- * 通过类型谓词转换指定变量的类型
- * @param val 需要转换的变量
- */
-// @ts-ignore
-export function assertType<T>(val: any): val is T {
-  return true
-}
+import { assertType } from '@ivy/core'
 
 /**
  * 获取接口返回数据的records类型
@@ -229,6 +221,7 @@ export default function <
               : ''
 
             v.fixed = false
+            v.checked = true
 
             const tmpColumn = customColumns.find(
               column => column.name === v.name

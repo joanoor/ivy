@@ -8,6 +8,7 @@ import {
   _console,
   genRandomString,
   isNullOrUnDef,
+  assertType,
 } from '@ivy/core'
 import { BaseStruct, generateFormAndRules, RuleItemExtend2 } from '@ivy/form'
 import { FormInstance } from 'element-plus'
@@ -16,7 +17,7 @@ import type { ResultColumnsData, DictionaryStruct, FormPropRule } from '@/types'
 import { generateDictionary } from './useDecodeDict'
 import {
   submitForm,
-  resetFormFields,
+  resetForm,
   Callback,
   ResetCallBack,
 } from '@utils/formAndRules/form'
@@ -36,7 +37,7 @@ interface HookOption<T> {
   expectPickedColumnNames?: T[] // 期待存在的表单字段
   customDictionary?: Record<string, DictionaryStruct[]> // 用户自定义的字典（当接口没有返回的时候，自定义的字典，用于select选项）
   onReset?: ResetCallBack
-  onSubmit?: Callback
+  onSubmit?: <F = Recordable>(data: F) => void
 }
 
 /**
@@ -192,13 +193,11 @@ export default function <T extends string>(
           }
         })
       // 生成最终的表单和校验规则
-      console.log('attaches=====>', attaches)
       const [_form, _rules] = generateFormAndRules(
         [...myFormPropNames],
         createFormAndRule([...attaches]),
         uniqIds
       )
-      console.log('生成的form', _form)
       data.originalForm = cloneDeep(_form) as UnwrapRef<FormStruct>
       data.form = _form as UnwrapRef<FormStruct>
       data.rules = _rules
@@ -234,7 +233,9 @@ export default function <T extends string>(
     data.rules = _rules
   }
 
-  // 初始化表单
+  /**
+   * 初始化表单
+   */
   const onInitialForm = () => {
     // 因为重置表单只能重置页面中展示的字段，而不在页面中展示的字段，没有办法通过resetFields来重置，所以这里人工设置一下
     // pageOmitedFormColumnNames.forEach(v => {
@@ -244,45 +245,61 @@ export default function <T extends string>(
     data.form = cloneDeep(data.originalForm)
   }
 
-  // 回显表单数据
+  /**
+   * 回显表单数据
+   * @param obj
+   */
   const onEchoForm = (obj: Recordable) => {
-    // 保存编辑表单需要传入id
     nextTick(() => {
-      // 必须要放在nextTick中执行，否则如果一开始就会给表单赋初值，当重置表单的时候就不对了
+      // 必须要放在nextTick中执行，否则就相当于一开始给表单赋初值，当重置表单的时候就不对了
       for (const prop of Object.keys(data.form as Recordable)) {
         ;(data.form as Recordable)[prop] = obj[prop]
       }
     })
   }
 
-  // 重置表单校验状态
+  /**
+   * 重置表单校验状态
+   * @param callback
+   */
   const onResetForm = (callback?: ResetCallBack) => {
-    const handleResetForm = !callback
-      ? resetFormFields(onReset)
-      : resetFormFields(callback)
-    handleResetForm &&
+    const handleResetForm2 = !callback
+      ? resetForm(onReset)
+      : resetForm(callback)
+    handleResetForm2 &&
       // @ts-ignore
-      handleResetForm(formRef.value?.formRef2 || formRef.value)
+      handleResetForm2(formRef.value?.formRef2 || formRef.value)
   }
 
-  // 重置表单
+  /**
+   * 提交表单并进行表单校验
+   * @param callback
+   */
+  const onSubmitForm = (callback?: Callback) => {
+    const handleSubmitForm2 = !callback ? undefined : submitForm(callback)
+    handleSubmitForm2 && handleSubmitForm2(formRef.value)
+  }
+
+  /**
+   * onResetForm和onInitialForm的简写
+   * @param callback
+   */
   const handleResetForm = (callback?: Fn) => {
     onInitialForm()
     onResetForm()
     callback && callback()
   }
 
-  // 提交表单、进行表单校验
-  const onSubmitForm = (callback?: Callback) => {
-    const handleSubmitForm2 = !callback
-      ? onSubmit && submitForm(onSubmit)
-      : submitForm(callback)
-    handleSubmitForm2 && handleSubmitForm2(formRef.value)
-  }
-
+  /**
+   * 提交表单
+   */
   const handleSubmitForm = () => {
-    const handleSubmitForm2 = onSubmit && submitForm(onSubmit)
-    handleSubmitForm2 && handleSubmitForm2(formRef.value)
+    onSubmitForm(async valid => {
+      console.log('执行吧八八八', valid)
+      if (valid) {
+        onSubmit && (await onSubmit(data.form))
+      }
+    })
   }
 
   return {

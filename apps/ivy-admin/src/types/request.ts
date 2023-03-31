@@ -2,7 +2,7 @@
  * **********************网络请求相关类型**********************
  */
 
-import type { FormPropRule } from './form'
+import type { FormPropRule } from '@shared/types'
 import type { DictionaryStruct } from './dict'
 
 export interface Result<T = any, K = ResultColumnsData[]> {
@@ -24,6 +24,7 @@ export interface ResultColumnsData extends FormPropRule<string> {
   width?: string | number // 列的宽度
   minWidth?: string | number // 列的最小宽度
   fixed?: boolean | 'right' | 'left' // 列是否固定
+  checked?: boolean
   selectOption?: DictionaryStruct[] // 如果与字典相关，从字典中获取select选项(可以是接口返回的字典，也可以是用户自定义的字典)
   decode?: (...args: any[]) => string
   [x: string]: any

@@ -53,7 +53,7 @@
 
 <script lang="ts" setup>
 import { ElMenu } from 'element-plus'
-import { menuList } from './menuList'
+import { menuList } from '@/settings/menuSetting'
 
 const router = useRouter()
 const route = useRoute()
@@ -67,14 +67,18 @@ const toggleCollapse = () => {
   isCollapse.value = !isCollapse.value
 }
 
-const handleSelectMenu = (index: string, indexPath: string[]) => {
+const handleSelectMenu = (_index: string, indexPath: string[]) => {
   router.push(indexPath.join(''))
 }
 
 watchEffect(() => {
   if (route.matched && route.matched.length > 0) {
     const paths = route.path.split('/')
-    activeIndex.value = '/' + paths[paths.length - 1]
+    if (route.meta.activeMenu) {
+      activeIndex.value = '/' + route.meta.activeMenu
+    } else {
+      activeIndex.value = '/' + paths[paths.length - 1]
+    }
     paths.length > 2 && (openedIndexs.value = ['/' + paths[1]])
   }
 })

@@ -104,7 +104,9 @@ const {
     name: 'password',
     required: true,
     message: '请输入密码',
-    validator: formChecker.easyPasswordChecker(),
+    rule: [
+      {required:true,validator:formChecker.easyPasswordChecker(),trigger:'blur'}
+    ],
   },
   {
     name: 'captcha',
