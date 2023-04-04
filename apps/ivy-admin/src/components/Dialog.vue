@@ -65,11 +65,11 @@
 import { ResultColumnsData } from '@/types'
 import { FormInstance } from 'element-plus'
 
-const emit = defineEmits(['update:visiable', 'update:form', 'submit'])
+const emit = defineEmits(['update:visible', 'update:form', 'submit'])
 
 const props = withDefaults(
   defineProps<{
-    visiable: boolean
+    visible: boolean
     title: string
     form: Recordable
     formColumns: ResultColumnsData[]
@@ -102,9 +102,9 @@ const myForm = computed({
 })
 
 const dialogVisiable = computed({
-  get: () => props.visiable,
+  get: () => props.visible,
   set: value => {
-    emit('update:visiable', value)
+    emit('update:visible', value)
   },
 })
 

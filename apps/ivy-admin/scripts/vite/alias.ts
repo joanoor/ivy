@@ -21,7 +21,7 @@ export function configAlias(): Alias[] {
       replacement: pathResolve('src/utils'),
     },
     {
-      find: '@shard',
+      find: '@shared',
       replacement: pathResolve('../../shared'),
     },
     {

@@ -5,6 +5,7 @@ import {
   AxiosRequestConfig,
   AxiosResponse,
   InternalAxiosRequestConfig,
+  AxiosInstance,
 } from 'axios'
 import { RequestOptions, Result } from './types'
 
@@ -48,7 +49,7 @@ export abstract class AxiosTransform {
   ) => InternalAxiosRequestConfig
 
   /**
-   * response统一拦截器  
+   * response统一拦截器
    * 当http网络请求正常，接口正常返回数据（不论接口返回的状态码是不是正常的成功码）时，执行此方法。
    */
   responseInterceptors?: (res: AxiosResponse) => AxiosResponse
@@ -61,11 +62,10 @@ export abstract class AxiosTransform {
   /**
    * response统一拦截器错误处理
    */
-  responseInterceptorsCatch?: (axiosInstance: AxiosResponse, error: Error) => void
+  responseInterceptorsCatch?: (
+    axiosInstance: AxiosInstance,
+    error: Error
+  ) => void
 
   /***********************************************************************/
-
-
-
-
 }

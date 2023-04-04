@@ -50,6 +50,15 @@ export const _console: Console<string> = {
 }
 
 /**
+ * 通过类型谓词转换指定变量的类型
+ * @param val 需要转换的变量
+ */
+// @ts-ignore
+export function assertType<T>(val: any): val is T {
+  return true
+}
+
+/**
  * 获取值的类型
  * @param value 任意值（经过toLowerCase处理）
  */

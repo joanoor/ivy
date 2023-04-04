@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import { noop } from '@/libs/core'
+import { noop } from '@ivy/core'
 
 defineProps({
   title: {

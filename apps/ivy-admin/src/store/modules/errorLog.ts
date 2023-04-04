@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import { store } from '../'
 
-import { formatToDateTime } from '@utils/dateUtil'
+import { formatToDateTime } from '@ivy/core'
 import type { ErrorLogInfo } from '@/types'
-import { ErrorTypeEnum } from '@enums/exceptionEnum'
+import { ErrorTypeEnum } from '@shared/enums/exceptionEnum'
 
 export interface ErrorLogState {
   errorLogInfoList: Nullable<ErrorLogInfo[]>

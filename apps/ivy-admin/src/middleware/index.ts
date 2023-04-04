@@ -1,6 +1,6 @@
 import { Router } from 'vue-router'
 import { useGlobalStore } from '@/store'
-import { isEmpty } from '@/libs/core'
+import { isEmpty } from '@ivy/core'
 
 window.NProgress.configure({
   showSpinner: false,

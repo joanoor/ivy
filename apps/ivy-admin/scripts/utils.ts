@@ -13,7 +13,6 @@ export function isDevFn(mode: string): boolean {
 export function isProdFn(mode: string): boolean {
   return mode === 'production'
 }
-const cc:Fn
 
 /**
  * Whether to generate package preview

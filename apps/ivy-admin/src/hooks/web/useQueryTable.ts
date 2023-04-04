@@ -51,7 +51,7 @@ interface HookOption<U> {
   mustPaging?: boolean // 是否开启监听分页变化
   opt?: RequestOptions // RequestOptions类型的选项
   baseOffsetWidth?: number // 基础的列宽
-  transform?: <T>(data: T) => void
+  onTransform?: <T>(data: T) => void
 }
 
 interface FetchTableOpt {
@@ -166,7 +166,7 @@ export default function <
       baseOffsetWidth,
       requestUrl,
       appendColumns,
-      transform,
+      onTransform,
     } = {
       ...baseOption,
       ...(!isDownloadXlsx ? localHookOption : saveXlxsOption),
@@ -288,9 +288,7 @@ export default function <
 
         tdata.total = result.total
 
-        transform && transform(tdata)
-        // tdata.size = result.size
-        // tdata.current = result.current
+        onTransform && onTransform(tdata)
       } else {
         // @ts-ignore
         tdata.allExcelData = result.records as UnwrapRef<Struct2[]>

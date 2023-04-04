@@ -14,7 +14,7 @@ export const submitForm =
     formEl.validate(callback)
   }
 
-export const resetFormFields =
+export const resetForm =
   (callback?: ResetCallBack) => (formEl: FormInstance | undefined) => {
     if (!formEl) return
     if (callback) callback()

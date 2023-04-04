@@ -13,7 +13,7 @@ import {
 import { BaseStruct, generateFormAndRules, RuleItemExtend2 } from '@ivy/form'
 import { FormInstance } from 'element-plus'
 import { createFormAndRule } from '@shared/utils/formAndRules/records'
-import type { ResultColumnsData, DictionaryStruct, FormPropRule } from '@/types'
+import type { ResultColumnsData, DictionaryStruct, FormPropRule } from '@shared/types'
 import { generateDictionary } from './useDecodeDict'
 import {
   submitForm,

@@ -18,7 +18,7 @@
 
 <script lang="ts" setup>
 import LayoutHeader from './components/LayoutHeader.vue'
-import LayoutSideBar from './components/LayoutSideBar/index.vue'
+import LayoutSideBar from './components/LayoutSideBar.vue'
 
 import LayoutContainer from './components/LayoutContainer.vue'
 

@@ -12,7 +12,7 @@ export interface FormPropRule<T> {
   trigger?: 'blur' | 'change' | '' // 触发方式
   dictName?: string // 字典表中的字段名称
   required?: boolean // 字段是否需要校验
-  rules?: Arrayable<FormItemRule> // 自定义校验规则
+  rule?: Arrayable<FormItemRule> // 自定义校验规则
   component?: // 该属性对应的表单组件类型
   | 'checkbox'
     | 'input'
