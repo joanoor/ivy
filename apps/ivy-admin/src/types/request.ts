@@ -14,7 +14,7 @@ export interface Result<T = any, K = ResultColumnsData[]> {
 }
 
 // 接口返回的columns字段类型
-export interface ResultColumnsData extends FormPropRule<string> {
+export interface ResultColumnsData<T=string> extends FormPropRule<T> {
   title?: string // 列的中文名称
   nullable?: boolean
   hidden?: boolean // 是否可以隐藏列
