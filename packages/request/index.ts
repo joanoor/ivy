@@ -3,6 +3,7 @@ import { setObjToUrlParams, isString, deepmerge } from '@ivy/core'
 import { formatRequestDate, addTimeStamp } from './src/helper'
 import { RequestEnum, ContentTypeEnum } from './src/types'
 import { IAxios } from './src/Axios'
+export * from 'axios'
 
 // transform的默认值
 const defaultTransform: AxiosTransform = {

@@ -1,6 +1,7 @@
-import type { ResultColumnsData } from '../../types'
-import { utils, WorkBook, write } from 'xlsx'
+import { ResultColumnsData } from '@/types'
+import { read, utils, WorkBook, write } from 'xlsx'
 import { omit } from '@ivy/core'
+import { UploadFile } from 'element-plus'
 
 const s2ab = (s: string) => {
   const buf = new ArrayBuffer(s.length)
@@ -24,7 +25,7 @@ const workbook2blob = (workbook: WorkBook) => {
   return blob
 }
 
-const download = (ablob: any, fileName: string) => {
+export const download = (ablob: any, fileName: string, callback?: Fn) => {
   let blob = ''
   if (typeof ablob == 'object' && ablob instanceof Blob) {
     blob = URL.createObjectURL(ablob) // 创建blob地址
@@ -57,25 +58,33 @@ const download = (ablob: any, fileName: string) => {
     )
   }
   aLink.dispatchEvent(event)
+  callback && callback()
 }
 
 export default function () {
   // 借助xlsx下载excel
-  // 参见：https://juejin.cn/post/6844903880413675527
-  const downloadExcel = <T extends any[]>(
-    data: T,
-    tableHeaders: ResultColumnsData[],
+  const downloadExcel = <T extends object>(
+    data: T[],
+    tableHeaders: ResultColumnsData<keyof T>[],
     tableName: string,
-    omitTableHeaders: string[] = []
+    callback?: Fn
   ) => {
     if (!data || data.length === 0) return
-    const data2 = data.map(row => omit(row, omitTableHeaders))
+    const data2 = data.map(row =>
+      omit<T>(
+        row,
+        Object.keys(data[0]).filter(
+          // @ts-ignore
+          v => !tableHeaders.map(v => v.name).includes(v)
+        )
+      )
+    )
 
     let sheet1 = utils.json_to_sheet(data2)
     let jsonSheet1 = JSON.stringify(sheet1)
     tableHeaders.forEach(v => {
       // 因为sheet1中是包含键值对（键是英文），所以这一步是将英文转成中文
-      jsonSheet1 = jsonSheet1.replace(v.name, v.title || '')
+      jsonSheet1 = jsonSheet1.replace(v.name as string, v.title || '')
     })
     sheet1 = JSON.parse(jsonSheet1)
     const wb = utils.book_new()
@@ -85,9 +94,44 @@ export default function () {
     if (tableName.includes('.')) {
       fileName = fileName.split('.')[0] + '.xlsx'
     }
-    download(workbookBlob, fileName)
+    download(workbookBlob, fileName, callback)
   }
+
+  const uploadExcel = (
+    rawFile: UploadFile,
+    transform?: (data: Recordable[]) => Recordable[],
+    callback?: (data: Recordable[]) => void,
+    diy?: (data: WorkBook) => void
+  ) => {
+    const fileReader = new FileReader()
+    fileReader.readAsBinaryString(rawFile.raw as Blob)
+    fileReader.onload = async ev => {
+      const blobData = ev?.target?.result
+      const workbook = read(blobData, {
+        type: 'binary',
+      })
+      if (!diy) {
+        const wsname = workbook.SheetNames[0] //取第一张表
+        const excelToJsonRes =
+          (transform &&
+            transform(
+              utils
+                .sheet_to_json(workbook.Sheets[wsname], {
+                  defval: '',
+                })
+                .slice(1) as Recordable[]
+            )) ||
+          []
+
+        callback && callback(excelToJsonRes)
+      } else {
+        diy(workbook)
+      }
+    }
+  }
+
   return {
     downloadExcel,
+    uploadExcel,
   }
 }

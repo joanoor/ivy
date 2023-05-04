@@ -1,5 +1,12 @@
 import { default as isMyPromise } from 'is-promise'
-import { isUndefined, isNull, isString } from 'lodash-es'
+import {
+  isUndefined,
+  isNull,
+  isString,
+  isPlainObject as isTempObject,
+  isEmpty as isTempEmpty,
+  isElement as isTempElement,
+} from 'lodash-es'
 import { getTypeOfValue } from './utils'
 
 export {
@@ -11,10 +18,7 @@ export {
   isRegExp,
   isUndefined,
   isNull,
-  isPlainObject,
-  isElement,
   isFunction,
-  isEmpty,
   isMap,
   isWeakMap,
   isWeakSet,
@@ -33,6 +37,10 @@ export const isServer = typeof window === 'undefined'
 
 export const isClient = !isServer
 
+export const isEmpty = <T = unknown>(val: T): val is T => isTempEmpty(val)
+
+export const isElement = (val: unknown): val is Element => isTempElement(val)
+
 export const isUrl = (path: string): boolean => {
   const reg =
     // eslint-disable-next-line no-useless-escape
@@ -45,6 +53,9 @@ export const isNullOrUnDef = (val: unknown): val is null | undefined =>
 
 export const isPromise = <T = any>(val: any): val is Promise<T> =>
   isMyPromise(val)
+
+export const isPlainObject = (val: unknown): val is Recordable =>
+  isTempObject(val)
 
 export const isHexColor = (color: string) => {
   const reg = /^#([0-9a-fA-F]{3}|[0-9a-fA-f]{6})$/

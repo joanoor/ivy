@@ -12,6 +12,14 @@ class Pattern {
     '^(?!mailto:)(?:(?:http|https|ftp)://|//)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))|localhost)(?::\\d{2,5})?(?:(/|\\?|#)[^\\s]*)?$',
     'i'
   )
+
+  // 匹配ip地址和端口号
+  private readonly ip = new RegExp('\b(?:d{1,3}.){3}d{1,3}(?::d{1,5})?\b')
+
+  // 同时匹配ip地址、端口号和域名
+  private readonly ipDomain =
+    /(?:\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b(?::\d{1,5})?|\b(?:[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*\.)+[a-zA-Z]{2,}(?::\d{1,5})?)/g
+
   // 全部为中文
   private readonly allchinese = /^[\u4E00-\u9FA5]+$/
 
@@ -105,6 +113,26 @@ class Pattern {
    */
   testUrl(value: string) {
     return this.url.test(value.trim())
+  }
+
+  /**
+   * ip地址、端口检测
+   * @date 2020-07-08
+   * @param { string } value
+   * @returns { boolean }
+   */
+  testIp(value: string) {
+    return this.ip.test(value.trim())
+  }
+
+  /**
+   * ip地址、端口和域名检测
+   * @date 2020-07-08
+   * @param { string } value
+   * @returns { boolean }
+   */
+  testIpDomain(value: string) {
+    return this.ipDomain.test(value)
   }
 
   /**

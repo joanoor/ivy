@@ -1,4 +1,4 @@
-import { upperFirst } from '..'
+import { upperFirst, trim } from '..'
 
 export interface ViewportOffsetResult {
   left: number
@@ -9,19 +9,17 @@ export interface ViewportOffsetResult {
   bottomIncludeBody: number
 }
 
-export function getBoundingClientRect(element: Element): DOMRect | number {
+const docEle = document.documentElement
+
+export const getBoundingClientRect = (element: Element): DOMRect | number => {
   if (!element || !element.getBoundingClientRect) {
     return 0
   }
   return element.getBoundingClientRect()
 }
 
-function trim(string: string) {
-  return (string || '').replace(/^[\s\uFEFF]+|[\s\uFEFF]+$/g, '')
-}
-
 /* istanbul ignore next */
-export function hasClass(el: Element, cls: string) {
+export const hasClass = (el: Element, cls: string) => {
   if (!el || !cls) return false
   if (cls.indexOf(' ') !== -1)
     throw new Error('className should not contain space.')
@@ -33,7 +31,7 @@ export function hasClass(el: Element, cls: string) {
 }
 
 /* istanbul ignore next */
-export function addClass(el: Element, cls: string) {
+export const addClass = (el: Element, cls: string) => {
   if (!el) return
   let curClass = el.className
   const classes = (cls || '').split(' ')
@@ -54,7 +52,19 @@ export function addClass(el: Element, cls: string) {
 }
 
 /* istanbul ignore next */
-export function removeClass(el: Element, cls: string) {
+export function toggleClass(
+  flag: boolean,
+  clsName: string,
+  target?: HTMLElement
+) {
+  const targetEl = target || document.body
+  let { className } = targetEl
+  className = className.replace(clsName, '')
+  targetEl.className = flag ? `${className} ${clsName} ` : className
+}
+
+/* istanbul ignore next */
+export const removeClass = (el: Element, cls: string) => {
   if (!el || !cls) return
   const classes = cls.split(' ')
   let curClass = ' ' + el.className + ' '
@@ -84,7 +94,7 @@ export function removeClass(el: Element, cls: string) {
  *
  * @description:
  */
-export function getViewportOffset(element: Element): ViewportOffsetResult {
+export const getViewportOffset = (element: Element): ViewportOffsetResult => {
   const doc = document.documentElement
 
   const docScrollLeft = doc.scrollLeft
@@ -124,7 +134,7 @@ export function getViewportOffset(element: Element): ViewportOffsetResult {
   }
 }
 
-export function hackCss(attr: string, value: string) {
+export const hackCss = (attr: string, value: string) => {
   const prefix: string[] = ['webkit', 'Moz', 'ms', 'OT']
 
   const styleObj: any = {}
@@ -138,29 +148,33 @@ export function hackCss(attr: string, value: string) {
 }
 
 /* istanbul ignore next */
-export function on(
+export const on = (
   element: Element | HTMLElement | Document | Window,
   event: string,
   handler: EventListenerOrEventListenerObject
-): void {
+): void => {
   if (element && event && handler) {
     element.addEventListener(event, handler, false)
   }
 }
 
 /* istanbul ignore next */
-export function off(
+export const off = (
   element: Element | HTMLElement | Document | Window,
   event: string,
   handler: Fn
-): void {
+): void => {
   if (element && event && handler) {
     element.removeEventListener(event, handler, false)
   }
 }
 
 /* istanbul ignore next */
-export function once(el: HTMLElement, event: string, fn: EventListener): void {
+export const once = (
+  el: HTMLElement,
+  event: string,
+  fn: EventListener
+): void => {
   const listener = function (this: any, ...args: unknown[]) {
     if (fn) {
       // @ts-ignore
@@ -171,7 +185,7 @@ export function once(el: HTMLElement, event: string, fn: EventListener): void {
   on(el, event, listener)
 }
 
-export function useRafThrottle<T extends Fn>(fn: T): T {
+export const useRafThrottle = <T extends Fn>(fn: T): T => {
   let locked = false
   // @ts-ignore
   return function (...args: any[]) {
@@ -183,4 +197,8 @@ export function useRafThrottle<T extends Fn>(fn: T): T {
       locked = false
     })
   }
+}
+
+export const setCssVar = (prop: string, val: any, dom = docEle) => {
+  dom.style.setProperty(prop, val)
 }

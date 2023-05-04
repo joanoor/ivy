@@ -7,6 +7,7 @@ import * as MyEcharts from 'echarts'
 export default MyEcharts // 因为echarts中使用的时export = 这种写法，所以这里采用这种方式重新导出echarts中的内容
 export * from './src/types'
 export * from './src/Chart'
+export * from './src/BaseChart'
 
 export function createChart(
   el: HTMLElement,

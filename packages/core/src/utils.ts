@@ -54,7 +54,7 @@ export const _console: Console<string> = {
  * @param val 需要转换的变量
  */
 // @ts-ignore
-export function assertType<T>(val: any): val is T {
+export function assertType<T>(val: unknown): val is T {
   return true
 }
 

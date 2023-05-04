@@ -26,6 +26,7 @@ export interface RequestOptions {
   joinTimestamp?: boolean // 是否加入时间戳
   ignoreCancelToken?: boolean // 忽略cancelToken
   withToken?: boolean // 是否携带token
+  showSuccessModal?: boolean
 }
 
 export interface Result<T = any> {

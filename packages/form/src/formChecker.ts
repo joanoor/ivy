@@ -52,6 +52,17 @@ class FormChecker {
       }
     }
   }
+
+  emailChecker(): ValidatorInterface {
+    console.log('只想')
+    return (rule, value, callback) => {
+      if (!pattern.testEmail(value.trim())) {
+        callback(new Error('请输入正确的邮箱'))
+      } else {
+        callback()
+      }
+    }
+  }
 }
 
 export const formChecker = new FormChecker()

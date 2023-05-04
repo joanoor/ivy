@@ -8,7 +8,6 @@
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "strictFunctionTypes": true,
-    "jsx": "preserve",
     "allowJs": true,
     "sourceMap": false,
     "esModuleInterop": true,
@@ -16,6 +15,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "experimentalDecorators": true,
+    "jsx": "preserve",
+    "jsxTemplates": true,
     "lib": [
       "ESNext",
       "DOM"

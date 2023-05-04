@@ -81,10 +81,9 @@ export class IChart {
 
   /**
    * 当页面变化的时候，重新resize图表
-   * @param chart
    */
-  resizeChart(chart: ECharts): void {
-    chart.resize()
+  resizeChart(): void {
+    this.echartInstance.resize()
   }
 
   /**

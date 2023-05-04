@@ -131,13 +131,13 @@ export default function <TData extends object, TParams extends Recordable>(
       if (!downloadTable) {
         deepmerge
           ? (localHookOption = deepmerge2(localHookOption, initialOption2, {
-              arrayMerge: (_destinationArray, sourceArray, _options) =>
-                sourceArray,
-            }))
+            arrayMerge: (_destinationArray, sourceArray, _options) =>
+              sourceArray,
+          }))
           : ((localHookOption = {
-              ...localHookOption,
-              ...initialOption2,
-            }) as HookOption<TData2, TParams2>)
+            ...localHookOption,
+            ...initialOption2,
+          }) as HookOption<TData2, TParams2>)
       } else {
         saveXlxsHookOption = deepmerge2(initialOption, initialOption2)
       }
@@ -191,10 +191,10 @@ export default function <TData extends object, TParams extends Recordable>(
           result: TData2[]
           columns: ResultColumnsData<keyof TData2>[]
         }
+        onSuccess && onSuccess(result)
+        onTransformColumns && onTransformColumns(columns)
         if (!downloadTable) {
-          onSuccess && onSuccess(result)
-          onTransformColumns && onTransformColumns(columns)
-          ;(tdata as UseQueryTableResult<TData2>).tableData = result
+          ; (tdata as UseQueryTableResult<TData2>).tableData = result
 
           currentSelectedRecord.value = tdata.tableData[0]
 
@@ -213,9 +213,9 @@ export default function <TData extends object, TParams extends Recordable>(
               ).find(column => column.name === v.name)
               return tmpColumn
                 ? {
-                    ...v,
-                    ...tmpColumn,
-                  }
+                  ...v,
+                  ...tmpColumn,
+                }
                 : v
             })
 
@@ -251,16 +251,16 @@ export default function <TData extends object, TParams extends Recordable>(
             const orderedColumnNames = Array.from(
               new Set([...expectOrderColumnNames, ...column2Names])
             )
-            ;(expectOmitedColumnNames as (keyof TData2)[]).forEach(
-              columnName => {
-                if (expectPickedColumnNames.indexOf(columnName) === -1) {
-                  const tmpIndex = orderedColumnNames.indexOf(columnName)
-                  if (tmpIndex > -1) {
-                    orderedColumnNames.splice(tmpIndex, 1)
+              ; (expectOmitedColumnNames as (keyof TData2)[]).forEach(
+                columnName => {
+                  if (expectPickedColumnNames.indexOf(columnName) === -1) {
+                    const tmpIndex = orderedColumnNames.indexOf(columnName)
+                    if (tmpIndex > -1) {
+                      orderedColumnNames.splice(tmpIndex, 1)
+                    }
                   }
                 }
-              }
-            )
+              )
 
             // 生成排序并过滤过的 列的对象数组
             const orderedColumns = orderedColumnNames
@@ -269,9 +269,9 @@ export default function <TData extends object, TParams extends Recordable>(
               })
               .filter(v => v) as ResultColumnsData<keyof TData2>[]
 
-            ;(tdata as UseQueryTableResult<TData2>).columns = columns
-            ;(tdata as UseQueryTableResult<TData2>).tableColumns =
-              orderedColumns
+              ; (tdata as UseQueryTableResult<TData2>).columns = columns
+              ; (tdata as UseQueryTableResult<TData2>).tableColumns =
+                orderedColumns
           }
         } else {
           tdata.allExcelData = result as TData[] & TData2[]
@@ -320,7 +320,7 @@ export default function <TData extends object, TParams extends Recordable>(
   // 当前选中的行记录
   const onCurrentSelectRecord = <T>(row: T) => {
     if (assertType<Ref<T>>(currentSelectedRecord)) {
-      ;(currentSelectedRecord as Ref<T>).value = row
+      ; (currentSelectedRecord as Ref<T>).value = row
     }
   }
 

@@ -9,7 +9,7 @@ interface RuleItemExtend extends RuleItem {
   trigger: string
 }
 
-export type RuleItemExtend2=RuleItemExtend | RuleItemExtend[]
+export type RuleItemExtend2 = RuleItemExtend | RuleItemExtend[]
 
 export interface BaseStruct<T = string, R = boolean> {
   label: T // form表单项名称
@@ -102,7 +102,8 @@ function generateOptions(
         // 生成form表单对象
         if (!type) obj.label && (acc[obj.label] = obj.default)
         // 生成form表单对象的校验规则
-        else obj.label && obj.required && (acc[obj.label] = obj.rule)
+        else obj.label && (acc[obj.label] = obj.rule)
+        // else obj.label && obj.required && (acc[obj.label] = obj.rule) // 这里不能校验obj.required 因为有的时候不是必填项也需要进行校验
       }
 
       return acc

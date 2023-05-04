@@ -1,5 +1,5 @@
 import { openWindow } from '@ivy/core'
-import { dataUrl2Blob, imgUrl2Base64 } from './convertFile'
+import { base64ToBlob, imgUrl2Base64 } from './convertFile'
 import { utils, WorkBook, write } from 'xlsx'
 
 // 将字符串转ArrayBuffer
@@ -25,9 +25,9 @@ function workbook2blob(workbook: WorkBook) {
   return blob
 }
 
-function download(blob: string, fileName: string) {
+function download(blobUrl: string, fileName: string) {
   const aLink = document.createElement('a')
-  aLink.href = blob
+  aLink.href = blobUrl
   // HTML5新增的属性，指定保存文件名，可以不要后缀，注意，有时候 file:///模式下不会生效
   aLink.download = fileName || ''
   let event
@@ -66,11 +66,19 @@ function download(blob: string, fileName: string) {
 export function downloadByImgUrl(
   url: string,
   filename: string,
-  mime?: string,
-  bom?: BlobPart
+  option: {
+    onDownloaded?: () => void
+    mime?: string
+    bom?: BlobPart
+  } = {}
 ) {
+  const { onDownloaded, mime, bom } = option
   imgUrl2Base64(url).then(base64 => {
-    downloadByBase64(base64, filename, mime, bom)
+    downloadByBase64(base64, filename, {
+      mime,
+      bom,
+      onDownloaded,
+    })
   })
 }
 
@@ -84,11 +92,20 @@ export function downloadByImgUrl(
 export function downloadByBase64(
   buf: string,
   filename: string,
-  mime?: string,
-  bom?: BlobPart
+  option: {
+    onDownloaded?: () => void
+    mime?: string
+    bom?: BlobPart
+  } = {}
 ) {
-  const base64Buf = dataUrl2Blob(buf)
-  downloadByBlobData(base64Buf, filename, mime, bom)
+  const { onDownloaded, mime, bom } = option
+
+  const base64Buf = base64ToBlob(buf)
+  downloadByBlobData(base64Buf, filename, {
+    mime,
+    bom,
+    onDownloaded,
+  })
 }
 
 /**
@@ -101,9 +118,13 @@ export function downloadByBase64(
 export function downloadByBlobData(
   data: BlobPart,
   filename: string,
-  mime?: string,
-  bom?: BlobPart
+  option: {
+    mime?: string
+    bom?: BlobPart
+    onDownloaded?: () => void
+  } = {}
 ) {
+  const { mime, bom, onDownloaded } = option
   let blobURL = ''
   if (typeof data == 'object' && data instanceof Blob) {
     blobURL = URL.createObjectURL(data) // 创建blob地址
@@ -115,6 +136,7 @@ export function downloadByBlobData(
     blobURL = URL.createObjectURL(blob)
   }
   download(blobURL, filename)
+  onDownloaded && onDownloaded()
 }
 
 /**
@@ -172,25 +194,32 @@ export function downloadByFileUrl({
  */
 export function downloadByJson<T extends any[]>(
   data: T,
+  fileName: string,
   option: {
-    tableName: string
-    transform?: (data: T) => T
+    onBefore?: (data: T) => T
+    onSetTableHeader?: (headers: string) => string
+    onDownloaded?: () => void
   }
 ) {
   if (!data || data.length === 0) return
-  const { tableName, transform } = option
-  const data2 = transform ? transform(data) : data
+  const { onBefore, onDownloaded, onSetTableHeader } = option
+  const data2 = onBefore ? onBefore(data) : data
 
   let sheet1 = utils.json_to_sheet(data2)
-  const jsonSheet1 = JSON.stringify(sheet1)
+  const jsonSheet1 = onSetTableHeader
+    ? onSetTableHeader(JSON.stringify(sheet1))
+    : JSON.stringify(sheet1)
+
   sheet1 = JSON.parse(jsonSheet1)
   const wb = utils.book_new()
   utils.book_append_sheet(wb, sheet1, 'sheet1')
   const workbookBlob = workbook2blob(wb)
-  let fileName = `${tableName}.xlsx`
-  if (tableName.includes('.')) {
-    fileName = fileName.split('.')[0] + '.xlsx'
+  let fileName2 = `${fileName}.xlsx`
+  if (fileName2.includes('.')) {
+    fileName2 = fileName2.split('.')[0] + '.xlsx'
   }
 
-  downloadByBlobData(workbookBlob, fileName)
+  downloadByBlobData(workbookBlob, fileName2, {
+    onDownloaded,
+  })
 }

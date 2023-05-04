@@ -3,12 +3,17 @@ import type { RequestOptions } from '@ivy/request'
 import { TableInstance } from 'element-plus'
 import { useGlobalStore } from '@/store'
 import { default as deepmerge2 } from 'deepmerge'
-import { assertType, cloneDeep, textSize } from '@ivy/core'
+import {
+  assertType,
+  cloneDeep,
+  downloadByJson,
+  omit,
+  textSize,
+} from '@ivy/core'
 import { judgeWord } from '@/utils'
 import useDecodeDict from '@/hooks/web/useDecodeDict'
 import { MaybeComputedElementRef, useElementBounding } from '@vueuse/core'
 import { useEventListener } from '@vueuse/core'
-import useDownload from './useDownload'
 
 /********************************涉及到的类型********************************/
 
@@ -16,7 +21,7 @@ export type ServiceType<TData extends object, TParams extends Recordable> = (
   data: TParams,
   requestUrl?: string,
   opt?: RequestOptions
-) => Promise<Result<TData[], ResultColumnsData<keyof TData>[]>>
+) => Promise<Result<ResultPagingData<TData>, ResultColumnsData<keyof TData>[]>>
 
 interface HookOption<TData extends object, TParams extends Recordable> {
   queryParams?: TParams // 调用hooks时传递的参数
@@ -45,6 +50,9 @@ interface AdditionalOption {
 interface UseQueryTableResult<TData extends object> {
   loading: boolean
   tableHeight: number
+  total: number
+  current: number
+  size: number
   hasSelectedRow: boolean // el-table的selection模式下，表示是否选择了行（true表示选择了，false表示没有选择）
   columns: ResultColumnsData<keyof TData>[]
   tableColumns: ResultColumnsData<keyof TData>[]
@@ -97,11 +105,17 @@ export default function <TData extends object, TParams extends Recordable>(
     ...initialOption,
   }
 
+  const current2 = initialOption.queryParams?.page?.current || 1
+  const size2 = initialOption.queryParams?.page?.size || 10
+
   const tableRef = ref<TableInstance>()
   const currentSelectedRecord = ref<TData>()
   const tdata: UseQueryTableResult<TData> = reactive({
     loading: false,
     tableHeight: 500,
+    total: 0,
+    current: current2,
+    size: size2,
     hasSelectedRow: false,
     tableData: [],
     columns: [],
@@ -110,7 +124,7 @@ export default function <TData extends object, TParams extends Recordable>(
     allSelectedData: [],
   })
 
-  const fetchList = async <
+  const fetchTableList = async <
     TData2 extends object = TData,
     TParams2 extends Recordable = TParams
   >(
@@ -125,27 +139,26 @@ export default function <TData extends object, TParams extends Recordable>(
       const initialOption2 = {
         ...hookQueryOption,
       }
-
       let saveXlxsHookOption: Recordable = {}
 
       if (!downloadTable) {
         deepmerge
           ? (localHookOption = deepmerge2(localHookOption, initialOption2, {
-              arrayMerge: (_destinationArray, sourceArray, _options) =>
-                sourceArray,
-            }))
+            arrayMerge: (_destinationArray, sourceArray, _options) =>
+              sourceArray,
+          }))
           : ((localHookOption = {
-              ...localHookOption,
-              ...initialOption2,
-            }) as HookOption<TData2, TParams2>)
+            ...localHookOption,
+            ...initialOption2,
+          }) as HookOption<TData2, TParams2>)
       } else {
         saveXlxsHookOption = deepmerge2(initialOption, initialOption2)
       }
 
       const {
         expectOrderColumnNames,
-        expectPickedColumnNames,
         expectOmitedColumnNames,
+        expectPickedColumnNames,
         customColumns,
         baseOffsetWidth,
         appendColumns,
@@ -167,6 +180,7 @@ export default function <TData extends object, TParams extends Recordable>(
         | 'onTransformColumns'
       > &
         HookOption<TData2, TParams2>
+
       let tmpQueryParams = downloadTable
         ? saveXlxsHookOption?.queryParams || {}
         : localHookOption?.queryParams || {}
@@ -177,7 +191,15 @@ export default function <TData extends object, TParams extends Recordable>(
         tmpQueryParams = judgeWord(tmpQueryParams)
       }
 
-      const tmpRequestOption = deepmerge2<any>({}, tmpQueryParams)
+      const tmpRequestOption = deepmerge2<any>(
+        {
+          page: {
+            current: tdata.current,
+            size: tdata.size,
+          },
+        },
+        tmpQueryParams
+      )
       !downloadTable && (tdata.loading = true)
 
       onBefore && onBefore(tmpRequestOption)
@@ -188,13 +210,13 @@ export default function <TData extends object, TParams extends Recordable>(
           requestUrl,
           requestOpt
         )) as unknown as {
-          result: TData2[]
+          result: ResultPagingData<TData2>
           columns: ResultColumnsData<keyof TData2>[]
         }
+        onSuccess && onSuccess(result.records)
+        onTransformColumns && onTransformColumns(columns)
         if (!downloadTable) {
-          onSuccess && onSuccess(result)
-          onTransformColumns && onTransformColumns(columns)
-          ;(tdata as UseQueryTableResult<TData2>).tableData = result
+          ; (tdata as UseQueryTableResult<TData2>).tableData = result.records
 
           currentSelectedRecord.value = tdata.tableData[0]
 
@@ -207,15 +229,18 @@ export default function <TData extends object, TParams extends Recordable>(
 
               v.fixed = false
               v.checked = true
+              v.headerAlign = 'left'
+              v.align = 'left'
+              v.formatter = (row) => onDecodeDict(row, v.name, v.dictName) as string
 
               const tmpColumn = (
                 customColumns as ResultColumnsData<keyof TData2>[]
               ).find(column => column.name === v.name)
               return tmpColumn
                 ? {
-                    ...v,
-                    ...tmpColumn,
-                  }
+                  ...v,
+                  ...tmpColumn,
+                }
                 : v
             })
 
@@ -249,18 +274,21 @@ export default function <TData extends object, TParams extends Recordable>(
 
             // 4、重新排序并过滤需要忽略的列
             const orderedColumnNames = Array.from(
-              new Set([...expectOrderColumnNames, ...column2Names])
-            )
-            ;(expectOmitedColumnNames as (keyof TData2)[]).forEach(
-              columnName => {
-                if (expectPickedColumnNames.indexOf(columnName) === -1) {
-                  const tmpIndex = orderedColumnNames.indexOf(columnName)
-                  if (tmpIndex > -1) {
-                    orderedColumnNames.splice(tmpIndex, 1)
-                  }
+              new Set([
+                ...(expectOrderColumnNames as (keyof TData2)[]), // 因为deepmerge合并数组默认是将source添加到target的后面，所以这里倒序执行
+                ...column2Names,
+              ])
+            ).filter(colName => column2Names.includes(colName))
+            // 最后再翻转
+
+            expectOmitedColumnNames.forEach(columnName => {
+              if (expectPickedColumnNames.indexOf(columnName) === -1) {
+                const tmpIndex = orderedColumnNames.indexOf(columnName)
+                if (tmpIndex > -1) {
+                  orderedColumnNames.splice(tmpIndex, 1)
                 }
               }
-            )
+            })
 
             // 生成排序并过滤过的 列的对象数组
             const orderedColumns = orderedColumnNames
@@ -269,12 +297,14 @@ export default function <TData extends object, TParams extends Recordable>(
               })
               .filter(v => v) as ResultColumnsData<keyof TData2>[]
 
-            ;(tdata as UseQueryTableResult<TData2>).columns = columns
-            ;(tdata as UseQueryTableResult<TData2>).tableColumns =
-              orderedColumns
+              ; (tdata as UseQueryTableResult<TData2>).columns = columns
+              ; (tdata as UseQueryTableResult<TData2>).tableColumns =
+                orderedColumns
           }
+
+          tdata.total = result.total
         } else {
-          tdata.allExcelData = result as TData[] & TData2[]
+          tdata.allExcelData = result.records as TData[] & TData2[]
         }
       } catch (err) {
         console.error(err)
@@ -284,9 +314,15 @@ export default function <TData extends object, TParams extends Recordable>(
     }
   }
 
+  watch([() => tdata.current, () => tdata.size], () => {
+    fetchTableList({
+      queryParams: localHookOption.queryParams,
+    })
+  })
+
   // 当不是懒加载的时候
   if (!initialOption.lazy) {
-    onMounted(fetchList)
+    onMounted(fetchTableList)
   }
 
   // table高度的默认设置
@@ -317,10 +353,18 @@ export default function <TData extends object, TParams extends Recordable>(
     clearUp()
   })
 
+  /**
+   * 生成分页列表的序号
+   * table的第一条数据的index是从0开始的，所以index要加上1
+   * @param index scope.$index
+   */
+  const onTableIndex = (index: number) =>
+    index + 1 + (tdata.current - 1) * tdata.size
+
   // 当前选中的行记录
   const onCurrentSelectRecord = <T>(row: T) => {
     if (assertType<Ref<T>>(currentSelectedRecord)) {
-      ;(currentSelectedRecord as Ref<T>).value = row
+      ; (currentSelectedRecord as Ref<T>).value = row
     }
   }
 
@@ -372,9 +416,6 @@ export default function <TData extends object, TParams extends Recordable>(
     tdata.allSelectedData = selections
   }
 
-  // 用于导出excel表格
-  const { downloadExcel } = useDownload()
-
   /**
    * 导出excel表格
    * @param fileName 文件的名称（可以带后缀名，也可以不带）
@@ -389,9 +430,17 @@ export default function <TData extends object, TParams extends Recordable>(
     tdata.loading = true
     if (tdata.allSelectedData.length === 0) {
       // 表示全部下载
-      await fetchList(
+      await fetchTableList(
         {
-          queryParams: exportOption,
+          queryParams: Object.assign(
+            {
+              page: {
+                current: 1,
+                size: tdata.total,
+              },
+            },
+            exportOption
+          ),
         },
         {
           downloadTable: true,
@@ -409,18 +458,44 @@ export default function <TData extends object, TParams extends Recordable>(
         row[col.name] = onDecodeDict(row, col.name, col.dictName)
       })
     })
-
-    downloadExcel(tmpData, tdata.tableColumns, fileName, () => {
-      tdata.loading = false
+    downloadByJson(tmpData, fileName, {
+      onDownloaded: () => {
+        tdata.loading = false
+      },
+      onBefore: data => {
+        return data.map(row =>
+          omit(
+            row,
+            Object.keys(data[0]).filter(
+              // @ts-ignore
+              v => !tdata.tableColumns.map(v => v.name).includes(v)
+            )
+          )
+        ) as TData[]
+      },
+      onSetTableHeader: jsonSheet1 => {
+        tdata.tableColumns.forEach(v => {
+          // 因为sheet1中是包含键值对（键是英文），所以这一步是将英文转成中文
+          jsonSheet1 = jsonSheet1.replace(v.name as string, v.title || '')
+        })
+        return jsonSheet1
+      },
     })
   }
+
+  // const handleDeleteRow = <T>(row: T) => {
+  //   if (assertType<Ref<T>>(currentSelectedRecord)) {
+  //     ;(currentSelectedRecord as Ref<T>).value = row
+  //   }
+  // }
 
   return {
     tableRef,
     currentSelectedRecord,
     ...toRefs(tdata),
-    fetchList,
+    fetchTableList,
     onCurrentSelectRecord,
+    onTableIndex,
     onExportTable,
     onDecideThisRowCanSelect,
     onSelectChange,
