@@ -7,7 +7,7 @@ export * from 'axios'
 
 // transform的默认值
 const defaultTransform: AxiosTransform = {
-  transformRequestHook(nativeResponse, options) {
+  transformReponseHook(nativeResponse, options) {
     const { isTransformResponse, isReturnNativeResponse } = options
     // 返回原生响应头
     if (isReturnNativeResponse) return nativeResponse

@@ -101,7 +101,7 @@ export class IAxios {
 
     const axiosCanceler = new AxiosCanceler()
 
-    // request拦截器(当接口请求没有出错时执行)
+    // request拦截器
     this.axiosInstance.interceptors.request.use(config => {
       const {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -124,7 +124,7 @@ export class IAxios {
       return config
     }, undefined)
 
-    // request拦截器报错时
+    // request拦截错误
     requestInterceptorsCatch &&
       isFunction(requestInterceptorsCatch) &&
       this.axiosInstance.interceptors.request.use(
@@ -141,12 +141,12 @@ export class IAxios {
       return res
     }, undefined)
 
-    // response拦截器报错时
+    // response拦截错误
     responseInterceptorsCatch &&
       isFunction(responseInterceptorsCatch) &&
       this.axiosInstance.interceptors.response.use(
         undefined,
-        (error) => responseInterceptorsCatch(this.axiosInstance, error)
+        responseInterceptorsCatch
       )
   }
 
@@ -283,7 +283,7 @@ export class IAxios {
     const transform = this.getTransform()
     const { requestOptions } = this.options
     const opt: RequestOptions = Object.assign({}, requestOptions, options)
-    const { beforeRequestHook, requestCatchHook, transformRequestHook } =
+    const { beforeRequestHook, responseCatchHook, transformReponseHook } =
       transform || {}
 
     beforeRequestHook &&
@@ -296,9 +296,9 @@ export class IAxios {
       this.axiosInstance
         .request<any, AxiosResponse<Result>>(conf)
         .then((res: AxiosResponse<Result>) => {
-          if (transformRequestHook && isFunction(transformRequestHook)) {
+          if (transformReponseHook && isFunction(transformReponseHook)) {
             try {
-              const ret = transformRequestHook(res, opt)
+              const ret = transformReponseHook(res, opt)
               resolve(ret)
             } catch (err) {
               /* istanbul ignore next */
@@ -310,8 +310,8 @@ export class IAxios {
           resolve(res as unknown as Promise<T>)
         })
         .catch((e: Error | AxiosError) => {
-          if (requestCatchHook && isFunction(requestCatchHook)) {
-            return reject(requestCatchHook(e, opt))
+          if (responseCatchHook && isFunction(responseCatchHook)) {
+            return reject(responseCatchHook(e, opt))
           }
           if (axios.isAxiosError(e)) {
             // rewrite error message from axios in here
@@ -320,31 +320,4 @@ export class IAxios {
         })
     })
   }
-
-  /**
-   * 下载文件流，此时要直接返回native response
-   * @param config
-   * @param options
-   */
-  // async downloadByStream<T>(
-  //   config: AxiosRequestConfig,
-  //   options?: RequestOptions
-  // ) {
-  //   const res = await this.request(config, options)
-  //   try {
-  //     const fileName = res.headers['content-disposition']?.split('"')
-  //     const aLink = document.createElement('a')
-  //     const blob = new Blob([res.data], {
-  //       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8',
-  //     })
-  //     aLink.download = fileName
-  //     aLink.href = URL.createObjectURL(blob)
-  //     const ev = new Event('click', { bubbles: false })
-  //     aLink.dispatchEvent(ev)
-  //     aLink.click()
-  //   } catch (err) {
-  //     console.error(err)
-  //     throw new Error('下载流文件出错了')
-  //   }
-  // }
 }

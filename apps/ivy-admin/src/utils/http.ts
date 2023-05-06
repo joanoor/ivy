@@ -13,7 +13,7 @@ export const http = createAxios({
   timeout: 15000,
   transform: {
     // 接口正常返回数据的时候，若是需要对返回数据进行处理，则执行以下方法
-    transformRequestHook(response, options) {
+    transformResponseHook(response, options) {
       const { isTransformResponse, isReturnNativeResponse, showSuccessModal } =
         options
 
@@ -46,7 +46,7 @@ export const http = createAxios({
         token &&
         (config as Recordable)?.requestOptions?.withToken !== false
       ) {
-        ;(config as Recordable).headers['Authorization'] =
+        ; (config as Recordable).headers['Authorization'] =
           options.authenticationScheme
             ? `${options.authenticationScheme} ${token}`
             : token

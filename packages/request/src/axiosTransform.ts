@@ -2,6 +2,8 @@
  * 对请求的数据进行处理
  */
 import {
+  AxiosError,
+  AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
   InternalAxiosRequestConfig,
@@ -19,7 +21,7 @@ export interface CreateAxiosOptions extends AxiosRequestConfig {
  */
 export abstract class AxiosTransform {
   /**
-   * 发生在统一拦截之前，在请求发出前执行
+   * 发生在统一拦截之前，在请求接口前执行的钩子
    */
   beforeRequestHook?: (
     config: AxiosRequestConfig,
@@ -27,17 +29,17 @@ export abstract class AxiosTransform {
   ) => AxiosRequestConfig
 
   /**
-   * 当请求接口成功时处理响应数据
+   * 当请求接口成功时处理响应数据的钩子
    */
-  transformRequestHook?: <T = Result>(
+  transformReponseHook?: <T = Result>(
     res: AxiosResponse<T>,
     options: RequestOptions
   ) => any
 
   /**
-   * 当网络请求请求失败时处理失败
+   * 当网络请求请求，接口失败时处理失败的钩子
    */
-  requestCatchHook?: (e: Error, options: RequestOptions) => Promise<any>
+  responseCatchHook?: (e: Error, options: RequestOptions) => Promise<any>
 
   /**
    * request统一拦截器
@@ -48,7 +50,7 @@ export abstract class AxiosTransform {
   ) => InternalAxiosRequestConfig
 
   /**
-   * response统一拦截器  
+   * response统一拦截器
    * 当http网络请求正常，接口正常返回数据（不论接口返回的状态码是不是正常的成功码）时，执行此方法。
    */
   responseInterceptors?: (res: AxiosResponse) => AxiosResponse
@@ -61,11 +63,7 @@ export abstract class AxiosTransform {
   /**
    * response统一拦截器错误处理
    */
-  responseInterceptorsCatch?: (axiosInstance: AxiosResponse, error: Error) => void
+  responseInterceptorsCatch?: (error: AxiosError<any>) => void
 
   /***********************************************************************/
-
-
-
-
 }
