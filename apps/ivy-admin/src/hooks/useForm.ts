@@ -19,7 +19,7 @@ import {
   resetForm,
   Callback,
   ResetCallBack,
-} from '@utils/formAndRules/form'
+} from '@shared/utils/formAndRules/form'
 
 /**
  * 此方法用于生成表单类型推断

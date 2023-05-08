@@ -1,4 +1,4 @@
-import { CheckboxValueType } from 'element-plus'
+import { type CheckboxValueType } from 'element-plus'
 
 interface IntCheckBox {
   label: string | number

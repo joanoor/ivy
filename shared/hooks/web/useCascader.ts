@@ -1,6 +1,5 @@
-import { CascaderValue, CascaderProps } from 'element-plus'
+import { type CascaderValue, type CascaderProps, ElCascader } from 'element-plus'
 import deepmerge from 'deepmerge'
-import { ElCascader } from 'element-plus'
 import { isArray } from '@ivy/core'
 
 export default function (

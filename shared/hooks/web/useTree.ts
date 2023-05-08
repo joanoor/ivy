@@ -80,9 +80,7 @@ export default function <TData>(
     onNodeClick && onNodeClick(nodeData)
   }
 
-  const handleCheckChange = (nodeData: TData, ...args: any[]) => {
-    console.log('传递的参数', args)
-    console.log(treeRef.value?.getCheckedKeys())
+  const handleCheckChange = (nodeData: TData) => {
     onCheckChange && onCheckChange(tdata.treeData, nodeData)
   }
 
