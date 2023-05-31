@@ -69,7 +69,7 @@ function optFactory(
         `提供的数据有误。存在“label重复，id也重复”的情况。发生于索引为：${indexes.join()}的数据中`
       )
     } else {
-      const obj = baseStructs.find((v, i) => {
+      const obj = baseStructs.find(v => {
         return v.label === optLabel && uniqIds.indexOf(v.id) > -1
       })
       return obj ? obj : {}

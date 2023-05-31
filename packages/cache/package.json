@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "./index.js",
-  "module": "./index.js",
+  "module": "./index.mjs",
   "types": "./index.d.ts",
+  "exports": {
+    "import": "./index.mjs",
+    "require": "./index.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsup"
   },
   "keywords": [],
   "author": "",

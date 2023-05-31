@@ -1,12 +1,12 @@
 import merge from 'deepmerge'
 import { isString } from 'lodash-es'
 import type {
-  LegendComponentOption,
+  // LegendComponentOption,
   GridComponentOption,
   XAXisComponentOption,
   YAXisComponentOption,
   EChartsOption,
-  TitleComponentOption,
+  // TitleComponentOption,
   BarSeriesOption,
   SunburstSeriesOption,
   LineSeriesOption,
@@ -80,53 +80,48 @@ const color_pie = [
   '#5D71CB',
   '#304B94',
 ]
-const color_title = '#404040' // 标题
-const color_text = '#8b8b8b' // 默认文本颜色
-const color_bg = '#fff' // 背景色
+// const color_title = '#404040' // 标题
+// const color_text = '#8b8b8b' // 默认文本颜色
+// const color_bg = '#fff' // 背景色
 const color_axisTick = '#ebebeb' // 坐标轴刻度线
 const color_axisLine = '#ebebeb' // 轴线
 const color_axisLabel = '#8b8b8b' // 坐标轴刻度标签
 const color_splitLine = '#ebebeb' // 坐标轴里面的辅助线
-const pictorialBarList = [
-  'rgba(26,149,231,0.2)',
-  'rgba(0,200,83,0.2)',
-  'rgba(255,191,0,0.2)',
-  'rgba(239,65,51,0.2)',
-]
 
-// 文本属性
-const textStyle = {
-  color: color_text,
-  fontFamily: 'Microsoft YaHei',
-  fontSize: '14',
-}
-// 标题
-const title: TitleComponentOption = {
-  text: '',
-  top: '5',
-  left: '10',
-  textStyle: {
-    fontSize: '16',
-    fontWeight: 'normal',
-    color: color_title,
-  },
-}
-// 背景色
-const backgroundColor = color_bg
-// 图例-上方右对齐
-const legend: LegendComponentOption = {
-  data: [],
-  top: '0',
-  icon: 'circle',
-  itemHeight: 10,
-  type: 'scroll', // 图例多的时候出现滚动条
-  width: '70%', // 图例最多占一半的宽度
-  selectedMode: false, // 图标不可点
-  right: '60', // 图例居中对齐
-  textStyle: {
-    fontSize: '14',
-  },
-}
+
+// // 文本属性
+// const textStyle = {
+//   color: color_text,
+//   fontFamily: 'Microsoft YaHei',
+//   fontSize: '14',
+// }
+// // 标题
+// const title: TitleComponentOption = {
+//   text: '',
+//   top: '5',
+//   left: '10',
+//   textStyle: {
+//     fontSize: '16',
+//     fontWeight: 'normal',
+//     color: color_title,
+//   },
+// }
+// // 背景色
+// const backgroundColor = color_bg
+// // 图例-上方右对齐
+// const legend: LegendComponentOption = {
+//   data: [],
+//   top: '0',
+//   icon: 'circle',
+//   itemHeight: 10,
+//   type: 'scroll', // 图例多的时候出现滚动条
+//   width: '70%', // 图例最多占一半的宽度
+//   selectedMode: false, // 图标不可点
+//   right: '60', // 图例居中对齐
+//   textStyle: {
+//     fontSize: '14',
+//   },
+// }
 // 笛卡尔坐标轴下图表的间距
 const grid: GridComponentOption = {
   containLabel: true, // 区域是否包含坐标轴的刻度标签。
@@ -205,13 +200,6 @@ const yAxis: YAXisComponentOption = {
   axisTick: axisTickHide,
   axisLine: axisLine_y,
   name: '',
-}
-
-const commonOpt: EChartsOption = {
-  textStyle,
-  title,
-  legend,
-  backgroundColor,
 }
 
 const polar = {}

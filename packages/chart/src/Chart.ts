@@ -57,7 +57,7 @@ export class IChart {
     const erd = elementResizeDetectorMaker()
     erd.listenTo(
       el,
-      debounce(() => this.resizeChart(chart))
+      debounce(() => this.resizeChart())
     )
     return chart
   }

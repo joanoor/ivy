@@ -20,7 +20,7 @@ interface ValidatorInterface {
 class FormChecker {
   // 分数校验
   scoreChecker(): ValidatorInterface {
-    return (rule, value, callback) => {
+    return (_rule, value, callback) => {
       if (!value || value === '') {
         callback(new Error('请输入得分规则'))
       } else {
@@ -31,7 +31,7 @@ class FormChecker {
 
   // 手机号码校验
   phoneChecker(): ValidatorInterface {
-    return (rule, value, callback) => {
+    return (_rule, value, callback) => {
       if (!pattern.testMobile(value.trim())) {
         callback(new Error('请输入正确的手机号码'))
       } else {
@@ -42,7 +42,7 @@ class FormChecker {
 
   // 简单密码校验
   easyPasswordChecker(): ValidatorInterface {
-    return (rule, value, callback) => {
+    return (_rule, value, callback) => {
       if (!value) {
         callback(new Error('请输入密码'))
       } else if (value.length < 6 || value.length > 20) {
@@ -54,8 +54,7 @@ class FormChecker {
   }
 
   emailChecker(): ValidatorInterface {
-    console.log('只想')
-    return (rule, value, callback) => {
+    return (_rule, value, callback) => {
       if (!pattern.testEmail(value.trim())) {
         callback(new Error('请输入正确的邮箱'))
       } else {

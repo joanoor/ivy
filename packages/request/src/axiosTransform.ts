@@ -3,7 +3,6 @@
  */
 import {
   AxiosError,
-  AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
   InternalAxiosRequestConfig,
